@@ -1,3 +1,9 @@
+;; Startup workspace
+(find-file "~/main.org")
+(split-window-horizontally)
+(other-window)
+(find-file "~/lisp/quicklisp/machine-learning/linreg.lisp")
+
 ;; Font
 (setq line-spacing 0)
 (set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
@@ -33,7 +39,7 @@
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
-;; Answering just 'y' or 'n' will do
+;; Don't feel like typing whole words
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; When on tab, make cursor tab length
