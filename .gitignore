@@ -1,0 +1,6 @@
+# exclude third-party emacs plugins
+/elpa
+/auto-save-list
+
+#exclude emacs file backups
+*~
