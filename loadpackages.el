@@ -27,6 +27,7 @@
   (slime))
 
 ;;; ORG-MODE
+(require 'org)
 (add-hook 'org-mode-hook
 	  (load "org.el"))
 
