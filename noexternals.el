@@ -1,6 +1,6 @@
 ;; Startup workspace
 (defun find-my-files ()
-  (find-file "/home/winston/main.org")
+  (find-file "/home/winston/org/main.org")
   (split-window-horizontally)
   (find-file "/home/winston/lisp/quicklisp/local-projects/machine-learning/linreg.lisp"))
 
