@@ -1,8 +1,10 @@
 ;; Startup workspace
-(find-file "~/main.org")
-(split-window-horizontally)
-(other-window)
-(find-file "~/lisp/quicklisp/machine-learning/linreg.lisp")
+(defun find-my-files ()
+  (find-file "/home/winston/main.org")
+  (split-window-horizontally)
+  (find-file "/home/winston/lisp/quicklisp/local-projects/machine-learning/linreg.lisp"))
+
+(find-my-files)
 
 ;; Font
 (setq line-spacing 0)
