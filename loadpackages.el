@@ -21,11 +21,6 @@
 (setq reftex-plug-into-AUCTeX t)
 
 ;;; SLIME-MODE
-(add-hook 'slime-repl-mode
-	  #'(lambda ()
-	      (slime-compile-and-load-file "lisp/ql-packages.lisp")
-	      (slime-compile-and-load-file "lisp/packages.lisp")))
-
 (defun init-slime ()
   (interactive)
   (load "/home/winston/.emacs.d/slime.el")
