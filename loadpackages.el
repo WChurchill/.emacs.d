@@ -32,19 +32,13 @@
   (slime))
 
 ;;; ORG-MODE
-(require 'org)
 (add-hook 'org-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c a") 'org-agenda)
-	    (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
-	    (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
-	    (local-set-key (kbd "C-c C-f") 'org-down-element)
-	    (local-set-key (kbd "C-c C-b") 'org-up-element)))
+	  (load "org.el"))
 
 ;;; MULTI-TERM
 (require 'multi-term)
 (global-set-key (kbd "C-c M") 'multi-term)
-(add-hook 'multi-term-mode
+(add-hook 'multi-term-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "C-c m") 'multi-term-next)
 	    (local-set-key (kbd "C-c n") 'multi-term-prev)))

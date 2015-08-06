@@ -7,7 +7,7 @@
 (find-my-files)
 
 ;; Easier editing of .emacs.d/
-(defun emacs-dir ()
+(defun em-dir ()
   (interactive)
   (find-file "~/.emacs.d"))
 
