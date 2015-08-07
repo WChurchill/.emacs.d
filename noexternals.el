@@ -1,8 +1,12 @@
 ;; Startup workspace
 (defun find-my-files ()
-  (find-file "~/org/main.org")
-  (split-window-horizontally)
-  (find-file "~/lisp"))
+  (let ((orgfile  "~/org/main.org")
+	(lispfile "~/lisp" ))
+  (if (file-exists-p orgfile)
+      (find-file orgfile))
+  (when (file-exists-p lispfile)
+    (split-window-horizontally)
+    (find-file lispfile))))
 
 (find-my-files)
 
