@@ -1,52 +1,94 @@
-(require 'cl)
-(require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
-(defvar required-packages
-  '(ac-js2
-    ace-jump-mode
-    ace-window
-    android-mode
-    arduino-mode
-    css-mode
-    ;color-identifiers-mode
-    helm
-    highlight-numbers
-    highlight-quoted
-    js2-mode
-    ;highlight-symbol
-    ;hl-defined
-    ;hl-sexp
-    magit
-    multi-term
-    multi-web-mode
-    multiple-cursors
-    org
-    paredit
-    php-mode
-    python-mode
-    ;slime
-    yasnippet) 
-  "A list of packages to insure are installed at launch.")
-
-; method to check if all packages are installed
-(defun packages-installed-p ()
-  (loop for p in required-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-; if not all packages are installed, check one by one and install the missing ones.
-(unless (packages-installed-p)
-  ; check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ; install the missing packages
-  (dolist (p required-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
+(load "/home/winston/.emacs.d/loadpackages.el")
 
 
+;;; JS2-MODE
+(add-hook 'js-mode-hook 'js2-minor-mode)
+(add-hook 'js2-mode-hook 'ac-js2-mode)
+
+;;; MULTI-WEB-MODE
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags 
+  '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+    (js2-mode  "<script[^>]*>" "</script>")
+    (css-mode "<style[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
+
+;;; MAGIT-MODE
+(setq magit-last-seen-setup-instructions "1.4.0")
+
+;;; AUCTEX-MODE
+(setq reftex-plug-into-AUCTeX t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;;not sure what this one does
+(setq reftex-plug-into-AUCTeX t)
+
+;;; SLIME-MODE
+(defun init-slime ()
+  (interactive)
+  (load "/home/winston/.emacs.d/slime.el")
+  (slime))
+
+;;; ORG-MODE
+(require 'org)
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c a") 'org-agenda)
+	    (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
+	    (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
+	    (local-set-key (kbd "C-c C-f") 'org-down-element)
+	    (local-set-key (kbd "C-c C-b") 'org-up-element)))
+;(setq org-agenda-files (quote "~/org/cal.org"))
+
+;;; MULTI-TERM
+(require 'multi-term)
+(global-set-key (kbd "C-c M") 'multi-term)
+(add-hook 'multi-term-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c m") 'multi-term-next)
+	    (local-set-key (kbd "C-c n") 'multi-term-prev)))
+
+;;; ACE-JUMP
+(require 'ace-jump-mode)
+(global-set-key (kbd "C-;") 'ace-jump-mode)
+(global-set-key (kbd "C-M-;") 'ace-jump-char-mode)
+(global-set-key (kbd "C-M-'") 'ace-jump-line-mode)
+
+;;; ACE-WINDOW
+(global-set-key (kbd "C-:") 'ace-window)
+
+;;; PAREDIT
+(defun wrap-progn ()
+  (interactive)
+  (paredit-forward)
+  (paredit-backward)
+  (paredit-wrap-sexp 1)
+  (insert "progn")
+  (newline 2)
+  (indent-sexp)
+  (previous-line 1)
+  (indent-for-tab-command 1))
+
+(add-hook 'paredit-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
+	    (local-set-key (kbd "C-c C-d C-s") 'wrap-progn)))
+
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+
+;;; ACTIVATE HELM-MODE
+(helm-mode)

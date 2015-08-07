@@ -2,7 +2,7 @@
 (defun find-my-files ()
   (find-file "~/org/main.org")
   (split-window-horizontally)
-  (find-file "~/lisp/quicklisp/local-projects/machine-learning/linreg.lisp"))
+  (find-file "~/lisp"))
 
 (find-my-files)
 
