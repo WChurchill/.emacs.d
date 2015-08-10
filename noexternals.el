@@ -1,7 +1,7 @@
 ;; Startup workspace
 (defun find-my-files ()
   (let ((orgfile  "~/org/main.org")
-	(lispfile "~/lisp" ))
+	(lispfile "~/lisp/quicklisp/local-projects" ))
   (if (file-exists-p orgfile)
       (find-file orgfile))
   (when (file-exists-p lispfile)

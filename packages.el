@@ -56,6 +56,7 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 ;;; AUCTEX-MODE
+;(require 'auctex)
 ;; (setq TeX-auto-save t)
 ;; (setq TeX-parse-self t)
 ;; (setq-default TeX-master nil)
