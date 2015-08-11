@@ -70,7 +70,7 @@
 ;;; SLIME-MODE
 (defun init-slime ()
   (interactive)
-  (load "slime.el")
+  (load "~/.emacs.d/slime.el")
   (slime))
 
 ;;; ORG-MODE
