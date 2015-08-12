@@ -1,3 +1,12 @@
+;; Smart open-line and open-line-above
+(defun smart-open-line ()
+  "Insert new line below point and indent according to the mode."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+(global-set-key (kbd "C-o") 'smart-open-line)
+(global-set-key (kbd "C-o") 'open-line)
 ;; Joins Lines into one (from the bottom up)
 (global-set-key (kbd "M-j") '(lambda () (interactive) (join-line -1)))
 ;;from top down
@@ -20,6 +29,7 @@
   (backward-char 5))
 
 (add-hook 'emacs-lisp-mode-hook
+	  
 	  (lambda () (local-set-key (kbd "C-c C-k") 'new-keybinding)))
 
 ;; Copy and Kill region

@@ -12,6 +12,7 @@
     android-mode
     arduino-mode
     auctex
+    company-mode
     css-mode
     ;color-identifiers-mode
     helm
