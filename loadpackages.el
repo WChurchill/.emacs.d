@@ -1,3 +1,5 @@
+;;;; loadpackages.el
+
 (require 'cl)
 (require 'package)
 (add-to-list 'package-archives
@@ -12,7 +14,7 @@
     android-mode
     arduino-mode
     auctex
-    company-mode
+    company
     css-mode
     ;color-identifiers-mode
     helm

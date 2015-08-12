@@ -1,3 +1,5 @@
+;;;; packages.el
+
 (load "~/.emacs.d/loadpackages.el")
 
 ;;; ACE-JUMP

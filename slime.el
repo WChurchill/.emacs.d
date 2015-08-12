@@ -1,3 +1,5 @@
+;;;; slime.el
+
 ;;; Set Inferior Lisp
 (load (expand-file-name "~/lisp/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "/usr/bin/sbcl")
