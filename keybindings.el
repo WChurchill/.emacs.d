@@ -1,7 +1,7 @@
 ;;;; keybindings.el
 
 ;; Smart open-line and open-line-above
-(defun open-line (n)
+(defun smart-open-line (n)
   "Insert a newline and leave point before it.
 If there is a fill prefix and/or a `left-margin', insert them
 on the new line if the line would have been blank.
@@ -26,18 +26,29 @@ With arg N, insert N newlines."
     (end-of-line)))
 
 (defun smart-open-line-above (n)
-  "Insert an indented newline and leave point before it.
+  "Insert a newline above point and move point to end of current line.
 If there is a fill prefix and/or a `left-margin', insert them
 on the new line if the line would have been blank.
 With arg N, insert N newlines."
   (interactive "*p")
-  (let ((loc (point-marker)))
-    (move-beginning-of-line nil)
+  (let* ((do-fill-prefix (and fill-prefix (bolp)))
+	 (do-left-margin (and (bolp) (> (current-left-margin) 0)))
+	 (loc (point-marker))
+	 ;;Don't expand an abbrev before point.
+	 (abbrev-mode nil))
+    (back-to-indentation)
     (dotimes (iter n)
-      (indent-according-to-mode)
-      (newline))
+      (newline-and-indent))
+    (forward-line (- n))
     (indent-according-to-mode)
-    (goto-char loc)))
+    (while (> n 0)
+      (cond ((bolp)
+	     (if do-left-margin (indent-to (current-left-margin)))
+	     (if do-fill-prefix (insert-and-inherit fill-prefix))))
+      (forward-line 1)
+      (setq n (1- n)))
+    ;(goto-char loc)
+    (end-of-line)))
 
 (global-set-key (kbd "C-o") 'smart-open-line)
 (global-set-key (kbd "C-S-o") 'smart-open-line-above)
