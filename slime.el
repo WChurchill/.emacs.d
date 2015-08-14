@@ -26,10 +26,11 @@
 	  (lambda ()
 	    (local-set-key (kbd "C-,")       'slime-selector)
 	    (local-set-key (kbd "<tab>")     'slime-indent-and-complete-symbol)
-	    (local-set-key (kbd "C-c C-v 0") 'slime-remove-balanced-comments)
-	    (local-set-key (kbd "C-c C-v 9") 'slime-insert-balanced-comments)
+	    (local-set-key (kbd "C-c C-;") 'slime-insert-balanced-comments)
+	    (local-set-key (kbd "C-c C-:") 'slime-remove-balanced-comments)
+	    (local-set-key (kbd "C-c C-d 9") 'comment-region)
+	    (local-set-key (kbd "C-c C-d 0") 'uncomment-region)
 	    (local-set-key (kbd "C-.")       'slime-compile-and-load-file)
 	    (local-set-key (kbd "C-'")       'slime-compile-file)
 	    (local-set-key (kbd "C-c C-d l") 'slime-show-compilation-log)))
-
 
