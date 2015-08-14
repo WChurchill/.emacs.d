@@ -89,7 +89,9 @@
 ;;; MULTI-TERM
 (require 'multi-term)
 (global-set-key (kbd "C-c M") 'multi-term)
+(setq multi-term-program "/bin/bash")
 (add-hook 'multi-term-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "C-c m") 'multi-term-next)
-	    (local-set-key (kbd "C-c n") 'multi-term-prev)))
+	    (local-set-key (kbd "C-c n") 'multi-term-prev)
+	    (local-set-key(global-set-key (kbd "") '))))

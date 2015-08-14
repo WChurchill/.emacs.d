@@ -68,15 +68,21 @@ With arg N, insert N newlines."
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;;Quicker Keybinding Writing
-(defun new-keybinding ()
+(defun new-global-key ()
   "Inserts the string \"(global-set-key (kbd\"\") ') and places point in between the quotes."
   (interactive)
   (insert "(global-set-key (kbd \"\") ')")
   (backward-char 5))
+(defun new-local-key ()
+  "Inserts the string \"(local-set-key (kbd\"\") ') and places point in between the quotes."
+  (interactive)
+  (insert "(local-set-key (kbd \"\") ')")
+  (backward-char 5))
 
 (add-hook 'emacs-lisp-mode-hook
-	  
-	  (lambda () (local-set-key (kbd "C-c C-k") 'new-keybinding)))
+	  (lambda ()
+	    (local-set-key (kbd "C-c C-k") 'new-global-key)
+	    (local-set-key (kbd "C-c C-l") 'new-local-key)))
 
 ;; Copy and Kill region
 (global-set-key (kbd "C-w") 'copy-region-as-kill)
