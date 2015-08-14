@@ -20,8 +20,7 @@
 	    (enable-paredit-mode)
 	    (override-slime-repl-bindings-with-paredit)
 	    (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
-	    (local-set-key (kbd "C-c q") 'load-slime-package-files)
-	    (local-set-key (kbd "C-c C-d C-c") 'slime-repl-clear-buffer)))
+	    (local-set-key (kbd "C-c q") 'load-slime-package-files)))
 
 (add-hook 'lisp-mode-hook
 	  (lambda ()
