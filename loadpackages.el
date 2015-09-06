@@ -16,11 +16,13 @@
     auctex
     company
     css-mode
+    elpy
     emacs-eclim
     ;color-identifiers-mode
     helm
     highlight-numbers
     highlight-quoted
+    jedi
     js2-mode
     ;highlight-symbol
     ;hl-defined

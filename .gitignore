@@ -5,5 +5,6 @@
 #exclude emacs file backups
 *~
 
-# I don't even know why this file exists
+# I don't even know why these files exist
 .org-id-locations
+tramp

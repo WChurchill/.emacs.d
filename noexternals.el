@@ -2,13 +2,13 @@
 
 ;; Startup workspace
 (defun find-my-files ()
-  (let ((orgfile  "~/org/main.org")
-	(lispfile "~/lisp/quicklisp/local-projects" ))
-  (if (file-exists-p orgfile)
-      (find-file orgfile))
-  (when (file-exists-p lispfile)
+  (let ((firstfile  "~/school")
+	(secondfile "~/lisp/quicklisp/local-projects"))
+  (if (file-exists-p firstfile)
+      (find-file firstfile))
+  (when (file-exists-p secondfile)
     (split-window-horizontally)
-    (find-file lispfile))))
+    (find-file secondfile))))
 
 (find-my-files)
 
@@ -16,6 +16,11 @@
 (defun em-dir ()
   (interactive)
   (find-file "~/.emacs.d"))
+
+;; Easier setup of lisp workspace
+(defun lisp-dir ()
+  (interactive)
+  (find-file "~/lisp/quicklisp/local-projects"))
 
 ;; Font
 (setq line-spacing 0)
