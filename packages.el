@@ -93,5 +93,4 @@
 (add-hook 'multi-term-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "C-c m") 'multi-term-next)
-	    (local-set-key (kbd "C-c n") 'multi-term-prev)
-	    (local-set-key(global-set-key (kbd "") '))))
+	    (local-set-key (kbd "C-c n") 'multi-term-prev)))

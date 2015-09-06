@@ -16,6 +16,7 @@
     auctex
     company
     css-mode
+    emacs-eclim
     ;color-identifiers-mode
     helm
     highlight-numbers

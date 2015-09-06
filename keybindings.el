@@ -112,5 +112,5 @@ With arg N, insert N newlines."
 ;; Horizontal Scrolling
 (put 'scroll-left 'disabled nil)
 (put 'scroll-right 'disabled nil)
-(global-set-key (kbd "C-<") 'scroll-left)
-(global-set-key (kbd "C->") 'scroll-right)
+(global-set-key (kbd "C-<") 'scroll-right)
+(global-set-key (kbd "C->") 'scroll-left)

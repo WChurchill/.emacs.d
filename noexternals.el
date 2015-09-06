@@ -19,7 +19,7 @@
 
 ;; Font
 (setq line-spacing 0)
-(set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
+;(set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
 
 ;; Line width and word wrapping
 (auto-fill-mode)
