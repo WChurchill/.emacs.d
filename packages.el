@@ -2,6 +2,14 @@
 
 (load "~/.emacs.d/loadpackages.el")
 
+;;; PYTHON-MODE
+(add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)
+;(add-hook 'python-mode-hook 'electric-indent-local-mode)
+(add-hook 'python-mode-hook (lambda ()
+			      (when indent-tabs-mode
+				(guess-style-guess-tabs-width))))
+
+
 ;;; ACE-JUMP
 (require 'ace-jump-mode)
 (global-set-key (kbd "C-;") 'ace-jump-mode)
