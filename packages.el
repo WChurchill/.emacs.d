@@ -4,10 +4,11 @@
 
 ;;; PYTHON-MODE
 (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)
-;(add-hook 'python-mode-hook 'electric-indent-local-mode)
 (add-hook 'python-mode-hook (lambda ()
-			      (when indent-tabs-mode
-				(guess-style-guess-tabs-width))))
+			      (setq
+			       indent-tabs-mode nil ;; i.e. indent with spaces
+			       tab-width 4 ;; i.e. tabs consts of 4 spaces
+			       )))
 
 
 ;;; ACE-JUMP
