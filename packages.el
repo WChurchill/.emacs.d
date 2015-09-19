@@ -2,6 +2,11 @@
 
 (load "~/.emacs.d/loadpackages.el")
 
+;;; MULTIPLE-CURSORS
+(require 'multiple-cursors)
+;(global-set-key (kbd "M-<space>") 'mc-)
+(global-set-key (kbd "M-s-c M-s-c") 'mc/edit-lines)
+
 ;;; PYTHON-MODE
 (package-initialize)
 (elpy-enable)
@@ -9,13 +14,16 @@
 
 
 ;;; AVY
-(require 'avy-mode)
+(require 'avy)
 (global-set-key (kbd "C-;") 'avy-goto-word-1)
-(global-set-key (kbd "C-\"") 'avy-goto-char)
+(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-'") 'avy-goto-char-2)
 (global-set-key (kbd "M-g f") 'avy-goto-line)
 
+(setq avy-styles-list '((avy-goto-char . at)))
+
 ;;; ACE-WINDOW
-(global-set-key (kbd "C-:") 'ace-window)
+(global-set-key (kbd "M-p") 'ace-window)
 
 ;;; PAREDIT
 (defun wrap-progn ()
@@ -66,15 +74,20 @@
 
 ;;; AUCTEX-MODE
 ;(require 'auctex)
-;; (setq TeX-auto-save t)
-;; (setq TeX-parse-self t)
-;; (setq-default TeX-master nil)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
 ;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 ;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 ;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;; ;;not sure what this one does
 ;; (setq reftex-plug-into-AUCTeX t)
+
+;(getenv "PATH")
+;; (setenv "PATH" (concat
+;; 		"/usr/texbin" ":" 
+;; 		(getenv "PATH")))
 
 ;;; SLIME-MODE
 (defun init-slime ()
