@@ -5,14 +5,14 @@
 ;;; PYTHON-MODE
 (package-initialize)
 (elpy-enable)
-;(elpy-use-ipython)
+(elpy-use-ipython)
 
 
-;;; ACE-JUMP
-(require 'ace-jump-mode)
-(global-set-key (kbd "C-;") 'ace-jump-mode)
-(global-set-key (kbd "C-M-;") 'ace-jump-char-mode)
-(global-set-key (kbd "C-M-'") 'ace-jump-line-mode)
+;;; AVY
+(require 'avy-mode)
+(global-set-key (kbd "C-;") 'avy-goto-word-1)
+(global-set-key (kbd "C-\"") 'avy-goto-char)
+(global-set-key (kbd "M-g f") 'avy-goto-line)
 
 ;;; ACE-WINDOW
 (global-set-key (kbd "C-:") 'ace-window)
@@ -45,6 +45,7 @@
 
 ;;; ACTIVATE HELM-MODE
 (helm-mode)
+(setq helm-mode-line-string "")
 
 ;;; JS2-MODE
 (add-hook 'js-mode-hook 'js2-minor-mode)

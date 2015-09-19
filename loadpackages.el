@@ -9,11 +9,11 @@
 (package-initialize)
 (defvar required-packages
   '(ac-js2
-    ace-jump-mode
     ace-window
     android-mode
     arduino-mode
     auctex
+    avy
     company
     css-mode
     elpy
