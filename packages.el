@@ -23,7 +23,7 @@
 (setq avy-styles-list '((avy-goto-char . at)))
 
 ;;; ACE-WINDOW
-(global-set-key (kbd "M-p") 'ace-window)
+(global-set-key (kbd "M-o") 'ace-window)
 
 ;;; PAREDIT
 (defun wrap-progn ()
