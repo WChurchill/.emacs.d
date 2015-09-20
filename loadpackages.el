@@ -15,6 +15,7 @@
     auctex
     avy
     company
+    company-auctex
     css-mode
     elpy
     emacs-eclim

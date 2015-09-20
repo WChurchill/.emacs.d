@@ -73,7 +73,6 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 ;;; AUCTEX-MODE
-;(require 'auctex)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
@@ -83,11 +82,6 @@
 ;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;; ;;not sure what this one does
 ;; (setq reftex-plug-into-AUCTeX t)
-
-;(getenv "PATH")
-;; (setenv "PATH" (concat
-;; 		"/usr/texbin" ":" 
-;; 		(getenv "PATH")))
 
 ;;; SLIME-MODE
 (defun init-slime ()
