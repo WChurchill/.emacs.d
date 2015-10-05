@@ -84,6 +84,9 @@ With arg N, insert N newlines."
 	    (local-set-key (kbd "C-c C-k") 'new-global-key)
 	    (local-set-key (kbd "C-c C-l") 'new-local-key)))
 
+;; replace-regexp
+(global-set-key (kbd "C-x C-q") 'replace-regexp)
+
 ;; Copy and Kill region
 (global-set-key (kbd "C-w") 'copy-region-as-kill)
 (global-set-key (kbd "C-x w") 'kill-region)

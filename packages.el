@@ -2,28 +2,20 @@
 
 (load "~/.emacs.d/loadpackages.el")
 
-;;; MULTIPLE-CURSORS
-(require 'multiple-cursors)
-;(global-set-key (kbd "M-<space>") 'mc-)
-(global-set-key (kbd "M-s-c M-s-c") 'mc/edit-lines)
-
-;;; PYTHON-MODE
-(package-initialize)
-(elpy-enable)
-(elpy-use-ipython)
-
+;;; ACTIVATE HELM-MODE
+(helm-mode)
+(setq helm-mode-line-string "")
 
 ;;; AVY
 (require 'avy)
 (global-set-key (kbd "C-;") 'avy-goto-word-1)
-(global-set-key (kbd "C-:") 'avy-goto-char)
-(global-set-key (kbd "C-'") 'avy-goto-char-2)
+(global-set-key (kbd "C-\"") 'avy-goto-char)
 (global-set-key (kbd "M-g f") 'avy-goto-line)
 
 (setq avy-styles-list '((avy-goto-char . at)))
 
 ;;; ACE-WINDOW
-(global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "C-:") 'ace-window)
 
 ;;; PAREDIT
 (defun wrap-progn ()
@@ -51,9 +43,32 @@
 (add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
-;;; ACTIVATE HELM-MODE
-(helm-mode)
-(setq helm-mode-line-string "")
+;;; EMACS-ECLIM
+(require 'eclim)
+(require 'eclimd)
+(global-eclim-mode)
+(require 'company)
+(require 'company-emacs-eclim)
+(company-emacs-eclim-setup)
+(global-company-mode t)
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+(add-hook 'eclim-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c b") 'eclim-project-build)
+	    (local-set-key (kbd "C-c r") 'eclim-run-class)
+	    (local-set-key (kbd "C-c l") 'eclim-problems)))
+
+;;; MULTIPLE-CURSORS
+(require 'multiple-cursors)
+;(global-set-key (kbd "M-<space>") 'mc-)
+(global-set-key (kbd "M-s-c M-s-c") 'mc/edit-lines)
+
+;;; PYTHON-MODE
+(package-initialize)
+(elpy-enable)
+(elpy-use-ipython)
 
 ;;; JS2-MODE
 (add-hook 'js-mode-hook 'js2-minor-mode)
