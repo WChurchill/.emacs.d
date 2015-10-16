@@ -17,6 +17,11 @@
 ;;; ACE-WINDOW
 (global-set-key (kbd "C-:") 'ace-window)
 
+;;; HIGHLIGHT-NUMBERS-MODE
+(highlight-numbers-mode)
+;;; HIGHLIGHT-QUOTED-MODE
+(highlight-quoted-mode)
+
 ;;; PAREDIT
 (defun wrap-progn ()
   (interactive)
