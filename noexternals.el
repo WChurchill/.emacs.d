@@ -46,6 +46,9 @@
 ;; Don’t defer screen updates when performing operations
 (setq redisplay-dont-pause t)
 
+;; enable electric-pair mode for C-like languages (e.g. Java, C++, etc.)
+(add-hook 'cc-mode-hook 'electric-pair-mode)
+
 ;; Start show-paren-mode
 (show-paren-mode 1)
 
