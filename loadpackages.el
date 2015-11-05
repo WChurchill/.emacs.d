@@ -3,9 +3,9 @@
 (require 'cl)
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+	     '("melpa" . "https://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+	     '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 (defvar required-packages
   '(ac-js2
@@ -36,6 +36,8 @@
     paredit
     php-mode
     python-mode
+    smart-mode-line
+    smart-mode-line-powerline-theme
     yasnippet) 
   "A list of packages to insure are installed at launch.")
 

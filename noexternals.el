@@ -3,14 +3,41 @@
 ;; Startup workspace
 (defun find-my-files ()
   (let ((firstfile  "~/school")
-	(secondfile "~/lisp/quicklisp/local-projects"))
+	(secondfile "~/lisp/quicklisp/local-projects")
+        )
   (if (file-exists-p firstfile)
       (find-file firstfile))
   (when (file-exists-p secondfile)
     (split-window-horizontally)
     (find-file secondfile))))
 
-(find-my-files)
+;;(find-my-files)
+(find-file "~/school")
+
+;; Security Patches
+;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
+(setq tls-checktrust t)
+(let ((trustfile
+       (replace-regexp-in-string
+        "\\\\" "/"
+        (replace-regexp-in-string
+         "\n" ""
+         (shell-command-to-string "python -m certifi")))))
+  (setq tls-program
+        (list
+         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                 (if (eq window-system 'w32) ".exe" "") trustfile))))
+;; (if (condition-case e
+;;         (progn
+;;           (url-retrieve "https://wrong.host.badssl.com/"
+;;                         (lambda (retrieved) t))
+;;           (url-retrieve "https://self-signed.badssl.com/"
+;;                         (lambda (retrieved) t))
+;;           t)
+;;       ('error nil))
+;;     (error "tls misconfigured")
+;;   (url-retrieve "https://badssl.com"
+;;                 (lambda (retrieved) t)))
 
 ;; Set docview resolution to be readable
 (setq doc-view-resolution 99999)
@@ -35,6 +62,11 @@
 (setq-default truncate-lines t)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; Custom Tabs
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
 ;; Always display line and column numbers
 (setq line-number-mode t)
 (setq column-number-mode t)
@@ -45,6 +77,9 @@
 
 ;; Don’t defer screen updates when performing operations
 (setq redisplay-dont-pause t)
+
+;; enable electric-pair mode for C-like languages (e.g. Java, C++, etc.)
+(add-hook 'cc-mode-hook #'electric-pair-mode)
 
 ;; Start show-paren-mode
 (show-paren-mode 1)
