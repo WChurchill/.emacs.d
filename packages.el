@@ -128,3 +128,8 @@
 	  (lambda ()
 	    (local-set-key (kbd "C-c m") 'multi-term-next)
 	    (local-set-key (kbd "C-c n") 'multi-term-prev)))
+
+
+;;; Smart-Mode-Line
+(setq sml/theme 'powerline)
+(sml/setup)
