@@ -103,6 +103,11 @@
 ;; ;;not sure what this one does
 ;; (setq reftex-plug-into-AUCTeX t)
 
+(add-hook 'latex-mode-hook
+	  (lambda ()
+	    (electric-pair-mode)
+	    (local-set-key (kbd "C-c b") 'latex-insert-block)))
+
 ;;; SLIME-MODE
 (defun init-slime ()
   (interactive)
@@ -131,5 +136,10 @@
 
 
 ;;; Smart-Mode-Line
-(setq sml/theme 'powerline)
-(sml/setup)
+;(setq sml/theme 'powerline)
+                                        ;(sml/setup)
+
+
+;;; File extensions
+(load "~/.emacs.d/filemode.el")
+

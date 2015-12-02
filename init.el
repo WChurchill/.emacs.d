@@ -16,7 +16,7 @@
   ;; Increase number of bytes before garbage collection
   (setq gc-cons-threshold 100000000)
   
-  (load "/home/winston/.emacs.d/themes/euphoria-theme.el")
+  (load "/home/winston/.emacs.d/themes/my-euphoria-theme.el")
   (load "/home/winston/.emacs.d/noexternals.el")
   (load "/home/winston/.emacs.d/keybindings.el")
   (load "/home/winston/.emacs.d/packages.el")

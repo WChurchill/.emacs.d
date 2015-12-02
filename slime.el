@@ -30,7 +30,7 @@
 	    (local-set-key (kbd "C-c C-:") 'slime-remove-balanced-comments)
 	    (local-set-key (kbd "C-c C-d 9") 'comment-region)
 	    (local-set-key (kbd "C-c C-d 0") 'uncomment-region)
-	    (local-set-key (kbd "C-.")       'slime-compile-and-load-file)
-	    (local-set-key (kbd "C-'")       'slime-compile-file)
+	    (local-set-key (kbd "C-c l")       'slime-compile-and-load-file)
+	    (local-set-key (kbd "C-.")       'slime-compile-file)
 	    (local-set-key (kbd "C-c C-d l") 'slime-show-compilation-log)))
 
