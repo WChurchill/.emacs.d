@@ -131,5 +131,10 @@
 
 
 ;;; Smart-Mode-Line
-(setq sml/theme 'powerline)
-(sml/setup)
+;(setq sml/theme 'powerline)
+                                        ;(sml/setup)
+
+
+;;; File extensions
+(load "~/.emacs.d/filemode.el")
+

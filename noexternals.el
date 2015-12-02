@@ -12,7 +12,7 @@
     (find-file secondfile))))
 
 ;;(find-my-files)
-(find-file "~/school")
+(find-file "~/pathfinder")
 
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
@@ -79,7 +79,7 @@
 (setq redisplay-dont-pause t)
 
 ;; enable electric-pair mode for C-like languages (e.g. Java, C++, etc.)
-(add-hook 'cc-mode-hook 'electric-pair-mode)
+(add-hook 'c-mode-common-hook 'electric-pair-mode)
 
 ;; Start show-paren-mode
 (show-paren-mode 1)
