@@ -91,6 +91,9 @@
 
 ;;; MAGIT-MODE
 (setq magit-last-seen-setup-instructions "1.4.0")
+(defun mgs ();;magit-status shortcut
+  (interactive)
+  (magit-status))
 
 ;;; AUCTEX-MODE
 (setq TeX-auto-save t)
