@@ -117,3 +117,6 @@ With arg N, insert N newlines."
 (put 'scroll-right 'disabled nil)
 (global-set-key (kbd "C-<") 'scroll-right)
 (global-set-key (kbd "C->") 'scroll-left)
+
+;; Toggle Menu Bar
+(global-set-key (kbd "C-c C-x t") 'toggle-menu-bar-mode-from-frame)
