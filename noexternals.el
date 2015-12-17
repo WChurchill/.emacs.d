@@ -11,7 +11,7 @@
     (split-window-horizontally)
     (find-file secondfile))))
 
-(find-my-files)
+(find-file "~/lisp/quicklisp/local-projects")
 
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
