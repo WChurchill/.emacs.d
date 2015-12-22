@@ -53,14 +53,16 @@
 (require 'eclimd)
 (global-eclim-mode)
 (require 'company)
-(require 'company-emacs-eclim)
-(company-emacs-eclim-setup)
+
+
 (global-company-mode t)
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
 (add-hook 'eclim-mode-hook
 	  (lambda ()
+	    (require 'company-emacs-eclim)
+	    (company-emacs-eclim-setup)
 	    (local-set-key (kbd "C-c b") 'eclim-project-build)
 	    (local-set-key (kbd "C-c r") 'eclim-run-class)
 	    (local-set-key (kbd "C-c l") 'eclim-problems)))
@@ -74,6 +76,10 @@
 (package-initialize)
 (elpy-enable)
 (elpy-use-ipython)
+
+;;; C++-Mode
+(require 'company-clang)
+(require 'company-cmake)
 
 ;;; JS2-MODE
 (add-hook 'js-mode-hook 'js2-minor-mode)
