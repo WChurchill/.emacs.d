@@ -120,3 +120,9 @@ With arg N, insert N newlines."
 
 ;; Toggle Menu Bar
 (global-set-key (kbd "C-c C-x t") 'toggle-menu-bar-mode-from-frame)
+
+
+;; Eval-buffer
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c e") 'eval-buffer)))
