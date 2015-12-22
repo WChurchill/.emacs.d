@@ -16,11 +16,14 @@
     avy
     company
     company-auctex
+    company-cmake
     css-mode
     elpy
     emacs-eclim
-    ;color-identifiers-mode
+    ;;color-identifiers-mode
+    ggtags
     helm
+    helm-gtags
     highlight-numbers
     highlight-quoted
     jedi
