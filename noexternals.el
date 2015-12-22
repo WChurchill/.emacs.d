@@ -39,7 +39,7 @@
 ;;                 (lambda (retrieved) t)))
 
 ;; Set docview resolution to be readable
-(setq doc-view-resolution 200)
+(setq doc-view-resolution 100)
 
 ;; Easier editing of .emacs.d/
 (defun em-dir ()
