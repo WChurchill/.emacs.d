@@ -38,9 +38,6 @@
 ;;   (url-retrieve "https://badssl.com"
 ;;                 (lambda (retrieved) t)))
 
-;; Set docview resolution to be readable
-(setq doc-view-resolution 100)
-
 ;; Easier editing of .emacs.d/
 (defun em-dir ()
   (interactive)
