@@ -34,10 +34,31 @@
   (previous-line 1)
   (indent-for-tab-command 1))
 
+(defun duplicate-sexp (n)
+  "Copies the sexp immediately after point and duplicates it n times."
+  (interactive "*p")
+  (paredit-forward) (paredit-backward)
+  (kill-sexp)
+  (dotimes (iter n)
+    (yank)
+    (newline-and-indent))
+  (yank))
+
+(defun duplicate-sexp-inline (n)
+  "Copies the sexp immediately after point and duplicates it n times in the same line."
+  (interactive "*p")
+  (paredit-forward) (paredit-backward)
+  (kill-sexp)
+  (dotimes (iter (1+ n))
+    (yank)
+    (insert " ")))
+
 (add-hook 'paredit-mode-hook
 	  (lambda ()
+	    (local-set-key (kbd "C-c C-d d") 'duplicate-sexp)
+	    (local-set-key (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
 	    (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
-	    (local-set-key (kbd "C-c C-d C-s") 'wrap-progn)))
+	    (local-set-key (kbd "C-c C-d p") 'wrap-progn)))
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
