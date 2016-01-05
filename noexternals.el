@@ -11,7 +11,7 @@
     (split-window-horizontally)
     (find-file secondfile))))
 
-(find-file "~/lisp/quicklisp/local-projects")
+;(find-file "~/lisp/quicklisp/local-projects")
 
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
@@ -46,7 +46,16 @@
 ;; Easier setup of lisp workspace
 (defun lisp-dir ()
   (interactive)
+  (find-file "~/lisp"))
+
+(defun l-proj ()
+  (interactive)
   (find-file "~/lisp/quicklisp/local-projects"))
+
+;; Find C++ directory easily
+(defun c-dir ()
+  (interactive)
+  (find-file "~/C++"))
 
 ;; Font
 (setq line-spacing 0)
