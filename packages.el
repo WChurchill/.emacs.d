@@ -99,8 +99,38 @@
 (elpy-use-ipython)
 
 ;;; C++-Mode
-(require 'company-clang)
+;(require 'company-clang)
 (require 'company-cmake)
+
+(defun interactive-compile ()
+  (interactive)
+  (setq-local compilation-read-command nil)
+  (call-interactively 'compile))
+
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (when (derived-mode-p 'c-mode 'c++-mode)
+	      (local-set-key
+	       (kbd "<f5>")
+	       'interactive-compile))))
+
+;;; GGTAGS-MODE
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+	      (ggtags-mode))))
+
+(add-hook 'ggtags-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c g s") 'ggtags-find-other-symbol)
+	    (local-set-key (kbd "C-c g h") 'ggtags-view-tag-history)
+	    (local-set-key (kbd "C-c g r") 'ggtags-find-reference)
+	    (local-set-key (kbd "C-c g f") 'ggtags-find-file)
+	    (local-set-key (kbd "C-c g c") 'ggtags-create-tags)
+	    (local-set-key (kbd "C-c g u") 'ggtags-update-tags)
+	    
+	    (local-set-key (kbd "M-,") 'pop-tag-mark)))
+
 
 ;;; JS2-MODE
 (add-hook 'js-mode-hook 'js2-minor-mode)
