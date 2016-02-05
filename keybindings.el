@@ -102,6 +102,10 @@ With arg N, insert N newlines."
 (global-set-key (kbd "M-2") 'split-window-horizontally)
 (global-set-key (kbd "M-3") 'split-window-vertically)
 (global-set-key (kbd "M-4") 'kill-buffer-and-window)
+(global-set-key (kbd "M-8") #'(lambda ()
+				(interactive)
+				(save-some-buffers)
+				(delete-frame)))
 (global-set-key (kbd "M-=") 'balance-windows)
 
 ;; Killing buffers and Windows
