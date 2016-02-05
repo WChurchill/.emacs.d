@@ -13,6 +13,7 @@
     android-mode
     arduino-mode
     auctex
+    ;;autopair
     avy
     company
     company-auctex
@@ -21,7 +22,6 @@
     elpy
     emacs-eclim
     ;;color-identifiers-mode
-    ggtags
     helm
     helm-gtags
     highlight-numbers
@@ -38,6 +38,7 @@
     org
     paredit
     php-mode
+    projectile
     python-mode
     smart-mode-line
     smart-mode-line-powerline-theme
