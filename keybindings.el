@@ -87,10 +87,6 @@ With arg N, insert N newlines."
 ;; replace-regexp
 (global-set-key (kbd "C-x C-q") 'replace-regexp)
 
-;; Copy and Kill region
-(global-set-key (kbd "C-w") 'copy-region-as-kill)
-(global-set-key (kbd "C-x w") 'kill-region)
-
 ;; Better Window management
 (global-set-key (kbd "M-s-b") 'shrink-window-horizontally)
 (global-set-key (kbd "M-s-f") 'enlarge-window-horizontally)
@@ -130,3 +126,9 @@ With arg N, insert N newlines."
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "C-c e") 'eval-buffer)))
+
+;; Comment/Uncomment region
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c /") 'comment-region)
+	    (local-set-key (kbd "C-c ?") 'uncomment-region)))
