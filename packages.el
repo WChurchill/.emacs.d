@@ -3,24 +3,35 @@
 (load "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
-(helm-mode)
+(require 'helm)
 (setq helm-mode-line-string "")
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files) 
+(helm-mode 1)
 
 ;;; AVY
 (require 'avy)
 (global-set-key (kbd "C-;") 'avy-goto-word-1)
 (global-set-key (kbd "C-\"") 'avy-goto-char)
-(global-set-key (kbd "M-g f") 'avy-goto-line)
+;;(global-set-key (kbd "C-'") 'avy-goto-char-2)
+(global-set-key (kbd "C-'") 'avy-goto-line)
 
 (setq avy-styles-list '((avy-goto-char . at)))
 
+;; enable avy-select in isearch mode
+(eval-after-load "isearch"
+  (define-key isearch-mode-map (kbd "C-;") 'avy-isearch))
+
+
 ;;; ACE-WINDOW
 (global-set-key (kbd "C-:") 'ace-window)
+
 
 ;;; HIGHLIGHT-NUMBERS-MODE
 (highlight-numbers-mode)
 ;;; HIGHLIGHT-QUOTED-MODE
 (highlight-quoted-mode)
+
 
 ;;; PAREDIT
 (defun wrap-progn ()
@@ -58,7 +69,8 @@
 	    (local-set-key (kbd "C-c C-d d") 'duplicate-sexp)
 	    (local-set-key (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
 	    (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
-	    (local-set-key (kbd "C-c C-d p") 'wrap-progn)))
+	    (local-set-key (kbd "C-c C-d p") 'wrap-progn)
+	    (local-set-key (kbd "M-r") 'paredit-raise-sexp)))
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
@@ -69,14 +81,23 @@
 (add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
+
+;;; COMPANY
+(require 'company)
+(global-company-mode t)
+(global-set-key (kbd "C-<tab>") 'company-complete)
+
+
+;;; JAVA-MODE
+;(requrie 'flymake)
+;(add-hook 'java-mode-hook 'flymake-mode-on)
+
+
 ;;; EMACS-ECLIM
 (require 'eclim)
 (require 'eclimd)
 (global-eclim-mode)
-(require 'company)
 
-
-(global-company-mode t)
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
@@ -88,15 +109,21 @@
 	    (local-set-key (kbd "C-c r") 'eclim-run-class)
 	    (local-set-key (kbd "C-c l") 'eclim-problems)))
 
+
 ;;; MULTIPLE-CURSORS
 (require 'multiple-cursors)
 ;(global-set-key (kbd "M-<space>") 'mc-)
 (global-set-key (kbd "M-s-c M-s-c") 'mc/edit-lines)
 
+
 ;;; PYTHON-MODE
 (package-initialize)
 (elpy-enable)
 (elpy-use-ipython)
+(defun bind-python-keys ()
+  )
+(add-hook 'python-mode-hook 'bind-python-keys)
+
 
 ;;; C++-Mode
 ;(require 'company-clang)
@@ -107,50 +134,72 @@
   (setq-local compilation-read-command nil)
   (call-interactively 'compile))
 
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (when (derived-mode-p 'c-mode 'c++-mode)
-	      (local-set-key
-	       (kbd "<f5>")
-	       'interactive-compile))))
+(defun bind-interactive-compile ()
+  (when (derived-mode-p 'c-mode 'c++-mode)
+    (local-set-key
+     (kbd "<f5>")
+     'interactive-compile)))
+
+(add-hook 'c-mode-common-hook 'bind-interactive-compile)
+
+(setq
+ ;; Use gdb-many-windows
+ gdb-many-windows t
+ ;; Start off with the file that has main
+ gdb-show-main t)
+
 
 ;;; GGTAGS-MODE
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-	      (ggtags-mode))))
+(defun activate-ggtags ()
+  (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+    (ggtags-mode)))
 
-(add-hook 'ggtags-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c g s") 'ggtags-find-other-symbol)
-	    (local-set-key (kbd "C-c g h") 'ggtags-view-tag-history)
-	    (local-set-key (kbd "C-c g r") 'ggtags-find-reference)
-	    (local-set-key (kbd "C-c g f") 'ggtags-find-file)
-	    (local-set-key (kbd "C-c g c") 'ggtags-create-tags)
-	    (local-set-key (kbd "C-c g u") 'ggtags-update-tags)
+(defun bind-ggtags ()
+  (local-set-key (kbd "C-c g s") 'ggtags-find-other-symbol)
+  (local-set-key (kbd "C-c g h") 'ggtags-view-tag-history)
+  (local-set-key (kbd "C-c g r") 'ggtags-find-reference)
+  (local-set-key (kbd "C-c g f") 'ggtags-find-file)
+  (local-set-key (kbd "C-c g c") 'ggtags-create-tags)
+  (local-set-key (kbd "C-c g u") 'ggtags-update-tags)
 	    
-	    (local-set-key (kbd "M-,") 'pop-tag-mark)))
+  (local-set-key (kbd "M-,") 'pop-tag-mark))
+
+(add-hook 'c-mode-common-hook 'activate-ggtags)
+
+(add-hook 'ggtags-mode-hook 'bind-ggtags)
 
 
 ;;; JS2-MODE
-(add-hook 'js-mode-hook 'js2-minor-mode)
-(add-hook 'js2-mode-hook 'ac-js2-mode)
+;; (add-hook 'js-mode-hook 'js2-minor-mode)
+;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+;; My own janky java compile keybinding
+(defun javac-all ()
+  (interactive)
+  (shell-command "javac *.java"))
+
+(defun bind-javac-all ()
+  (local-set-key (kbd "<f5>") 'javac-all))
+
+(add-hook 'java-mode-hook 'bind-javac-all)
+
 
 ;;; MULTI-WEB-MODE
 (require 'multi-web-mode)
 (setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags 
-  '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-    (js2-mode  "<script[^>]*>" "</script>")
-    (css-mode "<style[^>]*>" "</style>")))
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+		  ;; (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+		  (js-mode "<script>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
+
 
 ;;; MAGIT-MODE
 (setq magit-last-seen-setup-instructions "1.4.0")
 (defun mgs ();;magit-status shortcut
   (interactive)
   (magit-status))
+
 
 ;;; AUCTEX-MODE
 (setq TeX-auto-save t)
@@ -162,17 +211,31 @@
 ;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;; ;;not sure what this one does
 ;; (setq reftex-plug-into-AUCTeX t)
+(defun save-and-compile-latex ()
+  (interactive)
+  (save-buffer)
+  (TeX-command-master))
 
-(add-hook 'latex-mode-hook
+(defvar LaTeX-electric-pairs '((\$ . \$)) "Electric pairs for LaTeX-mode.")
+(defun LaTeX-add-electric-pairs ()
+  (setq-local electric-pair-pairs (append electric-pair-pairs LaTeX-electric-pairs))
+  (setq-local electric-pair-text-pairs electric-pair-pairs))
+
+(add-hook 'LaTeX-mode-hook
 	  (lambda ()
 	    (electric-pair-mode)
-	    (local-set-key (kbd "C-c b") 'latex-insert-block)))
+	    (LaTeX-add-electric-pairs)
+	    ;(define-key 'LaTeX-mode-map "\$" 'electric-pair)
+	    (local-set-key (kbd "C-c b") 'latex-insert-block)
+	    (local-set-key (kbd "C-c C-c") 'save-and-compile-latex)))
+
 
 ;;; SLIME-MODE
 (defun init-slime ()
   (interactive)
   (load "~/.emacs.d/slime.el")
   (slime))
+
 
 ;;; ORG-MODE
 (require 'org)
@@ -184,6 +247,7 @@
 	    (local-set-key (kbd "C-c C-f") 'org-down-element)
 	    (local-set-key (kbd "C-c C-b") 'org-up-element)))
 ;(setq org-agenda-files (quote "~/org/cal.org"))
+
 
 ;;; MULTI-TERM
 (require 'multi-term)
@@ -203,3 +267,16 @@
 ;;; File extensions
 (load "~/.emacs.d/filemode.el")
 
+
+;;; YASNIPPET
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+(global-set-key (kbd "C-c y") 'yas-insert-snippet)
+
+
+;;; PROJECTILE
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
