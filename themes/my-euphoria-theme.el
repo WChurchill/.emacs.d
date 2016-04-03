@@ -1,24 +1,4 @@
-;;; my-euphoria-theme.el --- euphoria theme
-
-;; Copyright (C) 2000 by oGLOWo
-;; Copyright (C) 2013 by Syohei YOSHIDA
-
-;; Author: Syohei YOSHIDA <syohex@gmail.com>
-;; URL: https://github.com/emacs-jp/replace-colorthemes
-;; Version: 0.01
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; my-euphoria-theme.el --- euphoria theme
 
 ;;; Commentary:
 ;;
@@ -33,8 +13,8 @@
  'my-euphoria
 
  '(default ((t (:background "black" :foreground "green"))))
- '(mouse ((t (:foregound "white"))))
- '(cursor ((t (:foregound "white"))))
+ '(mouse ((t (:foregound "red"))))
+ '(cursor ((t (:foregound "red"))))
  '(border ((t (:foregound "black"))))
 
  '(help-highlight-face ((t (:underline t))))
@@ -46,18 +26,18 @@
  '(border ((t (:background "black"))))
  '(comint-highlight-input ((t (:bold t :weight bold))))
  '(comint-highlight-prompt ((t (:foreground "cyan"))))
- '(cursor ((t (:background "lightgray"))))
+ '(cursor ((t (:background "white"))))
  '(fixed-pitch ((t (:family "courier"))))
  '(font-lock-builtin-face ((t (:foreground "chartreuse2" :bold t))))
  '(font-lock-comment-face ((t (:foreground "gray45"))))
- '(font-lock-constant-face ((t (:foreground "gray"))))
+ '(font-lock-constant-face ((t (:foreground "white"))))
  '(font-lock-doc-face ((t (:foreground "cyan"))))
  '(font-lock-doc-string-face ((t (:foreground "cyan3"))))
  '(font-lock-function-name-face ((t (:foreground "magenta" :bold nil))))
  '(font-lock-keyword-face ((t (:foreground "blue" :bold t))))
  '(font-lock-preprocessor-face ((t (:foreground  "mediumspringgreen" ))))
  '(font-lock-reference-face ((t (:foreground "white"))))
- '(font-lock-string-face ((t (:foreground "yellow3"))))
+ '(font-lock-string-face ((t (:foreground "gold"))))
  '(font-lock-type-face ((t (:foreground "#409b40" :bold nil ))))
  '(font-lock-variable-name-face ((t (:foreground "royalblue2"))))
  '(font-lock-warning-face ((t (:bold t :foreground "red" :weight bold))))
