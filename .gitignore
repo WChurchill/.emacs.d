@@ -13,9 +13,6 @@ tramp
 #Projectile stuff
 projectile-bookmarks.eld
 
-#Unnecessary .mc-lists.el
-.mc-lists.el
-
 #I don't even know why this file exists
 .org-id-locations
 workbench.xmi
