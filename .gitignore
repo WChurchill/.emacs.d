@@ -10,6 +10,9 @@
 tramp
 .
 
+#Projectile stuff
+projectile-bookmarks.eld
+
 #Unnecessary .mc-lists.el
 .mc-lists.el
 
