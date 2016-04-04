@@ -9,6 +9,37 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files) 
 (helm-mode 1)
 
+(defun select-site ()
+  (helm :sources (helm-build-sync-source "sites"
+		   :candidates '(("github" . "github.com/search?q=")
+				 ("google" . "google.com/search#q=")
+				 ("stackoverflow" . "stackoverflow.com/search?q=")
+				 ("javadocs" . "google.com/search?q=javadocs+8+")
+				 ("c++" . "cplusplus.com/search.do?q=" )
+				 ("python" . "docs.python.org/3/search.html?q=")
+				 ("arch-packages" . "archlinux.org/packages?/=")
+				 ("arch-wiki" . "wiki.archlinux.org/index.php?title=Special%3ASearch&search=")
+				 ("wikipedia" . "en.wikipedia.org/wiki/Special:Search?search="))
+		   :fuzzy-match t)
+	:buffer "*select website*"))
+
+(defun search-site (search-string)
+  (interactive "MSearch: ")
+  (browse-url (concatenate 'string (select-site) search-string)))
+
+(global-set-key (kbd "C-c C-d h") 'search-site)
+
+(defun helm-switch-to-file-buffer ()
+  (interactive)
+  ())
+
+(defun helm-switch-to-process-buffer ()
+  (interactive)
+  (helm-moccur-mode)
+  (helm-buffer-list))
+
+
+
 ;;; AVY
 (require 'avy)
 (global-set-key (kbd "C-;") 'avy-goto-word-1)
@@ -28,9 +59,9 @@
 
 
 ;;; HIGHLIGHT-NUMBERS-MODE
-(highlight-numbers-mode)
+(highlight-numbers-mode 1) 
 ;;; HIGHLIGHT-QUOTED-MODE
-(highlight-quoted-mode)
+(highlight-quoted-mode 1)
 
 
 ;;; PAREDIT
@@ -261,7 +292,7 @@
 
 ;;; Smart-Mode-Line
 ;(setq sml/theme 'powerline)
-                                        ;(sml/setup)
+;(sml/setup)
 
 
 ;;; File extensions
@@ -277,6 +308,10 @@
 
 
 ;;; PROJECTILE
+(require 'projectile)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
+
+;;; HELM-PROJECTILE
+(require 'helm-projectile)
 (helm-projectile-on)

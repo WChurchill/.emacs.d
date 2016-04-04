@@ -65,7 +65,8 @@ With arg N, insert N newlines."
 (global-set-key (kbd "C-M-<backspace>") 'backward-kill-sexp)
 
 ;; Replace List-buffers with Ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-unset-key (kbd "C-x C-b"))
+(global-set-key (kbd "C-x C-b b") 'ibuffer)
 
 ;;Quicker Keybinding Writing
 (defun new-global-key ()

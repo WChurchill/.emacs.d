@@ -3,15 +3,19 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        forward-sexp
-        indent-for-tab-command
-        kill-current-buffer
-        kill-region
-        paredit-backward
-        paredit-forward
-        ))
+	forward-sexp
+	indent-for-tab-command
+	kill-current-buffer
+	kill-region
+	paredit-backward
+	paredit-forward
+	scroll-right
+	))
 
 (setq mc/cmds-to-run-once
       '(
-        ace-window
-        ))
+	ace-window
+	beginning-of-buffer
+	helm-M-x
+	scroll-left
+	))
