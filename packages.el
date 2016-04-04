@@ -252,13 +252,18 @@
   (setq-local electric-pair-pairs (append electric-pair-pairs LaTeX-electric-pairs))
   (setq-local electric-pair-text-pairs electric-pair-pairs))
 
-(add-hook 'LaTeX-mode-hook
-	  (lambda ()
-	    (electric-pair-mode)
-	    (LaTeX-add-electric-pairs)
-	    ;(define-key 'LaTeX-mode-map "\$" 'electric-pair)
-	    (local-set-key (kbd "C-c b") 'latex-insert-block)
-	    (local-set-key (kbd "C-c C-c") 'save-and-compile-latex)))
+(defun latex-inline-math ()
+  )
+
+(defun bind-LaTeX-keys ()
+  (electric-pair-mode)
+  (LaTeX-add-electric-pairs)
+  ;;(define-key 'LaTeX-mode-map "\$" 'electric-pair)
+  (local-set-key (kbd "C-c b") 'latex-insert-block)
+  (local-set-key (kbd "C-c C-c") 'save-and-compile-latex)
+  (local-set-key (kbd "$") 'self-insert-command)) ; Add an extra "$" when I type $
+
+(add-hook 'LaTeX-mode-hook 'bind-LaTeX-keys)
 
 
 ;;; SLIME-MODE
