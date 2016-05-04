@@ -1,0 +1,14 @@
+# -*- mode; snippet -*-
+# name: singleton
+# key: single
+# --
+private static ${1:class} instance;
+
+public static $1 getInstance(){
+       if(instance==null) instance = new $1();
+       return instance;
+}
+
+private $1(){
+
+}
