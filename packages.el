@@ -1,5 +1,5 @@
 ;;;; packages.el
-
+(setq debug-on-error t)
 (load "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
@@ -120,25 +120,36 @@
 
 
 ;;; JAVA-MODE
-;(requrie 'flymake)
+;(require 'flymake)
 ;(add-hook 'java-mode-hook 'flymake-mode-on)
+(defun javac-all ()
+  (interactive)
+  (setq-local compilation-read-command nil)
+  (call-interactively (shell-command "javac *.java")))
+
+(defun bind-javac-all ()
+  (local-set-key (kbd "<f5>") 'javac-all))
+
+(add-hook 'java-mode-hook 'bind-javac-all)
 
 
 ;;; EMACS-ECLIM
 (require 'eclim)
 (require 'eclimd)
-(global-eclim-mode)
+(require 'company-emacs-eclim)
 
+(global-eclim-mode)
+(company-emacs-eclim-setup)
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
-(add-hook 'eclim-mode-hook
-	  (lambda ()
-	    (require 'company-emacs-eclim)
-	    (company-emacs-eclim-setup)
-	    (local-set-key (kbd "C-c b") 'eclim-project-build)
-	    (local-set-key (kbd "C-c r") 'eclim-run-class)
-	    (local-set-key (kbd "C-c l") 'eclim-problems)))
+
+(defun bind-eclim-keys ()
+  (local-set-key (kbd "C-c b") 'eclim-project-build)
+  (local-set-key (kbd "C-c r") 'eclim-run-class)
+  (local-set-key (kbd "C-c l") 'eclim-problems))
+
+(add-hook 'eclim-mode-hook 'bind-eclim-keys)
 
 
 ;;; MULTIPLE-CURSORS
@@ -153,7 +164,9 @@
 (elpy-use-ipython)
 (defun bind-python-keys ()
   )
+
 (add-hook 'python-mode-hook 'bind-python-keys)
+(add-hook 'python-mode-hook 'electric-pair-mode)
 
 
 ;;; C++-Mode
@@ -180,38 +193,40 @@
  gdb-show-main t)
 
 
-;;; GGTAGS-MODE
-(defun activate-ggtags ()
-  (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-    (ggtags-mode)))
+;;; HELM-GTAG
+(setq
+ helm-gtags-ignore-case t
+ helm-gtags-auto-update t
+ helm-gtags-use-input-at-cursor t
+ helm-gtags-pulse-at-cursor t
+ helm-gtags-prefix-key "\C-cg"
+ helm-gtags-suggested-key-mapping t
+ )
 
-(defun bind-ggtags ()
-  (local-set-key (kbd "C-c g s") 'ggtags-find-other-symbol)
-  (local-set-key (kbd "C-c g h") 'ggtags-view-tag-history)
-  (local-set-key (kbd "C-c g r") 'ggtags-find-reference)
-  (local-set-key (kbd "C-c g f") 'ggtags-find-file)
-  (local-set-key (kbd "C-c g c") 'ggtags-create-tags)
-  (local-set-key (kbd "C-c g u") 'ggtags-update-tags)
-	    
-  (local-set-key (kbd "M-,") 'pop-tag-mark))
+(require 'helm-gtags)
+;; Enable helm-gtags-mode
+(add-hook 'dired-mode-hook 'helm-gtags-mode)
+(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+(add-hook 'java-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
 
-(add-hook 'c-mode-common-hook 'activate-ggtags)
+(defun bind-helm-gtags-keys ()
+  (local-set-key (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+  (local-set-key (kbd "C-j") 'helm-gtags-select)
+  (local-set-key (kbd "M-.") 'helm-gtags-dwim)
+  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)
+  (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
+  (local-set-key (kbd "C-c >") 'helm-gtags-next-history))
 
-(add-hook 'ggtags-mode-hook 'bind-ggtags)
+(add-hook 'helm-gtags-mode 'bind-helm-gtags-keys)
 
 
 ;;; JS2-MODE
-;; (add-hook 'js-mode-hook 'js2-minor-mode)
-;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+(add-hook 'js-mode-hook 'js2-minor-mode)
+(add-hook 'js2-mode-hook 'ac-js2-mode)
 ;; My own janky java compile keybinding
-(defun javac-all ()
-  (interactive)
-  (shell-command "javac *.java"))
-
-(defun bind-javac-all ()
-  (local-set-key (kbd "<f5>") 'javac-all))
-
-(add-hook 'java-mode-hook 'bind-javac-all)
 
 
 ;;; MULTI-WEB-MODE
