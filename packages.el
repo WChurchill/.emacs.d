@@ -1,5 +1,5 @@
 ;;;; packages.el
-(setq debug-on-error t)
+;(setq debug-on-error t)
 (load "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
@@ -95,13 +95,14 @@
     (yank)
     (insert " ")))
 
-(add-hook 'paredit-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c C-d d") 'duplicate-sexp)
-	    (local-set-key (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
-	    (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
-	    (local-set-key (kbd "C-c C-d p") 'wrap-progn)
-	    (local-set-key (kbd "M-r") 'paredit-raise-sexp)))
+(defun bind-paredit-keys ()
+  (local-set-key (kbd "C-c C-d d") 'duplicate-sexp)
+  (local-set-key (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
+  (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
+  (local-set-key (kbd "C-c C-d p") 'wrap-progn)
+  (local-set-key (kbd "M-r") 'paredit-raise-sexp))
+
+(add-hook 'paredit-mode-hook 'bind-paredit-keys)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
@@ -150,6 +151,18 @@
   (local-set-key (kbd "C-c l") 'eclim-problems))
 
 (add-hook 'eclim-mode-hook 'bind-eclim-keys)
+
+(defun compile-ctf ()
+  (interactive)
+  (let (b (get-buffer-create "*CTF compilation*"))
+    (set-buffer b)
+    (shell-command
+     "cd ~/school/artificial_intelligence/project; javac -cp . ctf/agent/*.java"))
+
+  (defun bind-compile-ctf ()
+    (local-set-key (kbd "C-c b") 'compile-ctf)))
+
+(add-hook 'java-mode-hook 'bind-compile-ctf)
 
 
 ;;; MULTIPLE-CURSORS
@@ -200,8 +213,7 @@
  helm-gtags-use-input-at-cursor t
  helm-gtags-pulse-at-cursor t
  helm-gtags-prefix-key "\C-cg"
- helm-gtags-suggested-key-mapping t
- )
+ helm-gtags-suggested-key-mapping t)
 
 (require 'helm-gtags)
 ;; Enable helm-gtags-mode
@@ -212,15 +224,21 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
+(defun save-and-update-gtags ()
+  (interactive)
+  (save-buffer)
+  (helm-gtags-update-tags))
+
 (defun bind-helm-gtags-keys ()
   (local-set-key (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+  (local-set-key (kbd "C-x C-s") 'save-and-update-gtags)
   (local-set-key (kbd "C-j") 'helm-gtags-select)
   (local-set-key (kbd "M-.") 'helm-gtags-dwim)
   (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)
   (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
   (local-set-key (kbd "C-c >") 'helm-gtags-next-history))
 
-(add-hook 'helm-gtags-mode 'bind-helm-gtags-keys)
+(add-hook 'helm-gtags-mode-hook 'bind-helm-gtags-keys)
 
 
 ;;; JS2-MODE
@@ -267,9 +285,6 @@
   (setq-local electric-pair-pairs (append electric-pair-pairs LaTeX-electric-pairs))
   (setq-local electric-pair-text-pairs electric-pair-pairs))
 
-(defun latex-inline-math ()
-  )
-
 (defun bind-LaTeX-keys ()
   (electric-pair-mode)
   (LaTeX-add-electric-pairs)
@@ -290,13 +305,16 @@
 
 ;;; ORG-MODE
 (require 'org)
+
+(defun bind-org-mode-keys ()
+  (local-set-key (kbd "C-c a") 'org-agenda)
+  (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
+  (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
+  (local-set-key (kbd "C-c C-f") 'org-down-element)
+  (local-set-key (kbd "C-c C-b") 'org-up-element))
+
 (add-hook 'org-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c a") 'org-agenda)
-	    (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
-	    (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
-	    (local-set-key (kbd "C-c C-f") 'org-down-element)
-	    (local-set-key (kbd "C-c C-b") 'org-up-element)))
+	  'bind-org-mode-keys)
 ;(setq org-agenda-files (quote "~/org/cal.org"))
 
 
@@ -304,10 +322,13 @@
 (require 'multi-term)
 (global-set-key (kbd "C-c M") 'multi-term)
 (setq multi-term-program "/bin/bash")
+
+(defun bind-multi-term-keys ()
+  (local-set-key (kbd "C-c m") 'multi-term-next)
+  (local-set-key (kbd "C-c n") 'multi-term-prev))
+
 (add-hook 'multi-term-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c m") 'multi-term-next)
-	    (local-set-key (kbd "C-c n") 'multi-term-prev)))
+	  'bind-multi-term-keys)
 
 
 ;;; Smart-Mode-Line
@@ -321,7 +342,7 @@
 
 ;;; YASNIPPET
 (add-to-list 'load-path
-              "~/.emacs.d/plugins/yasnippet")
+	     "~/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
 (yas-global-mode 1)
 (global-set-key (kbd "C-c y") 'yas-insert-snippet)
