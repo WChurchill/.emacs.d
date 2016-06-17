@@ -2,9 +2,8 @@
 
 ;; Startup workspace
 (defun find-my-files ()
-  (let ((firstfile  "~/school")
-	(secondfile "~/main.org")
-        )
+  (let ((firstfile  "~/abc.org")
+	(secondfile "~/main.org"))
   (if (file-exists-p firstfile)
       (find-file firstfile))
   (when (file-exists-p secondfile)
@@ -12,6 +11,7 @@
     (find-file secondfile))))
 
 ;(find-file "~/main.org")
+;(find-my-files)
 
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
@@ -69,9 +69,12 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Custom Tabs
-;; (setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode t)
 ;; (setq-default tab-width 4)
-;; (setq indent-line-function 'insert-tab)
+;(setq indent-line-function 'insert-tab)
+
+;; Make return key also indent
+(electric-indent-mode 1)
 
 ;; Always display line and column numbers
 (setq line-number-mode t)
@@ -120,6 +123,7 @@ buffer is not visiting a file."
 ;(toggle-frame-fullscreen)
 
 ;; Cursor Blinking
+(setq blink-cursor-mode t)
 (setq blink-cursor-blinks 0) ; blink forever!
 
 ;; Remove scrollbars, menubars, startup screen, and toolbar
