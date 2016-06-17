@@ -7,6 +7,7 @@
 	indent-for-tab-command
 	kill-current-buffer
 	kill-region
+	mc/mark-next-lines
 	paredit-backward
 	paredit-forward
 	scroll-right
