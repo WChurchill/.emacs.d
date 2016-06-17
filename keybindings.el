@@ -89,10 +89,10 @@ With arg N, insert N newlines."
 (global-set-key (kbd "C-x C-q") 'replace-regexp)
 
 ;; Better Window management
-(global-set-key (kbd "M-s-b") 'shrink-window-horizontally)
-(global-set-key (kbd "M-s-f") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-s-n") 'shrink-window)
-(global-set-key (kbd "M-s-p") 'enlarge-window)
+(global-set-key (kbd "M-B") 'shrink-window-horizontally)
+(global-set-key (kbd "M-F") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-N") 'shrink-window)
+(global-set-key (kbd "M-P") 'enlarge-window)
 
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-1") 'delete-other-windows)
@@ -122,14 +122,13 @@ With arg N, insert N newlines."
 ;; Toggle Menu Bar
 (global-set-key (kbd "C-c C-x t") 'toggle-menu-bar-mode-from-frame)
 
-
 ;; Eval-buffer
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "C-c e") 'eval-buffer)))
 
 ;; Comment/Uncomment region
-(add-hook 'c-mode-common-hook
+(add-hook 'prog-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "C-c /") 'comment-region)
 	    (local-set-key (kbd "C-c ?") 'uncomment-region)))
