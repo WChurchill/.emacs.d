@@ -70,7 +70,7 @@
 
 ;; Custom Tabs
 (setq-default indent-tabs-mode t)
-;; (setq-default tab-width 4)
+(setq-default tab-width 4)
 ;(setq indent-line-function 'insert-tab)
 
 ;; Make return key also indent

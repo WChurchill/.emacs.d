@@ -54,7 +54,12 @@ With arg N, insert N newlines."
 (global-set-key (kbd "C-S-o") 'smart-open-line-above)
 
 ;; Joins Lines into one (from the bottom up)
-(global-set-key (kbd "M-j") '(lambda () (interactive) (join-line -1)))
+(defun join-line-down (&optional n)
+  (interactive)
+  (if n
+	  (join-line (- n))
+	(join-line -1)))
+(global-set-key (kbd "M-j") 'join-line-down)
 ;;from top down
 (global-set-key (kbd "M-6") 'join-line)
 
@@ -94,15 +99,17 @@ With arg N, insert N newlines."
 (global-set-key (kbd "M-N") 'shrink-window)
 (global-set-key (kbd "M-P") 'enlarge-window)
 
+(defun save-all-delete-frame ()
+  (interactive)
+  (save-some-buffers)
+  (delete-frame))
+
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2") 'split-window-horizontally)
 (global-set-key (kbd "M-3") 'split-window-vertically)
 (global-set-key (kbd "M-4") 'kill-buffer-and-window)
-(global-set-key (kbd "M-8") #'(lambda ()
-				(interactive)
-				(save-some-buffers)
-				(delete-frame)))
+(global-set-key (kbd "M-8") 'save-all-delete-frame)
 (global-set-key (kbd "M-=") 'balance-windows)
 
 ;; Killing buffers and Windows

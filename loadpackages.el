@@ -15,6 +15,7 @@
     auctex
     ;;autopair
     avy
+	cmake-mode
     company
     company-auctex
     company-cmake

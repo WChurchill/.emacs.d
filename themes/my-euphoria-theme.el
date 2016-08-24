@@ -13,10 +13,10 @@
  'my-euphoria
 
  '(default ((t (:background "black" :foreground "green"))))
- '(mouse ((t (:foregound "red"))))
+ '(mouse ((t (:foregound "white"))))
  '(cursor ((t (:foregound "red"))))
  '(border ((t (:foregound "black"))))
-
+ 
  '(help-highlight-face ((t (:underline t))))
  '(list-matching-lines-face ((t (:bold t :weight bold))))
  '(widget-mouse-face ((t (:background "darkolivegreen"))))

@@ -174,7 +174,9 @@
 ;;; PYTHON-MODE
 (package-initialize)
 (elpy-enable)
-(elpy-use-ipython)
+(setq python-shell-interpreter "ipython"
+    python-shell-interpreter-args "--simple-prompt -i")
+;(elpy-use-ipython)
 (defun bind-python-keys ()
   )
 
