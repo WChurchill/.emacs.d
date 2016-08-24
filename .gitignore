@@ -1,5 +1,6 @@
 # exclude third-party emacs plugins
 /elpa
+/eshell
 /auto-save-list
 
 #exclude file backups
