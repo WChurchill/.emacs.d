@@ -19,12 +19,14 @@
     company
     company-auctex
     company-cmake
+	company-emacs-eclim
     css-mode
     elpy
-    emacs-eclim
+    eclim
     ;;color-identifiers-mode
     helm
     helm-gtags
+	helm-projectile
     highlight-numbers
     highlight-quoted
     jedi

@@ -329,14 +329,7 @@
   (local-set-key (kbd "C-c m") 'multi-term-next)
   (local-set-key (kbd "C-c n") 'multi-term-prev))
 
-(add-hook 'multi-term-mode-hook
-<<<<<<< HEAD
-	  (lambda ()
-	    (local-set-key (kbd "C-c m") 'multi-term-next)
-	    (local-set-key (kbd "C-c n") 'multi-term-prev)))
-=======
-	  'bind-multi-term-keys)
-
+(add-hook 'multi-term-mode-hook 'bind-multi-term-keys)
 
 ;;; Smart-Mode-Line
 ;(setq sml/theme 'powerline)
@@ -363,4 +356,3 @@
 ;;; HELM-PROJECTILE
 (require 'helm-projectile)
 (helm-projectile-on)
->>>>>>> 53e5a39ace1263a2eeeaef632bb9d045a05e9365
