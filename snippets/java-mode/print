@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: print
+# key: pr
+# --
+System.out.print("${1:text}");
+$0

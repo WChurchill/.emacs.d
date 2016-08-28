@@ -2,30 +2,79 @@
 
 ;; Startup workspace
 (defun find-my-files ()
-  (let ((orgfile  "~/org/main.org")
-	(lispfile "~/lisp/quicklisp/local-projects" ))
-  (if (file-exists-p orgfile)
-      (find-file orgfile))
-  (when (file-exists-p lispfile)
+  (let ((firstfile  "~/abc.org")
+	(secondfile "~/main.org"))
+  (if (file-exists-p firstfile)
+      (find-file firstfile))
+  (when (file-exists-p secondfile)
     (split-window-horizontally)
-    (find-file lispfile))))
+    (find-file secondfile))))
 
-(find-my-files)
+;(find-file "~/main.org")
+;(find-my-files)
+
+;; Security Patches
+;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
+(setq tls-checktrust t)
+(let ((trustfile
+       (replace-regexp-in-string
+        "\\\\" "/"
+        (replace-regexp-in-string
+         "\n" ""
+         (shell-command-to-string "python -m certifi")))))
+  (setq tls-program
+        (list
+         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                 (if (eq window-system 'w32) ".exe" "") trustfile))))
+;; (if (condition-case e
+;;         (progn
+;;           (url-retrieve "https://wrong.host.badssl.com/"
+;;                         (lambda (retrieved) t))
+;;           (url-retrieve "https://self-signed.badssl.com/"
+;;                         (lambda (retrieved) t))
+;;           t)
+;;       ('error nil))
+;;     (error "tls misconfigured")
+;;   (url-retrieve "https://badssl.com"
+;;                 (lambda (retrieved) t)))
 
 ;; Easier editing of .emacs.d/
 (defun em-dir ()
   (interactive)
   (find-file "~/.emacs.d"))
 
+;; Easier setup of lisp workspace
+(defun lisp-dir ()
+  (interactive)
+  (find-file "~/lisp"))
+
+(defun l-proj ()
+  (interactive)
+  (find-file "~/lisp/quicklisp/local-projects"))
+
+;; Find C++ directory easily
+(defun c-dir ()
+  (interactive)
+  (find-file "~/C++"))
+
 ;; Font
 (setq line-spacing 0)
-(set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
+(set-face-attribute 'default nil :height 108)
+;(set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
 
 ;; Line width and word wrapping
-(auto-fill-mode)
-(setq fill-column 80)
-(setq-default truncate-lines t)
+(auto-fill-mode 1)
+(setq auto-fill-column 100)
+;(setq-default truncate-lines t)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; Custom Tabs
+(setq-default indent-tabs-mode t)
+(setq-default tab-width 4)
+;(setq indent-line-function 'insert-tab)
+
+;; Make return key also indent
+(electric-indent-mode 1)
 
 ;; Always display line and column numbers
 (setq line-number-mode t)
@@ -37,6 +86,12 @@
 
 ;; Don’t defer screen updates when performing operations
 (setq redisplay-dont-pause t)
+
+;; enable electric-pair mode for C-like languages (e.g. Java, C++, etc.)
+(add-hook 'c-mode-common-hook 'electric-pair-mode)
+
+;; also for shell-script-mode
+(add-hook 'sh-mode-hook 'electric-pair-mode)
 
 ;; Start show-paren-mode
 (show-paren-mode 1)
@@ -58,11 +113,6 @@ With a prefix ARG prompt for a file to visit.
 Will also prompt for a file to visit if current
 buffer is not visiting a file."
   (interactive "P")
-  
-  
-  
-  
-  
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:"
                          (ido-read-file-name "Find file(as root): ")))
@@ -73,7 +123,8 @@ buffer is not visiting a file."
 ;(toggle-frame-fullscreen)
 
 ;; Cursor Blinking
-(setq blink-cursor-blinks 9999)
+(setq blink-cursor-mode t)
+(setq blink-cursor-blinks 0) ; blink forever!
 
 ;; Remove scrollbars, menubars, startup screen, and toolbar
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -87,3 +138,8 @@ buffer is not visiting a file."
 ;(global-set-key (kbd "C-c C-p") 'windmove-up)
 ;(global-set-key (kbd "C-c C-f") 'windmove-right)
 
+;; Set default browser
+;; this doesn't work for some reason
+;(setq browse-url-default-browser "/usr/bin/chromium")
+; this works though
+(setq browse-url-browser-function 'browse-url-chromium)

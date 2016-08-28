@@ -54,7 +54,12 @@ With arg N, insert N newlines."
 (global-set-key (kbd "C-S-o") 'smart-open-line-above)
 
 ;; Joins Lines into one (from the bottom up)
-(global-set-key (kbd "M-j") '(lambda () (interactive) (join-line -1)))
+(defun join-line-down (&optional n)
+  (interactive)
+  (if n
+	  (join-line (- n))
+	(join-line -1)))
+(global-set-key (kbd "M-j") 'join-line-down)
 ;;from top down
 (global-set-key (kbd "M-6") 'join-line)
 
@@ -65,7 +70,8 @@ With arg N, insert N newlines."
 (global-set-key (kbd "C-M-<backspace>") 'backward-kill-sexp)
 
 ;; Replace List-buffers with Ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-unset-key (kbd "C-x C-b"))
+(global-set-key (kbd "C-x C-b b") 'ibuffer)
 
 ;;Quicker Keybinding Writing
 (defun new-global-key ()
@@ -84,21 +90,26 @@ With arg N, insert N newlines."
 	    (local-set-key (kbd "C-c C-k") 'new-global-key)
 	    (local-set-key (kbd "C-c C-l") 'new-local-key)))
 
-;; Copy and Kill region
-(global-set-key (kbd "C-w") 'copy-region-as-kill)
-(global-set-key (kbd "C-x w") 'kill-region)
+;; replace-regexp
+(global-set-key (kbd "C-x C-q") 'replace-regexp)
 
 ;; Better Window management
-(global-set-key (kbd "M-s-b") 'shrink-window-horizontally)
-(global-set-key (kbd "M-s-f") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-s-n") 'shrink-window)
-(global-set-key (kbd "M-s-p") 'enlarge-window)
+(global-set-key (kbd "M-B") 'shrink-window-horizontally)
+(global-set-key (kbd "M-F") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-N") 'shrink-window)
+(global-set-key (kbd "M-P") 'enlarge-window)
+
+(defun save-all-delete-frame ()
+  (interactive)
+  (save-some-buffers)
+  (delete-frame))
 
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2") 'split-window-horizontally)
 (global-set-key (kbd "M-3") 'split-window-vertically)
 (global-set-key (kbd "M-4") 'kill-buffer-and-window)
+(global-set-key (kbd "M-8") 'save-all-delete-frame)
 (global-set-key (kbd "M-=") 'balance-windows)
 
 ;; Killing buffers and Windows
@@ -112,5 +123,19 @@ With arg N, insert N newlines."
 ;; Horizontal Scrolling
 (put 'scroll-left 'disabled nil)
 (put 'scroll-right 'disabled nil)
-(global-set-key (kbd "C-<") 'scroll-left)
-(global-set-key (kbd "C->") 'scroll-right)
+(global-set-key (kbd "C-<") 'scroll-right)
+(global-set-key (kbd "C->") 'scroll-left)
+
+;; Toggle Menu Bar
+(global-set-key (kbd "C-c C-x t") 'toggle-menu-bar-mode-from-frame)
+
+;; Eval-buffer
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c e") 'eval-buffer)))
+
+;; Comment/Uncomment region
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c /") 'comment-region)
+	    (local-set-key (kbd "C-c ?") 'uncomment-region)))

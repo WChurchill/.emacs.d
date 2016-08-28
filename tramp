@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <15/08/17 20:46:11 /home/winston/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <16/08/28 15:32:49 /home/winston/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -19,4 +19,26 @@
   ("id" "/bin/id")
   ("gid-string" "root")
   ("gid-integer" 0)
-  ("uid-integer" 0)))
+  ("uid-integer" 0))
+ (["sudo" "root" "Toshiba-Arch.localdomain" nil nil]
+  ("locale" "LC_ALL=en_US.utf8")
+  ("uname" "Linux 4.7.1-1-ARCH")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("~root" "/root")
+  ("file-exists" "test -e")
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("stat" "\\stat")
+  ("id" "/bin/id")
+  ("gid-string" "root")
+  ("gid-integer" 0)
+  ("readlink" "\\readlink")
+  ("uid-integer" 0)
+  ("tmpdir" "/sudo:root@Toshiba-Arch.localdomain:/tmp")
+  ("touch-t" t)
+  ("touch" "\\touch")
+  ("ls" "/bin/ls --color=never")))
