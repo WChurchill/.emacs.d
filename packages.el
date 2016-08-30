@@ -1,6 +1,6 @@
 ;;;; packages.el
 ;(setq debug-on-error t)
-(load "~/.emacs.d/loadpackages.el")
+(load-file "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
 (require 'helm)
@@ -299,25 +299,30 @@
 
 
 ;;; SLIME-MODE
-(defun init-slime ()
-  (interactive)
-  (load "~/.emacs.d/slime.el")
-  (slime))
+(require 'slime)
+(load-file "~/.emacs.d/slime.el")
+
+;; (defun init-slime ()
+;;   (interactive)
+;;   (load "~/.emacs.d/slime.el")
+;;   (slime))
 
 
 ;;; ORG-MODE
 (require 'org)
+(defun load-my-org-config ()
+  (load-file "~/.emacs.d/org.el"))
 
-(defun bind-org-mode-keys ()
-  (local-set-key (kbd "C-c a") 'org-agenda)
-  (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
-  (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
-  (local-set-key (kbd "C-c C-f") 'org-down-element)
-  (local-set-key (kbd "C-c C-b") 'org-up-element))
+(add-hook 'org-mode-hook 'load-my-org-config)
+;; (defun bind-org-mode-keys ()
+;;   (local-set-key (kbd "C-c a") 'org-agenda)
+;;   (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
+;;   (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
+;;   (local-set-key (kbd "C-c C-f") 'org-down-element)
+;;   (local-set-key (kbd "C-c C-b") 'org-up-element))
 
-(add-hook 'org-mode-hook
-	  'bind-org-mode-keys)
-;(setq org-agenda-files (quote "~/org/cal.org"))
+;; (add-hook 'org-mode-hook
+;; 	  'bind-org-mode-keys)
 
 
 ;;; MULTI-TERM
@@ -337,7 +342,7 @@
 
 
 ;;; File extensions
-(load "~/.emacs.d/filemode.el")
+(load-file "~/.emacs.d/filemode.el")
 
 
 ;;; YASNIPPET
