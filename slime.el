@@ -3,7 +3,7 @@
 ;;; Set Inferior Lisp
 (load (expand-file-name "~/lisp/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "/usr/bin/sbcl")
-(setq slime-contribs '(slime-fancy))
+(setq slime-contribs '(slime-fancy slime-banner))
 
 ;;; Local Copy of the CL Hyperspec
 (setq common-lisp-hyperspec-root "file:/home/winston/lisp/CLHS7/HyperSpec/")
@@ -18,7 +18,8 @@
 (defun bind-repl-keys ()
   (enable-paredit-mode)
   (override-slime-repl-bindings-with-paredit)
-  (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
+  ;;(local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
+  (local-set-key (kbd "M-DEL") 'paredit-backward-kill-word)
   (local-set-key (kbd "C-c q") 'load-slime-package-files))
 
 (add-hook 'slime-repl-mode-hook 'bind-repl-keys)
