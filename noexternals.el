@@ -2,16 +2,16 @@
 
 ;; Startup workspace
 (defun find-my-files ()
-  (let ((firstfile  "~/abc.org")
-	(secondfile "~/main.org"))
+  (let ((firstfile  "~/school/school.org")
+	(secondfile "~/org/main.org"))
   (if (file-exists-p firstfile)
       (find-file firstfile))
   (when (file-exists-p secondfile)
     (split-window-horizontally)
     (find-file secondfile))))
 
-;(find-file "~/main.org")
-;(find-my-files)
+;;(find-file "~/org/main.org")
+;;(find-my-files)
 
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
@@ -56,6 +56,9 @@
 (defun c-dir ()
   (interactive)
   (find-file "~/C++"))
+
+;; Auto-update changed files
+(global-auto-revert-mode)
 
 ;; Font
 (setq line-spacing 0)
@@ -115,7 +118,7 @@ buffer is not visiting a file."
   (interactive "P")
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:"
-                         (ido-read-file-name "Find file(as root): ")))
+                         (helm-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; Start fullscreen
