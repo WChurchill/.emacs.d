@@ -25,18 +25,22 @@
   (setq tls-program
         (list
          (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                 (if (eq window-system 'w32) ".exe" "") trustfile))))
-;; (if (condition-case e
-;;         (progn
-;;           (url-retrieve "https://wrong.host.badssl.com/"
-;;                         (lambda (retrieved) t))
-;;           (url-retrieve "https://self-signed.badssl.com/"
-;;                         (lambda (retrieved) t))
-;;           t)
-;;       ('error nil))
-;;     (error "tls misconfigured")
-;;   (url-retrieve "https://badssl.com"
-;;                 (lambda (retrieved) t)))
+                 (if (eq window-system 'w32) ".exe" "") trustfile)))
+  (setq gnutls-verify-error t)
+  (setq gnutls-trustfiles (list trustfile)))
+
+(if (condition-case e
+		(progn
+		  (message "Checkpoint")
+		  (url-retrieve "https://wrong.host.badssl.com/"
+						(lambda (retrieved) t))
+		  (url-retrieve "https://self-signed.badssl.com/"
+						(lambda (retrieved) t))
+		  t)
+	  (error nil))
+	(error "tls misconfigured")
+  (url-retrieve "https://badssl.com"
+				(lambda (retrieved) t)))
 
 ;; Easier editing of .emacs.d/
 (defun em-dir ()
@@ -127,7 +131,7 @@ buffer is not visiting a file."
 
 ;; Cursor Blinking
 (setq blink-cursor-mode t)
-(setq blink-cursor-blinks 0) ; blink forever!
+(setq blink-cursor-blinks -1) ; blink forever!
 
 ;; Remove scrollbars, menubars, startup screen, and toolbar
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
