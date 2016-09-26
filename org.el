@@ -15,6 +15,10 @@
 
 (add-hook 'org-mode-hook 'bind-org-mode-keys)
 
+;;; Make LaTeX previews a larger font
+(setq org-format-latex-options
+	  (plist-put org-format-latex-options :scale 1.7))
+
 ;;; Custom todo keywords
 (setq org-todo-keywords
 	  '((sequence "NEXT(n)"  "|" "DONE(d)")
