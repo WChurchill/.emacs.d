@@ -64,7 +64,11 @@ With arg N, insert N newlines."
 (global-set-key (kbd "M-6") 'join-line)
 
 ;; Kill line from the left
-(global-set-key (kbd "<s-backspace>") '(lambda () (interactive) (kill-line 0)))
+(defun backward-kill-line ()
+  (interactive)
+  (kill-line 0))
+
+(global-set-key (kbd "<s-backspace>") 'backward-kill-line)
 
 ;; Backward-kill-sexp
 (global-set-key (kbd "C-M-<backspace>") 'backward-kill-sexp)
@@ -85,10 +89,12 @@ With arg N, insert N newlines."
   (insert "(local-set-key (kbd \"\") ')")
   (backward-char 5))
 
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c C-k") 'new-global-key)
-	    (local-set-key (kbd "C-c C-l") 'new-local-key)))
+(defun bind-my-elisp-keys ()
+  (local-set-key (kbd "C-c C-k") 'new-global-key)
+  (local-set-key (kbd "C-c C-l") 'new-local-key)
+  (local-set-key (kbd "C-c e") 'eval-buffer))
+
+(add-hook 'emacs-lisp-mode-hook 'bind-my-elisp-keys)
 
 ;; replace-regexp
 (global-set-key (kbd "C-x C-q") 'replace-regexp)
@@ -129,13 +135,9 @@ With arg N, insert N newlines."
 ;; Toggle Menu Bar
 (global-set-key (kbd "C-c C-x t") 'toggle-menu-bar-mode-from-frame)
 
-;; Eval-buffer
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c e") 'eval-buffer)))
-
 ;; Comment/Uncomment region
-(add-hook 'prog-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c /") 'comment-region)
-	    (local-set-key (kbd "C-c ?") 'uncomment-region)))
+(defun bind-comment-keys ()
+  (local-set-key (kbd "C-c /") 'comment-region)
+  (local-set-key (kbd "C-c ?") 'uncomment-region))
+
+(add-hook 'prog-mode-hook 'bind-comment-keys)
