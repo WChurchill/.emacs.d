@@ -66,8 +66,9 @@
 
 ;; Font
 (setq line-spacing 0)
-(set-face-attribute 'default nil :height 108)
-;(set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
+;;(set-face-attribute 'default nil :height 108)
+(set-face-font 'default "-*-Inconsolata-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1")
+;;(set-face-font 'default "-*-inconsolata-r-*-*-*-140-75-75-*-*-iso8859-15")
 
 ;; Line width and word wrapping
 (auto-fill-mode 1)
@@ -130,8 +131,11 @@ buffer is not visiting a file."
 ;(toggle-frame-fullscreen)
 
 ;; Cursor Blinking
-(setq blink-cursor-mode t)
-(setq blink-cursor-blinks -1) ; blink forever!
+;; enable cursor blinking mode
+(blink-cursor-mode 1) ; enable haxxing mode
+;; number of blinks before using solid cursor
+;; if arg is 0 or negative, never stop blinking
+(setq blink-cursor-blinks 0) ; blink forever!
 
 ;; Remove scrollbars, menubars, startup screen, and toolbar
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -150,3 +154,14 @@ buffer is not visiting a file."
 ;(setq browse-url-default-browser "/usr/bin/chromium")
 ; this works though
 (setq browse-url-browser-function 'browse-url-chromium)
+
+;; Default dired shell commands
+(setq dired-guess-shell-alist-user
+	  '(("\\.\(pdf\)"
+		 "evince > /dev/null")
+		("\\.\(odt\|docx?\)"
+		 "libreoffice > /dev/null")
+		("*\.\(jpe?g\|png\|gif\|bmp\)"
+		 "eog > /dev/null")
+		("\\.\(mp4\|webm\|mov\)"
+		 "vlc > /dev/null")))
