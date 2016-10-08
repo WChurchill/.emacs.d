@@ -1,16 +1,23 @@
 ;;; org.el
 
-(local-set-key (kbd "C-c a") 'org-agenda)
-(local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
-(local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
-(local-set-key (kbd "C-c C-f") 'org-down-element)
-(local-set-key (kbd "C-c C-b") 'org-up-element)
+(defun bind-org-mode-keys ()
+ (local-set-key (kbd "C-c a") 'org-agenda)
+ (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
+ (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
+ (local-set-key (kbd "C-c C-f") 'org-down-element)
+ (local-set-key (kbd "C-c C-b") 'org-up-element)
 
 ;;; Don't use arrow keys to move headings around
-(local-set-key (kbd "M-J") 'org-metaleft)
-(local-set-key (kbd "M-:") 'org-metaright)
-(local-set-key (kbd "M-K") 'org-metadown)
-(local-set-key (kbd "M-L") 'org-metaup)
+ (local-set-key (kbd "M-J") 'org-metaleft)
+ (local-set-key (kbd "M-:") 'org-metaright)
+ (local-set-key (kbd "M-K") 'org-metadown)
+ (local-set-key (kbd "M-L") 'org-metaup))
+
+(add-hook 'org-mode-hook 'bind-org-mode-keys)
+
+;;; Make LaTeX previews a larger font
+(setq org-format-latex-options
+	  (plist-put org-format-latex-options :scale 1.7))
 
 ;;; Custom todo keywords
 (setq org-todo-keywords
@@ -30,6 +37,7 @@
 		(:endgroup . nil)))
 
 ;;; Set agenda files to view all todo entries
-(setq org-agenda-files 
-	  (directory-files "~/org" "."))
+(setq org-agenda-files
+	  '("~/org/main.org"
+		"~/school/school.org"))
 

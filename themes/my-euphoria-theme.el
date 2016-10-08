@@ -14,7 +14,7 @@
 
  '(default ((t (:background "black" :foreground "green"))))
  '(mouse ((t (:foregound "white"))))
- '(cursor ((t (:foregound "red"))))
+ '(cursor ((t (:foregound "white"))))
  '(border ((t (:foregound "black"))))
  
  '(help-highlight-face ((t (:underline t))))
@@ -34,7 +34,7 @@
  '(font-lock-doc-face ((t (:foreground "cyan"))))
  '(font-lock-doc-string-face ((t (:foreground "cyan3"))))
  '(font-lock-function-name-face ((t (:foreground "magenta" :bold nil))))
- '(font-lock-keyword-face ((t (:foreground "blue" :bold t))))
+ '(font-lock-keyword-face ((t (:foreground "#5050a0" :bold t))))
  '(font-lock-preprocessor-face ((t (:foreground  "mediumspringgreen" ))))
  '(font-lock-reference-face ((t (:foreground "white"))))
  '(font-lock-string-face ((t (:foreground "gold"))))

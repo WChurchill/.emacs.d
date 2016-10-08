@@ -12,24 +12,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
+ '(org-agenda-files '("~/org/main.org" "~/school/school.org"))
+ '(package-selected-packages
    (quote
-	("26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(org-agenda-files (quote ("~/org/main.org"))))
-
+	(swiper smart-mode-line-powerline-theme python-mode php-mode paredit multiple-cursors multi-web-mode multi-term matlab-mode magit lua-mode jedi highlight-quoted highlight-numbers helm-projectile helm-gtags ggtags emacs-eclim elpy company-cmake company-c-headers company-auctex cmake-font-lock autopair arduino-mode android-mode ace-window ac-js2))))
 
 ;; Don't run regular expressions for every .el and .elc file
-(let ((file-name-handler-alist nil))
+(let ((file-name-handler-alist nil)
+      (default-cons-threshold gc-cons-threshold)
+	  (temp-cons-threshold 100000000))
   ;; Increase number of bytes before garbage collection
-  (setq gc-cons-threshold 100000000)
-  
-  (load "/home/winston/.emacs.d/themes/my-euphoria-theme.el")
-  (load "/home/winston/.emacs.d/noexternals.el")
-  (load "/home/winston/.emacs.d/keybindings.el")
-  (load "/home/winston/.emacs.d/packages.el")
+  (setq gc-cons-threshold temp-cons-threshold)
 
   
-  (setq gc-cons-threshold 800000))
+  (load "/home/winston/.emacs.d/noexternals.el")
+  (load "/home/winston/.emacs.d/keybindings.el")
+  (load "/home/winston/.emacs.d/themes/my-euphoria-theme.el")
+  (load "/home/winston/.emacs.d/packages.el")
+  
+  
+  ;;(setq gc-cons-threshold 800000)
+  (setq gc-cons-threshold default-cons-threshold))
 
 
 (custom-set-faces

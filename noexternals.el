@@ -2,16 +2,16 @@
 
 ;; Startup workspace
 (defun find-my-files ()
-  (let ((firstfile  "~/abc.org")
-	(secondfile "~/main.org"))
+  (let ((firstfile  "~/school/school.org")
+	(secondfile "~/org/main.org"))
   (if (file-exists-p firstfile)
       (find-file firstfile))
   (when (file-exists-p secondfile)
     (split-window-horizontally)
     (find-file secondfile))))
 
-;(find-file "~/main.org")
-;(find-my-files)
+;;(find-file "~/org/main.org")
+;;(find-my-files)
 
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
@@ -25,18 +25,22 @@
   (setq tls-program
         (list
          (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                 (if (eq window-system 'w32) ".exe" "") trustfile))))
-;; (if (condition-case e
-;;         (progn
-;;           (url-retrieve "https://wrong.host.badssl.com/"
-;;                         (lambda (retrieved) t))
-;;           (url-retrieve "https://self-signed.badssl.com/"
-;;                         (lambda (retrieved) t))
-;;           t)
-;;       ('error nil))
-;;     (error "tls misconfigured")
-;;   (url-retrieve "https://badssl.com"
-;;                 (lambda (retrieved) t)))
+                 (if (eq window-system 'w32) ".exe" "") trustfile)))
+  (setq gnutls-verify-error t)
+  (setq gnutls-trustfiles (list trustfile)))
+
+(if (condition-case e
+		(progn
+		  (message "Checkpoint")
+		  (url-retrieve "https://wrong.host.badssl.com/"
+						(lambda (retrieved) t))
+		  (url-retrieve "https://self-signed.badssl.com/"
+						(lambda (retrieved) t))
+		  t)
+	  (error nil))
+	(error "tls misconfigured")
+  (url-retrieve "https://badssl.com"
+				(lambda (retrieved) t)))
 
 ;; Easier editing of .emacs.d/
 (defun em-dir ()
@@ -57,10 +61,14 @@
   (interactive)
   (find-file "~/C++"))
 
+;; Auto-update changed files
+(global-auto-revert-mode)
+
 ;; Font
 (setq line-spacing 0)
-(set-face-attribute 'default nil :height 108)
-;(set-face-font 'default "-*-terminus-medium-r-*-*-*-140-75-75-*-*-iso8859-15")
+;;(set-face-attribute 'default nil :height 108)
+(set-face-font 'default "-*-Inconsolata-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1")
+;;(set-face-font 'default "-*-inconsolata-r-*-*-*-140-75-75-*-*-iso8859-15")
 
 ;; Line width and word wrapping
 (auto-fill-mode 1)
@@ -115,7 +123,7 @@ buffer is not visiting a file."
   (interactive "P")
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:"
-                         (ido-read-file-name "Find file(as root): ")))
+                         (helm-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; Start fullscreen
@@ -123,7 +131,10 @@ buffer is not visiting a file."
 ;(toggle-frame-fullscreen)
 
 ;; Cursor Blinking
-(setq blink-cursor-mode t)
+;; enable cursor blinking mode
+(blink-cursor-mode 1) ; enable haxxing mode
+;; number of blinks before using solid cursor
+;; if arg is 0 or negative, never stop blinking
 (setq blink-cursor-blinks 0) ; blink forever!
 
 ;; Remove scrollbars, menubars, startup screen, and toolbar
@@ -143,3 +154,14 @@ buffer is not visiting a file."
 ;(setq browse-url-default-browser "/usr/bin/chromium")
 ; this works though
 (setq browse-url-browser-function 'browse-url-chromium)
+
+;; Default dired shell commands
+(setq dired-guess-shell-alist-user
+	  '(("\\.\(pdf\)"
+		 "evince > /dev/null")
+		("\\.\(odt\|docx?\)"
+		 "libreoffice > /dev/null")
+		("*\.\(jpe?g\|png\|gif\|bmp\)"
+		 "eog > /dev/null")
+		("\\.\(mp4\|webm\|mov\)"
+		 "vlc > /dev/null")))

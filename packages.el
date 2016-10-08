@@ -1,12 +1,14 @@
 ;;;; packages.el
 ;(setq debug-on-error t)
-(load "~/.emacs.d/loadpackages.el")
+(load-file "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
 (require 'helm)
 (setq helm-mode-line-string "")
+(helm-autoresize-mode t)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files) 
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
 (helm-mode 1)
 
 (defun select-site ()
@@ -299,26 +301,18 @@
 
 
 ;;; SLIME-MODE
+;(require 'slime-mode)
+;(load-file "~/.emacs.d/slime.el")
+
 (defun init-slime ()
   (interactive)
-  (load "~/.emacs.d/slime.el")
+  (load-file "~/.emacs.d/slime.el")
   (slime))
 
 
 ;;; ORG-MODE
 (require 'org)
-
-(defun bind-org-mode-keys ()
-  (local-set-key (kbd "C-c a") 'org-agenda)
-  (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
-  (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
-  (local-set-key (kbd "C-c C-f") 'org-down-element)
-  (local-set-key (kbd "C-c C-b") 'org-up-element))
-
-(add-hook 'org-mode-hook
-	  'bind-org-mode-keys)
-;(setq org-agenda-files (quote "~/org/cal.org"))
-
+(load-file "~/.emacs.d/org.el")
 
 ;;; MULTI-TERM
 (require 'multi-term)
@@ -337,7 +331,7 @@
 
 
 ;;; File extensions
-(load "~/.emacs.d/filemode.el")
+(autoload "~/.emacs.d/filemode.el")
 
 
 ;;; YASNIPPET

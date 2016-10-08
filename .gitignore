@@ -7,6 +7,9 @@
 *~
 \#*\#
 
+#Precompiled elisp
+*.elc
+
 #Hide personal info
 tramp
 .
