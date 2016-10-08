@@ -1,5 +1,5 @@
 ;;;; packages.el
-;(setq debug-on-error t)
+(setq debug-on-error t)
 (load-file "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
@@ -68,7 +68,6 @@
 
 ;;; PAREDIT
 (defun wrap-progn ()
-  (interactive)
   (paredit-forward)
   (paredit-backward)
   (paredit-wrap-sexp 1)
@@ -104,21 +103,21 @@
   (local-set-key (kbd "C-c C-d p") 'wrap-progn)
   (local-set-key (kbd "M-r") 'paredit-raise-sexp))
 
-(add-hook 'paredit-mode-hook 'bind-paredit-keys)
+(add-hook 'enable-paredit-mode 'bind-paredit-keys)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'slime-repl-mode-hook       #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook       'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook       'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           'enable-paredit-mode)
 
 
 ;;; COMPANY
 (require 'company)
-(global-company-mode t)
+(add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "C-<tab>") 'company-complete)
 
 
@@ -139,10 +138,10 @@
 ;;; EMACS-ECLIM
 (require 'eclim)
 (require 'eclimd)
-(require 'company-emacs-eclim)
+(require 'company-eclim)
 
-(global-eclim-mode)
-(company-emacs-eclim-setup)
+(add-hook 'after-init-hook 'global-eclim-mode)
+;;(company-emacs-eclim-setup)
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
@@ -156,13 +155,13 @@
 
 (defun compile-ctf ()
   (interactive)
-  (let (b (get-buffer-create "*CTF compilation*"))
-    (set-buffer b)
-    (shell-command
-     "cd ~/school/artificial_intelligence/project; javac -cp . ctf/agent/*.java"))
+  (switch-to-buffer
+   (get-buffer-create "*CTF compilation*"))
+  (shell-command
+   "cd ~/school/spring_2016/artificial_intelligence/project; javac -cp . ctf/agent/*.java"))
 
-  (defun bind-compile-ctf ()
-    (local-set-key (kbd "C-c b") 'compile-ctf)))
+(defun bind-compile-ctf ()
+  (local-set-key (kbd "C-c b") 'compile-ctf))
 
 (add-hook 'java-mode-hook 'bind-compile-ctf)
 
@@ -202,6 +201,9 @@
      'interactive-compile)))
 
 (add-hook 'c-mode-common-hook 'bind-interactive-compile)
+(add-hook 'c-mode-common-hook 'linum-mode)
+;;(c-toggle-electric-state 1)
+(c-toggle-auto-newline 1)
 
 (setq
  ;; Use gdb-many-windows
@@ -291,7 +293,7 @@
 
 (defun bind-LaTeX-keys ()
   (electric-pair-mode)
-  (LaTeX-add-electric-pairs)
+  ;;(LaTeX-add-electric-pairs)
   ;;(define-key 'LaTeX-mode-map "\$" 'electric-pair)
   (local-set-key (kbd "C-c b") 'latex-insert-block)
   (local-set-key (kbd "C-c C-c") 'save-and-compile-latex)
@@ -331,7 +333,7 @@
 
 
 ;;; File extensions
-(autoload "~/.emacs.d/filemode.el")
+(load "~/.emacs.d/filemode.el")
 
 
 ;;; YASNIPPET
