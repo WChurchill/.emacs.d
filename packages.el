@@ -52,7 +52,7 @@
 (setq avy-styles-list '((avy-goto-char . at)))
 
 ;; enable avy-select in isearch mode
-(eval-after-load "isearch"
+(eval-after-load 'isearch
   (define-key isearch-mode-map (kbd "C-;") 'avy-isearch))
 
 
