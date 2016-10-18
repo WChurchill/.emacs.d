@@ -313,8 +313,9 @@
 
 
 ;;; ORG-MODE
-(require 'org)
-(load-file "~/.emacs.d/org.el")
+(defun load-org-config ()
+  (load-file "~/.emacs.d/org.el"))
+(add-hook 'after-init-hook 'load-org-config)
 
 ;;; MULTI-TERM
 (require 'multi-term)
