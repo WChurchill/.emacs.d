@@ -1,5 +1,5 @@
 ;;; org.el
-
+(require 'org)
 (defun bind-org-mode-keys ()
  (local-set-key (kbd "C-c a") 'org-agenda)
  (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
