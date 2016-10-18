@@ -1,0 +1,28 @@
+  ac-js2             20140906.442  installed             Auto-complete source for Js2-mode, with navigation
+  ace-window         20160225.819  installed             Quickly switch windows.
+  android-mode       20160408.523  installed             Minor mode for Android application development
+  arduino-mode       20151017.2335 installed             Major mode for the Arduino language
+  autopair           20160304.437  installed             Automagically pair braces and quotes like TextMate
+  cmake-font-lock    20150828.1327 installed             Advanced, type aware, highlight support for CMake
+  company-auctex     20151102.643  installed             Company-mode auto-completion for AUCTeX
+  company-c-headers  20150801.901  installed             Company mode backend for C/C++ header files
+  company-cmake      0.1           installed             company-mode completion back-end for CMake
+  elpy               20160903.841  installed             Emacs Python Development Environment
+  emacs-eclim        20160616.2312 installed             An interface to the Eclipse IDE.
+  ggtags             20160909.813  installed             emacs frontend to GNU Global source code tagging system
+  helm-gtags         20160726.844  installed             GNU GLOBAL helm interface
+  helm-projectile    20160902.2236 installed             Helm integration for Projectile
+  highlight-numbers  20160717.1228 installed             Highlight numbers in source code
+  highlight-quoted   20140916.1122 installed             Highlight Lisp quotes and quoted symbols
+  jedi               20160425.2156 installed             a Python auto-completion for Emacs
+  lua-mode           20160821.1216 installed             a major-mode for editing Lua scripts
+  magit              20160907.945  installed             A Git porcelain inside Emacs
+  matlab-mode        20160902.459  installed             Major mode for MATLAB(R) dot-m files
+  multi-term         20160619.233  installed             Managing multiple terminal buffers in Emacs.
+  multi-web-mode     20130823.2054 installed             multiple major mode support for web editing
+  multiple-cursors   20160719.216  installed             Multiple cursors for Emacs.
+  paredit            20160615.1325 installed             minor mode for editing parentheses
+  php-mode           20160910.1801 installed             Major mode for editing PHP code
+  python-mode        20160911.1032 installed             Python major mode
+  smart-mode-line... 20160705.1738 installed             smart-mode-line theme that mimics the powerline appearance.
+  swiper             20160915.914  installed             Isearch with an overview. Oh, man!
