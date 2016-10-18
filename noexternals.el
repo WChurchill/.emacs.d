@@ -159,7 +159,7 @@ buffer is not visiting a file."
 (setq dired-guess-shell-alist-user
 	  '(("\\.\(pdf\)"
 		 "evince > /dev/null")
-		("\\.\(odt\|docx?\)"
+		("\\.\(odt\|docx?\|pptx?\)"
 		 "libreoffice > /dev/null")
 		("*\.\(jpe?g\|png\|gif\|bmp\)"
 		 "eog > /dev/null")

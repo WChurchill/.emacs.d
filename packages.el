@@ -1,6 +1,6 @@
 ;;;; packages.el
 (setq debug-on-error t)
-(load-file "~/.emacs.d/loadpackages.el")
+;;(load-file "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
 (require 'helm)
@@ -8,7 +8,7 @@
 (helm-autoresize-mode t)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-
+(global-set-key (kbd "C-c h r") 'helm-register)
 (helm-mode 1)
 
 (defun select-site ()
@@ -202,8 +202,8 @@
 
 (add-hook 'c-mode-common-hook 'bind-interactive-compile)
 (add-hook 'c-mode-common-hook 'linum-mode)
-;;(c-toggle-electric-state 1)
-(c-toggle-auto-newline 1)
+(add-hook 'c-mode-common-hook 'c-toggle-electric-state)
+(add-hook 'c-mode-common-hook 'c-toggle-auto-newline)
 
 (setq
  ;; Use gdb-many-windows

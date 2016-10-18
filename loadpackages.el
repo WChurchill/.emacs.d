@@ -3,9 +3,9 @@
 (require 'cl)
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.milkbox.net/packages/") t)
+			 '("melpa" . "https://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
-	     '("marmalade" . "https://marmalade-repo.org/packages/") t)
+			 '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 (defvar required-packages
   '(ac-js2
@@ -31,9 +31,9 @@
     highlight-quoted
     jedi
     js2-mode
-    ;highlight-symbol
-    ;hl-defined
-    ;hl-sexp
+										;highlight-symbol
+										;hl-defined
+										;hl-sexp
     magit
     multi-term
     multi-web-mode
