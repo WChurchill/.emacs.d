@@ -106,6 +106,9 @@
 ;; Start show-paren-mode
 (show-paren-mode 1)
 
+;; highlight line mode
+(global-hl-line-mode t)
+
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
