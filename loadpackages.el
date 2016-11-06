@@ -3,9 +3,9 @@
 (require 'cl)
 (require 'package)
 (add-to-list 'package-archives
-			 '("melpa" . "https://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-			 '("marmalade" . "https://marmalade-repo.org/packages/") t)
+			 '("melpa" . "https://melpa.org/packages/") t)
+;(add-to-list 'package-archives
+;			 '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 (defvar required-packages
   '(ac-js2
@@ -18,12 +18,13 @@
 	cmake-mode
     company
     company-auctex
-    company-cmake
-	company-emacs-eclim
+    ;;company-cmake
+	;;company-emacs-eclim
     css-mode
     elpy
-    eclim
-    ;;color-identifiers-mode
+    ;;eclim
+    exec-path-from-shell ; used for magit ssh usage
+	;;color-identifiers-mode
     helm
     helm-gtags
 	helm-projectile

@@ -29,18 +29,18 @@
   (setq gnutls-verify-error t)
   (setq gnutls-trustfiles (list trustfile)))
 
-(if (condition-case e
-		(progn
-		  (message "Checkpoint")
-		  (url-retrieve "https://wrong.host.badssl.com/"
-						(lambda (retrieved) t))
-		  (url-retrieve "https://self-signed.badssl.com/"
-						(lambda (retrieved) t))
-		  t)
-	  (error nil))
-	(error "tls misconfigured")
-  (url-retrieve "https://badssl.com"
-				(lambda (retrieved) t)))
+;; (if (condition-case e
+;; 		(progn
+;; 		  (message "Checkpoint")
+;; 		  (url-retrieve "https://wrong.host.badssl.com/"
+;; 						(lambda (retrieved) t))
+;; 		  (url-retrieve "https://self-signed.badssl.com/"
+;; 						(lambda (retrieved) t))
+;; 		  t)
+;; 	  (error nil))
+;; 	(error "tls misconfigured")
+;;   (url-retrieve "https://badssl.com"
+;; 				(lambda (retrieved) t)))
 
 ;; Easier editing of .emacs.d/
 (defun em-dir ()
@@ -162,11 +162,11 @@ buffer is not visiting a file."
 
 ;; Default dired shell commands
 (setq dired-guess-shell-alist-user
-	  '(("\\.\(pdf\)"
-		 "evince > /dev/null")
-		("\\.\(odt\|docx?\|pptx?\)"
-		 "libreoffice > /dev/null")
-		("*\.\(jpe?g\|png\|gif\|bmp\)"
-		 "eog > /dev/null")
-		("\\.\(mp4\|webm\|mov\)"
-		 "vlc > /dev/null")))
+	  '(("\\.pdf"
+		 "evince")
+		("\\.\\(odt\\|docx\?\\|pptx\?\\)"
+		 "libreoffice")
+		("\\.\\(jpe\?g\\|png\\|gif\\|bmp\\)"
+		 "eog")
+		("\\.\\(mp4\\|webm\\|mov\\)"
+		 "vlc")))

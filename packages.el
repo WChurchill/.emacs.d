@@ -1,6 +1,6 @@
 ;;;; packages.el
 (setq debug-on-error t)
-;;(load-file "~/.emacs.d/loadpackages.el")
+(load-file "~/.emacs.d/loadpackages.el")
 
 ;;; ACTIVATE HELM-MODE
 (require 'helm)
@@ -9,6 +9,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-c h r") 'helm-register)
+(global-set-key (kbd "C-x r b") 'helm-bookmarks)
 (helm-mode 1)
 
 (defun select-site ()
@@ -136,22 +137,22 @@
 
 
 ;;; EMACS-ECLIM
-(require 'eclim)
-(require 'eclimd)
-(require 'company-eclim)
+;; (require 'eclim)
+;; (require 'eclimd)
+;; (require 'company-eclim)
 
-(add-hook 'after-init-hook 'global-eclim-mode)
-;;(company-emacs-eclim-setup)
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
+;; (add-hook 'after-init-hook 'global-eclim-mode)
+;; ;;(company-emacs-eclim-setup)
+;; (setq help-at-pt-display-when-idle t)
+;; (setq help-at-pt-timer-delay 0.1)
+;; (help-at-pt-set-timer)
 
-(defun bind-eclim-keys ()
-  (local-set-key (kbd "C-c b") 'eclim-project-build)
-  (local-set-key (kbd "C-c r") 'eclim-run-class)
-  (local-set-key (kbd "C-c l") 'eclim-problems))
+;; (defun bind-eclim-keys ()
+;;   (local-set-key (kbd "C-c b") 'eclim-project-build)
+;;   (local-set-key (kbd "C-c r") 'eclim-run-class)
+;;   (local-set-key (kbd "C-c l") 'eclim-problems))
 
-(add-hook 'eclim-mode-hook 'bind-eclim-keys)
+;; (add-hook 'eclim-mode-hook 'bind-eclim-keys)
 
 (defun compile-ctf ()
   (interactive)
@@ -269,6 +270,10 @@
 (defun mgs ();;magit-status shortcut
   (interactive)
   (magit-status))
+;; required for ssh to work
+(require 'exec-path-from-shell)
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 
 ;;; AUCTEX-MODE
@@ -303,9 +308,6 @@
 
 
 ;;; SLIME-MODE
-;(require 'slime-mode)
-;(load-file "~/.emacs.d/slime.el")
-
 (defun init-slime ()
   (interactive)
   (load-file "~/.emacs.d/slime.el")
@@ -313,9 +315,7 @@
 
 
 ;;; ORG-MODE
-(defun load-org-config ()
-  (load-file "~/.emacs.d/org.el"))
-(add-hook 'after-init-hook 'load-org-config)
+(load-file "~/.emacs.d/org.el")
 
 ;;; MULTI-TERM
 (require 'multi-term)
@@ -353,3 +353,7 @@
 ;;; HELM-PROJECTILE
 (require 'helm-projectile)
 (helm-projectile-on)
+
+
+;;; MATLAB
+;; custom workspace configuration for project

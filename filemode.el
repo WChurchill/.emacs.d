@@ -12,3 +12,7 @@
 ;; Set mode for header files to c++-mode rather than c-mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
+;; I use prolog more often than perl
+(add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
+;; open s(ASP) files in prolog mode
+(add-to-list 'auto-mode-alist '("\\.lp\\'" . prolog-mode))

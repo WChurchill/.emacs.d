@@ -1,5 +1,6 @@
 ;;; org.el
 (require 'org)
+
 (defun bind-org-mode-keys ()
  (local-set-key (kbd "C-c a") 'org-agenda)
  (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
@@ -11,7 +12,8 @@
  (local-set-key (kbd "M-J") 'org-metaleft)
  (local-set-key (kbd "M-:") 'org-metaright)
  (local-set-key (kbd "M-K") 'org-metadown)
- (local-set-key (kbd "M-L") 'org-metaup))
+ (local-set-key (kbd "M-L") 'org-metaup)
+ (local-unset-key (kbd "C-'")))
 
 (add-hook 'org-mode-hook 'bind-org-mode-keys)
 
