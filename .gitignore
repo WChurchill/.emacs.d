@@ -23,3 +23,5 @@ projectile-bookmarks.eld
 workbench.xmi
 calc.el
 
+#multiple-cursor command configuration file
+.mc-lists.el
