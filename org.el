@@ -1,20 +1,6 @@
 ;;; org.el
 (require 'org)
 
-(defun bind-org-mode-keys ()
- (local-set-key (kbd "C-c a") 'org-agenda)
- (local-set-key (kbd "C-M-f") 'org-forward-heading-same-level)
- (local-set-key (kbd "C-M-b") 'org-backward-heading-same-level)
- (local-set-key (kbd "C-c C-f") 'org-down-element)
- (local-set-key (kbd "C-c C-b") 'org-up-element)
-
-;;; Don't use arrow keys to move headings around
- (local-set-key (kbd "M-J") 'org-metaleft)
- (local-set-key (kbd "M-:") 'org-metaright)
- (local-set-key (kbd "M-K") 'org-metadown)
- (local-set-key (kbd "M-L") 'org-metaup)
- (local-unset-key (kbd "C-'")))
-
 (add-hook 'org-mode-hook 'bind-org-mode-keys)
 
 ;;; Make LaTeX previews a larger font
@@ -23,23 +9,49 @@
 
 ;;; Custom todo keywords
 (setq org-todo-keywords
-	  '((sequence "NEXT(n)"  "|" "DONE(d)")
-		(sequence "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|")
-		(sequence "|" "CANCELLED(c)")))
+	  '((sequence "NEXT(n)" "TODO(t)" "WAITING(w)" "SOMEDAY(s)" "|")
+		(sequence "|" "DONE(d)" "CANCELLED(c)")))
 
 ;;; Custom tags
 (setq org-tag-persistent-alist
 	  '(("finances" . ?f)
-		("exam" . ?x)
+		("school" . ?s)
+		(:startgroup . nil)
+		("EXAM" . ?x)
 		("homework" .?h)
 		("quiz" . ?z)
+		(:endgroup . nil)
 		(:startgroup . nil)
-		("@home" . ?o)
+		("@house" . ?o)
 		("@apartment" . ?p)
 		(:endgroup . nil)))
 
 ;;; Set agenda files to view all todo entries
-(setq org-agenda-files
-	  '("~/org/main.org"
-		"~/school/school.org"))
+(setq org-agenda-files (directory-files "~/org" t ".\.org\$" t))
+
+(setq org-agenda-custom-commands
+	  '(("c" "Custom agenda"
+		 ((tags "PRIORITY=\"A\""
+				((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+				 (org-agenda-overriding-header "High Priority Unfinished Tasks")))
+		  (agenda "" ((org-agenda-span 14)
+					  (org-deadline-warning-days 0)))))
+		("u" "Unscheduled Todos"
+		 ((alltodo ""
+				   ((org-agenda-skip-function
+					 '(org-agenda-skip-entry-if
+					   'scheduled
+					   'deadline
+					   'todo '("SOMEDAY" "WAITING")))
+					(org-agenda-overriding-header "Unscheduled tasks:")))))))
+
+(defun bind-org-mode-keys ()
+  (local-set-key (kbd "C-c a") 'org-agenda)
+  ;;; Don't use arrow keys to move headings around
+  (local-set-key (kbd "M-J") 'org-metaleft)
+  (local-set-key (kbd "M-:") 'org-metaright)
+  (local-set-key (kbd "M-K") 'org-metadown)
+  (local-set-key (kbd "M-L") 'org-metaup)
+  ;; C-' is used for avy-mode
+  (local-unset-key (kbd "C-'")))
 
