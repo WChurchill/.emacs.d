@@ -141,3 +141,17 @@ With arg N, insert N newlines."
   (local-set-key (kbd "C-c ?") 'uncomment-region))
 
 (add-hook 'prog-mode-hook 'bind-comment-keys)
+
+
+;; Revert buffer
+(global-set-key (kbd "C-c C-x r") 'revert-buffer)
+(defun enable-auto-revert-mode ()
+  "Enables auto-revert mode for the current buffer"
+  (interactive)
+  (auto-revert-mode 1))
+(global-set-key (kbd "C-c C-x C-r") 'enable-auto-revert-mode)
+
+
+;; Dired-up-directory alias
+(require 'dired)
+(define-key dired-mode-map (kbd "b") 'dired-up-directory)
