@@ -1,5 +1,9 @@
 ;;; filemode.el
 
+;; open PKGBUILD files in shell-script-mode
+(add-to-list 'auto-mode-alist '("PKGBUILD" . shell-script-mode))
+(add-to-list 'auto-mode-alist '("\\.install\\'" . shell-script-mode))
+
 ;; set .m file extension to invoke matlab-mode
 (add-to-list 'auto-mode-alist '("\\.m\\'" . matlab-mode))
 
