@@ -3,6 +3,9 @@
 
 (add-hook 'org-mode-hook 'bind-org-mode-keys)
 
+;;; Throw error when editing invisible section
+(setq org-catch-invisible-edits 'show-and-error)
+
 ;;; Make LaTeX previews a larger font
 (setq org-format-latex-options
 	  (plist-put org-format-latex-options :scale 1.7))
@@ -52,6 +55,9 @@
   (local-set-key (kbd "M-:") 'org-metaright)
   (local-set-key (kbd "M-K") 'org-metadown)
   (local-set-key (kbd "M-L") 'org-metaup)
+  ;;; Easy promote and demote subtrees
+  (local-set-key (kbd "C-c M-J") 'org-promote-subtree)
+  (local-set-key (kbd "C-c M-:") 'org-demote-subtree)
   ;; C-' is used for avy-mode
   (local-unset-key (kbd "C-'")))
 
