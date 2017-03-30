@@ -1,7 +1,20 @@
 ;;; org.el
 (require 'org)
 
-(add-hook 'org-mode-hook 'bind-org-mode-keys)
+;;(add-hook 'org-mode-hook 'bind-org-mode-keys)
+
+;;; Custom clock reporting
+(defun my-clock-report ()
+  (interactive)
+  (set-buffer (generate-new-buffer "*my-clock-report*"))
+  (insert
+   (org-clock-get-clocktable
+	:scope 'agenda-with-archives
+	:maxlevel 2
+	:block 'thisyear
+	:step 'week
+	:fileskip0 t))
+  (switch-to-buffer-other-window "*my-clock-report*"))
 
 ;;; Throw error when editing invisible section
 (setq org-catch-invisible-edits 'show-and-error)
@@ -48,16 +61,16 @@
 					   'todo '("SOMEDAY" "WAITING")))
 					(org-agenda-overriding-header "Unscheduled tasks:")))))))
 
-(defun bind-org-mode-keys ()
-  (local-set-key (kbd "C-c a") 'org-agenda)
+
+(define-key org-mode-map (kbd "C-c a") 'org-agenda)
   ;;; Don't use arrow keys to move headings around
-  (local-set-key (kbd "M-J") 'org-metaleft)
-  (local-set-key (kbd "M-:") 'org-metaright)
-  (local-set-key (kbd "M-K") 'org-metadown)
-  (local-set-key (kbd "M-L") 'org-metaup)
+(define-key org-mode-map (kbd "M-J") 'org-metaleft)
+(define-key org-mode-map (kbd "M-:") 'org-metaright)
+(define-key org-mode-map (kbd "M-K") 'org-metadown)
+(define-key org-mode-map (kbd "M-L") 'org-metaup)
   ;;; Easy promote and demote subtrees
-  (local-set-key (kbd "C-c M-J") 'org-promote-subtree)
-  (local-set-key (kbd "C-c M-:") 'org-demote-subtree)
-  ;; C-' is used for avy-mode
-  (local-unset-key (kbd "C-'")))
+(define-key org-mode-map (kbd "C-c M-J") 'org-promote-subtree)
+(define-key org-mode-map (kbd "C-c M-:") 'org-demote-subtree)
+;; C-' is used for avy-mode
+(define-key org-mode-map (kbd "C-'") 'avy-goto-line)
 
