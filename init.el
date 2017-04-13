@@ -12,10 +12,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files '("~/org/main.org" "~/school/school.org"))
+ '(custom-safe-themes
+   (quote
+	("6b3da91c8d9b6921eeb7d87da7e6e642b76db9753fb730bf95470209336cdc4a" default)))
  '(package-selected-packages
    (quote
-	(swiper smart-mode-line-powerline-theme python-mode php-mode paredit multiple-cursors multi-web-mode multi-term matlab-mode magit lua-mode jedi highlight-quoted highlight-numbers helm-projectile helm-gtags ggtags emacs-eclim elpy company-cmake company-c-headers company-auctex cmake-font-lock autopair arduino-mode android-mode ace-window ac-js2))))
+	(php-mode csharp-mode typescript-mode exec-path-from-shell cmake-mode swiper smart-mode-line-powerline-theme python-mode paredit multiple-cursors multi-web-mode multi-term matlab-mode magit lua-mode jedi highlight-quoted highlight-numbers helm-projectile helm-gtags ggtags emacs-eclim elpy company-cmake company-c-headers company-auctex cmake-font-lock autopair arduino-mode android-mode ace-window ac-js2))))
 
 ;; Don't run regular expressions for every .el and .elc file
 (let ((file-name-handler-alist nil)
@@ -33,11 +35,3 @@
   
   ;;(setq gc-cons-threshold 800000)
   (setq gc-cons-threshold default-cons-threshold))
-
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

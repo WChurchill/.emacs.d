@@ -29,46 +29,26 @@
   (setq gnutls-verify-error t)
   (setq gnutls-trustfiles (list trustfile)))
 
-(if (condition-case e
-		(progn
-		  (message "Checkpoint")
-		  (url-retrieve "https://wrong.host.badssl.com/"
-						(lambda (retrieved) t))
-		  (url-retrieve "https://self-signed.badssl.com/"
-						(lambda (retrieved) t))
-		  t)
-	  (error nil))
-	(error "tls misconfigured")
-  (url-retrieve "https://badssl.com"
-				(lambda (retrieved) t)))
-
-;; Easier editing of .emacs.d/
-(defun em-dir ()
-  (interactive)
-  (find-file "~/.emacs.d"))
-
-;; Easier setup of lisp workspace
-(defun lisp-dir ()
-  (interactive)
-  (find-file "~/lisp"))
-
-(defun l-proj ()
-  (interactive)
-  (find-file "~/lisp/quicklisp/local-projects"))
-
-;; Find C++ directory easily
-(defun c-dir ()
-  (interactive)
-  (find-file "~/C++"))
+;; (if (condition-case e
+;; 		(progn
+;; 		  (message "Checkpoint")
+;; 		  (url-retrieve "https://wrong.host.badssl.com/"
+;; 						(lambda (retrieved) t))
+;; 		  (url-retrieve "https://self-signed.badssl.com/"
+;; 						(lambda (retrieved) t))
+;; 		  t)
+;; 	  (error nil))
+;; 	(error "tls misconfigured")
+;;   (url-retrieve "https://badssl.com"
+;; 				(lambda (retrieved) t)))
 
 ;; Auto-update changed files
 (global-auto-revert-mode)
 
 ;; Font
 (setq line-spacing 0)
-;;(set-face-attribute 'default nil :height 108)
-(set-face-font 'default "-*-Inconsolata-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1")
-;;(set-face-font 'default "-*-inconsolata-r-*-*-*-140-75-75-*-*-iso8859-15")
+(set-face-attribute 'default nil :height 135)
+(set-face-font 'default "-*-Inconsolata-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") 
 
 ;; Line width and word wrapping
 (auto-fill-mode 1)
@@ -77,12 +57,21 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Custom Tabs
+(setq-default c-default-style '((java-mode . "java")
+								(awk-mode . "awk")
+								(other . "linux")))
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
+(setq-default c-basic-offset 4)
 ;(setq indent-line-function 'insert-tab)
 
 ;; Make return key also indent
-(electric-indent-mode 1)
+;;(electric-indent-mode 1)
+(defun make-c-ret-do-indent ()
+  (define-key c-mode-base-map (kbd "RET") 'c-context-line-break
+	;;'electric-newline-and-maybe-indent
+	))
+(add-hook 'c-initialization-hook 'make-c-ret-do-indent)
 
 ;; Always display line and column numbers
 (setq line-number-mode t)
@@ -103,6 +92,9 @@
 
 ;; Start show-paren-mode
 (show-paren-mode 1)
+
+;; highlight line mode
+(global-hl-line-mode t)
 
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
@@ -157,11 +149,15 @@ buffer is not visiting a file."
 
 ;; Default dired shell commands
 (setq dired-guess-shell-alist-user
-	  '(("\\.\(pdf\)"
-		 "evince > /dev/null")
-		("\\.\(odt\|docx?\)"
-		 "libreoffice > /dev/null")
-		("*\.\(jpe?g\|png\|gif\|bmp\)"
-		 "eog > /dev/null")
-		("\\.\(mp4\|webm\|mov\)"
-		 "vlc > /dev/null")))
+	  '(("\\.\\(pdf\\|djvu\\)"
+		 "evince")
+		("\\.\\(odt\\|docx\?\\|pptx\?\\)"
+		 "libreoffice")
+		("\\.\\(jpe\?g\\|png\\|gif\\|bmp\\)"
+		 "eog")
+		("\\.\\(mp4\\|webm\\|mov\\)"
+		 "vlc")))
+
+;; enable upcase-region and downcase-region keybindings
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

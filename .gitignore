@@ -12,7 +12,8 @@
 
 #Hide personal info
 tramp
-.
+network-security.data
+srecode-map.el
 
 #Projectile stuff
 projectile-bookmarks.eld
@@ -22,4 +23,5 @@ projectile-bookmarks.eld
 workbench.xmi
 calc.el
 
-tramp
+#multiple-cursor command configuration file
+.mc-lists.el

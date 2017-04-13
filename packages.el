@@ -8,8 +8,54 @@
 (helm-autoresize-mode t)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-
+(global-set-key (kbd "C-c h r") 'helm-register)
+(global-set-key (kbd "C-x r b") 'helm-bookmarks)
 (helm-mode 1)
+
+;; Easier editing of .emacs.d/
+(defun em-dir ()
+  "Preconfigured `helm' for helm implementation of `find-file'.
+Called with a prefix arg show history if some.
+Don't call it from programs, use `helm-find-files-1' instead.
+This is the starting point for nearly all actions you can do on files."
+  (interactive "P")
+  (let* ((smart-input     (helm-find-files-initial-input))
+         (default-input   (expand-file-name "~/.emacs.d"))
+         (input           (cond (helm-find-file-ignore-thing-at-point
+                                 default-input)
+                                ((and (eq major-mode 'org-agenda-mode)
+                                      org-directory
+                                      (not smart-input))
+                                 (expand-file-name org-directory))
+                                ((and (eq major-mode 'dired-mode) smart-input)
+                                 (file-name-directory smart-input))
+                                ((and (not (string= smart-input ""))
+                                      smart-input))
+                                (t default-input)))
+         (input-as-presel (null (nth 0 (file-attributes input))))
+         (presel          (helm-aif (or (and input-as-presel input)
+                                        (buffer-file-name (current-buffer))
+                                        (and (eq major-mode 'dired-mode)
+                                             smart-input))
+                              (if helm-ff-transformer-show-only-basename
+                                  (helm-basename it) it))))
+    (set-text-properties 0 (length input) nil input)
+    (helm-find-files-1 input (and presel (null helm-ff-no-preselect)
+                                  (concat "^" (regexp-quote presel))))))
+
+;; Easier setup of lisp workspace
+(defun lisp-dir ()
+  (interactive)
+  (find-file "~/lisp"))
+
+(defun l-proj ()
+  (interactive)
+  (find-file "~/lisp/quicklisp/local-projects"))
+
+;; Find C++ directory easily
+(defun c-dir ()
+  (interactive)
+  (find-file "~/C++"))
 
 (defun select-site ()
   (helm :sources (helm-build-sync-source "sites"
@@ -117,6 +163,7 @@
 
 ;;; COMPANY
 (require 'company)
+(setq company-dabbrev-downcase nil)
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "C-<tab>") 'company-complete)
 
@@ -136,22 +183,22 @@
 
 
 ;;; EMACS-ECLIM
-(require 'eclim)
-(require 'eclimd)
-(require 'company-eclim)
+;; (require 'eclim)
+;; (require 'eclimd)
+;; (require 'company-eclim)
 
-(add-hook 'after-init-hook 'global-eclim-mode)
-;;(company-emacs-eclim-setup)
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
+;; (add-hook 'after-init-hook 'global-eclim-mode)
+;; ;;(company-emacs-eclim-setup)
+;; (setq help-at-pt-display-when-idle t)
+;; (setq help-at-pt-timer-delay 0.1)
+;; (help-at-pt-set-timer)
 
-(defun bind-eclim-keys ()
-  (local-set-key (kbd "C-c b") 'eclim-project-build)
-  (local-set-key (kbd "C-c r") 'eclim-run-class)
-  (local-set-key (kbd "C-c l") 'eclim-problems))
+;; (defun bind-eclim-keys ()
+;;   (local-set-key (kbd "C-c b") 'eclim-project-build)
+;;   (local-set-key (kbd "C-c r") 'eclim-run-class)
+;;   (local-set-key (kbd "C-c l") 'eclim-problems))
 
-(add-hook 'eclim-mode-hook 'bind-eclim-keys)
+;; (add-hook 'eclim-mode-hook 'bind-eclim-keys)
 
 (defun compile-ctf ()
   (interactive)
@@ -176,8 +223,8 @@
 (package-initialize)
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
-    python-shell-interpreter-args "--simple-prompt -i")
-;(elpy-use-ipython)
+	  python-shell-interpreter-args "--simple-prompt -i")
+;;(elpy-use-ipython)
 (defun bind-python-keys ()
   )
 
@@ -201,9 +248,9 @@
      'interactive-compile)))
 
 (add-hook 'c-mode-common-hook 'bind-interactive-compile)
-(add-hook 'c-mode-common-hook 'linum-mode)
-;;(c-toggle-electric-state 1)
-(c-toggle-auto-newline 1)
+(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'c-mode-common-hook 'c-toggle-electric-state)
+(add-hook 'c-mode-common-hook 'c-toggle-auto-newline)
 
 (setq
  ;; Use gdb-many-windows
@@ -236,6 +283,7 @@
   (helm-gtags-update-tags))
 
 (defun bind-helm-gtags-keys ()
+  (define-key helm-gtags-mode-map (kbd "C-t") 'transpose-chars)
   (local-set-key (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
   (local-set-key (kbd "C-x C-s") 'save-and-update-gtags)
   (local-set-key (kbd "C-j") 'helm-gtags-select)
@@ -269,6 +317,10 @@
 (defun mgs ();;magit-status shortcut
   (interactive)
   (magit-status))
+;; required for ssh to work
+(require 'exec-path-from-shell)
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 
 ;;; AUCTEX-MODE
@@ -277,10 +329,18 @@
 (setq-default TeX-master nil)
 ;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 ;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 ;; ;;not sure what this one does
-;; (setq reftex-plug-into-AUCTeX t)
+(setq reftex-plug-into-AUCTeX t)
+(setq reftex-cite-format; Get ReTeX with biblatex, see http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992
+           '((?t . "\\textcite[]{%l}")
+             (?a . "\\autocite[]{%l}")
+             (?c . "\\cite[]{%l}")
+             (?s . "\\smartcite[]{%l}")
+             (?f . "\\footcite[]{%l}")
+             (?n . "\\nocite{%l}")
+             (?b . "\\blockcquote[]{%l}{}")))
 (defun save-and-compile-latex ()
   (interactive)
   (save-buffer)
@@ -301,11 +361,11 @@
 
 (add-hook 'LaTeX-mode-hook 'bind-LaTeX-keys)
 
+;;; REFTEX
+(require 'reftex)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
 ;;; SLIME-MODE
-;(require 'slime-mode)
-;(load-file "~/.emacs.d/slime.el")
-
 (defun init-slime ()
   (interactive)
   (load-file "~/.emacs.d/slime.el")
@@ -313,7 +373,6 @@
 
 
 ;;; ORG-MODE
-(require 'org)
 (load-file "~/.emacs.d/org.el")
 
 ;;; MULTI-TERM
@@ -352,3 +411,7 @@
 ;;; HELM-PROJECTILE
 (require 'helm-projectile)
 (helm-projectile-on)
+
+
+;;; MATLAB
+;; custom workspace configuration for project
