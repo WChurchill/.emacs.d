@@ -143,13 +143,13 @@ This is the starting point for nearly all actions you can do on files."
     (insert " ")))
 
 (defun bind-paredit-keys ()
-  (local-set-key (kbd "C-c C-d d") 'duplicate-sexp)
-  (local-set-key (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
-  (local-set-key (kbd "C-M-z") 'paredit-wrap-sexp)
-  (local-set-key (kbd "C-c C-d p") 'wrap-progn)
-  (local-set-key (kbd "M-r") 'paredit-raise-sexp))
+  (define-key paredit-mode-map (kbd "C-c C-d d") 'duplicate-sexp)
+  (define-key paredit-mode-map (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
+  (define-key paredit-mode-map (kbd "C-M-z") 'paredit-wrap-sexp)
+  (define-key paredit-mode-map (kbd "C-c C-d p") 'wrap-progn)
+  (define-key paredit-mode-map (kbd "M-r") 'paredit-raise-sexp))
 
-(add-hook 'enable-paredit-mode 'bind-paredit-keys)
+(add-hook 'paredit-mode-hook 'bind-paredit-keys)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       'enable-paredit-mode)
@@ -215,21 +215,23 @@ This is the starting point for nearly all actions you can do on files."
 
 ;;; MULTIPLE-CURSORS
 (require 'multiple-cursors)
-;(global-set-key (kbd "M-<space>") 'mc-)
-(global-set-key (kbd "M-s-c M-s-c") 'mc/edit-lines)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c m e") 'mc/edit-lines)
+(global-set-key (kbd "C-c m a") 'mc/mark-all-like-this)
 
 
 ;;; PYTHON-MODE
-(package-initialize)
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
-	  python-shell-interpreter-args "--simple-prompt -i")
-;;(elpy-use-ipython)
+	  python-shell-interpreter-args "--simple-prompt -i"
+	  )
+(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+(elpy-use-ipython)
 (defun bind-python-keys ()
   )
 
 (add-hook 'python-mode-hook 'bind-python-keys)
-(add-hook 'python-mode-hook 'electric-pair-mode)
+;;(add-hook 'python-mode-hook 'electric-pair-mode)
 
 
 ;;; C++-Mode
@@ -273,6 +275,7 @@ This is the starting point for nearly all actions you can do on files."
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
 (add-hook 'java-mode-hook 'helm-gtags-mode)
+(add-hook 'elpy-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'asm-mode-hook 'helm-gtags-mode)
@@ -298,16 +301,14 @@ This is the starting point for nearly all actions you can do on files."
 ;;; JS2-MODE
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'js2-mode-hook 'ac-js2-mode)
-;; My own janky java compile keybinding
 
 
 ;;; MULTI-WEB-MODE
 (require 'multi-web-mode)
 (setq mweb-default-major-mode 'html-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-		  ;; (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-		  (js-mode "<script>" "</script>")
-                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+		  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
 
@@ -415,3 +416,4 @@ This is the starting point for nearly all actions you can do on files."
 
 ;;; MATLAB
 ;; custom workspace configuration for project
+(add-hook 'matlab-mode-hook 'linum-mode)

@@ -4,8 +4,8 @@
 (require 'package)
 (add-to-list 'package-archives
 			 '("melpa" . "https://melpa.org/packages/") t)
-;(add-to-list 'package-archives
-;			 '("marmalade" . "https://marmalade-repo.org/packages/") t)
+;; (add-to-list 'package-archives
+;; 			 '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 (defvar required-packages
   '(ac-js2
@@ -46,7 +46,8 @@
     python-mode
     smart-mode-line
     smart-mode-line-powerline-theme
-    yasnippet) 
+    ;;winner-mode
+	yasnippet) 
   "A list of packages to insure are installed at launch.")
 
 ;;; method to check if all packages are installed

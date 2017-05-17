@@ -3,25 +3,35 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-	forward-sexp
-	indent-for-tab-command
-	kill-current-buffer
-	kill-region
-	kill-sexp
-	mc/mark-next-lines
-	paredit-backward
-	paredit-forward
-	scroll-right
-	sgml-skip-tag-forward
-	))
+		LaTeX-babel-insert-hyphen
+		LaTeX-insert-left-brace
+		TeX-insert-backslash
+		backward-sexp
+		c-electric-colon
+		c-electric-delete-forward
+		c-electric-paren
+		c-electric-semi&comma
+		c-electric-slash
+		forward-sexp
+		indent-for-tab-command
+		kill-current-buffer
+		kill-region
+		kill-sexp
+		mc/mark-next-lines
+		paredit-backward
+		paredit-forward
+		scroll-right
+		sgml-skip-tag-forward
+		smart-open-line
+		))
 
 (setq mc/cmds-to-run-once
       '(
-	ace-window
-	beginning-of-buffer
-	describe-key-briefly
-	helm-M-x
-	scroll-left
-	sgml-skip-tag-backward
-	yas-expand
-	))
+		ace-window
+		beginning-of-buffer
+		describe-key-briefly
+		helm-M-x
+		scroll-left
+		sgml-skip-tag-backward
+		yas-expand
+		))

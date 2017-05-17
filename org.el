@@ -1,8 +1,6 @@
 ;;; org.el
 (require 'org)
 
-;;(add-hook 'org-mode-hook 'bind-org-mode-keys)
-
 ;;; Custom clock reporting
 (defun my-clock-report ()
   (interactive)
@@ -11,7 +9,9 @@
    (org-clock-get-clocktable
 	:scope 'agenda-with-archives
 	:maxlevel 2
-	:block 'thisyear
+	:tstart "<-5w>"
+	:tend "<+1w>"
+	:wstart 6
 	:step 'week
 	:fileskip0 t))
   (switch-to-buffer-other-window "*my-clock-report*"))
