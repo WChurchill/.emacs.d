@@ -376,6 +376,10 @@ This is the starting point for nearly all actions you can do on files."
 ;;; ORG-MODE
 (load-file "~/.emacs.d/org.el")
 
+(find-file "~/org/main.org")
+;;(find-my-files)
+
+
 ;;; MULTI-TERM
 (require 'multi-term)
 (global-set-key (kbd "C-c M") 'multi-term)

@@ -38,8 +38,10 @@
 		("quiz" . ?z)
 		(:endgroup . nil)
 		(:startgroup . nil)
+		("@computer" . ?c)
 		("@house" . ?o)
 		("@apartment" . ?p)
+		("@location" . ?l)
 		(:endgroup . nil)))
 
 ;;; Set agenda files to view all todo entries

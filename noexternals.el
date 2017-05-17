@@ -10,9 +10,6 @@
     (split-window-horizontally)
     (find-file secondfile))))
 
-;;(find-file "~/org/main.org")
-;;(find-my-files)
-
 ;; Security Patches
 ;; taken from https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 (setq tls-checktrust t)
