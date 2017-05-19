@@ -1,6 +1,20 @@
 ;;; org.el
 (require 'org)
 
+;;; Set agenda files to view all todo entries
+(setq org-agenda-files (directory-files "~/org" t ".\.org\$" t))
+
+;;; Org refile config
+(setq org-refile-targets '((org-agenda-files . (:level . 1))))
+
+;;; Org-Capture config
+(setq org-default-notes-file (concat org-directory "/inbox.org"))
+(define-key global-map (kbd "C-c c") 'org-capture)
+
+(setq org-capture-templates
+	  '(("n" "Next" entry (file+headline "~/org/inbox.org" "Tasks")
+		 "* NEXT %?\n %i")))
+
 ;;; Custom clock reporting
 (defun my-clock-report ()
   (interactive)
@@ -43,9 +57,6 @@
 		("@apartment" . ?p)
 		("@location" . ?l)
 		(:endgroup . nil)))
-
-;;; Set agenda files to view all todo entries
-(setq org-agenda-files (directory-files "~/org" t ".\.org\$" t))
 
 (setq org-agenda-custom-commands
 	  '(("c" "Custom agenda"
