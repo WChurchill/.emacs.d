@@ -44,8 +44,9 @@
 
 ;; Font
 (setq line-spacing 0)
-(set-face-attribute 'default nil :height 135)
-(set-face-font 'default "-*-Inconsolata-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") 
+;(setq default-frame-alist '((font . "-*-Inconsolata-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1")))
+;(set-face-attribute 'default nil :height 135)
+;;(set-face-font 'default )
 
 ;; Line width and word wrapping
 (auto-fill-mode 1)
