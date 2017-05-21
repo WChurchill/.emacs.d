@@ -1,28 +1,31 @@
-# exclude third-party emacs plugins
+# Exclude third-party emacs plugins
 /elpa
 /eshell
 /auto-save-list
 
-#exclude file backups
+# Exclude file backups
 *~
 \#*
 \.\#*
 
-#Precompiled elisp
+# Emacs bookmarks
+bookmarks
+
+# Precompiled elisp
 *.elc
 
-#Hide personal info
+# Hide personal info
 tramp
 network-security.data
 srecode-map.el
 
-#Projectile stuff
+# Projectile stuff
 projectile-bookmarks.eld
 
-#I don't even know why this file exists
+# I don't even know why this file exists
 .org-id-locations
 workbench.xmi
 calc.el
 
-#multiple-cursor command configuration file
+# Multiple-cursor command configuration file
 .mc-lists.el
