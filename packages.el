@@ -229,7 +229,10 @@ This is the starting point for nearly all actions you can do on files."
 (elpy-use-ipython)
 (defun bind-python-keys ()
   )
-
+(require 'py-autopep8)
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+(require 'py-yapf)
+(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 (add-hook 'python-mode-hook 'bind-python-keys)
 ;;(add-hook 'python-mode-hook 'electric-pair-mode)
 
