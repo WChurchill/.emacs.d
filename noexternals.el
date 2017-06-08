@@ -145,6 +145,9 @@ buffer is not visiting a file."
 ; this works though
 (setq browse-url-browser-function 'browse-url-chromium)
 
+;; Correctly display colored terminal output
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
 ;; Default dired shell commands
 (setq dired-guess-shell-alist-user
 	  '(("\\.\\(pdf\\|djvu\\)"
