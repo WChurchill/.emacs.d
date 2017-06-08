@@ -16,19 +16,41 @@
 		 "* NEXT %?\n %i")))
 
 ;;; Custom clock reporting
-(defun my-clock-report ()
-  (interactive)
-  (set-buffer (generate-new-buffer "*my-clock-report*"))
+(defun make-report-buffer (buffer-name clocktable-args)
+  (set-buffer (generate-new-buffer buffer-name))
   (insert
-   (org-clock-get-clocktable
-	:scope 'agenda-with-archives
-	:maxlevel 2
-	:tstart "<-5w>"
-	:tend "<+1w>"
-	:wstart 6
-	:step 'week
-	:fileskip0 t))
-  (switch-to-buffer-other-window "*my-clock-report*"))
+   `(org-clock-get-clocktable
+	 ,clocktable-args))
+  (switch-to-buffer-other-window buffer-name)
+  (read-only-mode 1)
+  (local-set-key (kbd "M-n") 'forward-paragraph)
+  (local-set-key (kbd "M-p") 'backward-paragraph))
+
+(defun my-weekly-report ()
+  (interactive)
+  (let ((buffer-name "*weekly-review*"))
+	(set-buffer (generate-new-buffer buffer-name))
+	(insert
+	 (org-clock-get-clocktable
+	  :scope 'agenda-with-archives
+	  :maxlevel 3
+	  :tstart "<-8w>"
+	  :tend "<+1w>"
+	  :wstart 0
+	  :step 'week
+	  :fileskip0 t))
+	(switch-to-buffer-other-window buffer-name))
+  (let ((buffer-name "*daily-review*"))
+	(set-buffer (generate-new-buffer buffer-name))
+	(insert
+	 (org-clock-get-clocktable
+	  :scope 'agenda-with-archives
+	  :maxlevel 3
+	  :tstart "<-14d>"
+	  :tend "<+1d>"
+	  :step 'day
+	  :fileskip0 t))
+	(switch-to-buffer-other-window buffer-name)))
 
 ;;; Throw error when editing invisible section
 (setq org-catch-invisible-edits 'show-and-error)
