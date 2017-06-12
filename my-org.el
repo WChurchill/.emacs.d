@@ -56,6 +56,9 @@
 	  :fileskip0 t))
 	(switch-to-buffer-other-window buffer-name)))
 
+;;; Show characters as UTF-8
+(setq org-pretty-entities t)
+
 ;;; Throw error when editing invisible section
 (setq org-catch-invisible-edits 'show-and-error)
 
