@@ -29,6 +29,8 @@
 (defun my-weekly-report ()
   (interactive)
   (let ((buffer-name "*weekly-review*"))
+	(when (get-buffer buffer-name)
+	  (kill-buffer buffer-name))
 	(set-buffer (generate-new-buffer buffer-name))
 	(insert
 	 (org-clock-get-clocktable
@@ -41,6 +43,8 @@
 	  :fileskip0 t))
 	(switch-to-buffer-other-window buffer-name))
   (let ((buffer-name "*daily-review*"))
+	(when (get-buffer buffer-name)
+	  (kill-buffer buffer-name))
 	(set-buffer (generate-new-buffer buffer-name))
 	(insert
 	 (org-clock-get-clocktable
