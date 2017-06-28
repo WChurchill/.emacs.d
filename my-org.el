@@ -40,7 +40,8 @@
 	  :tend "<+1w>"
 	  :wstart 0
 	  :step 'week
-	  :fileskip0 t))
+	  :fileskip0 t
+	  :properties `("Effort")))
 	(switch-to-buffer-other-window buffer-name))
   (let ((buffer-name "*daily-review*"))
 	(when (get-buffer buffer-name)
@@ -53,11 +54,26 @@
 	  :tstart "<-14d>"
 	  :tend "<+1d>"
 	  :step 'day
-	  :fileskip0 t))
+	  :fileskip0 t
+	  :properties `("Effort")))
 	(switch-to-buffer-other-window buffer-name)))
 
+;;; Show dashes instead of "\emsp"
+;;; https://emacs.stackexchange.com/questions/9528/is-it-possible-to-remove-emsp-from-clock-report-but-preserve-indentation
+(defun my-org-clocktable-indent-string (level)
+  (if (= level 1)
+      ""
+    (let ((str "-"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "-")))
+      (concat str " "))))
+
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+
+
 ;;; Show characters as UTF-8
-(setq org-pretty-entities t)
+(setq org-pretty-entities nil)
 
 ;;; Throw error when editing invisible section
 (setq org-catch-invisible-edits 'show-and-error)
