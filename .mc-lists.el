@@ -14,13 +14,10 @@
 		c-electric-slash
 		forward-sexp
 		indent-for-tab-command
-		kill-current-buffer
 		kill-region
 		kill-sexp
-		mc/mark-next-lines
 		paredit-backward
 		paredit-forward
-		scroll-right
 		sgml-skip-tag-forward
 		smart-open-line
 		))
@@ -31,6 +28,7 @@
 		beginning-of-buffer
 		describe-key-briefly
 		helm-M-x
+		save-some-buffers
 		scroll-left
 		sgml-skip-tag-backward
 		yas-expand
