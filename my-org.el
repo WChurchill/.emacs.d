@@ -4,6 +4,9 @@
 ;;; Set agenda files to view all todo entries
 (setq org-agenda-files (directory-files "~/org" t ".\.org\$" t))
 
+;;; don't put clock entries in drawer
+(setq org-clock-into-drawer nil)
+
 ;;; Org refile config
 (setq org-refile-targets '((org-agenda-files . (:level . 1))))
 
