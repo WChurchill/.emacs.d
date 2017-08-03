@@ -14,6 +14,9 @@ bookmarks
 # Precompiled elisp
 *.elc
 
+# Emacs cache
+.cache*
+
 # Hide personal info
 tramp
 network-security.data
