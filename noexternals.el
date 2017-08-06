@@ -133,6 +133,10 @@ buffer is not visiting a file."
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (setq inhibit-startup-screen t)
 
+;; More conservative scrolling
+(setq scroll-step 8)
+(setq next-screen-context-lines 16)
+
 ;; Wind-move
 ;(global-set-key (kbd "C-c C-b") 'windmove-left)
 ;(global-set-key (kbd "C-c C-n") 'windmove-down)
@@ -162,3 +166,4 @@ buffer is not visiting a file."
 ;; enable upcase-region and downcase-region keybindings
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
