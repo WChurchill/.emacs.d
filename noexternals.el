@@ -135,7 +135,7 @@ buffer is not visiting a file."
 
 ;; More conservative scrolling
 (setq scroll-step 8)
-(setq next-screen-context-lines 16)
+;; (setq next-screen-context-lines 16)
 
 ;; Wind-move
 ;(global-set-key (kbd "C-c C-b") 'windmove-left)
@@ -167,3 +167,8 @@ buffer is not visiting a file."
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; easily recenter to the bottom
+(defun recenter-bottom ()
+  (interactive)
+  (recenter (- -1 (min (max 0 scroll-margin)
+					   (truncate (/ (window-body-height) 4.0))))))
