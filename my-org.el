@@ -103,6 +103,10 @@
 		("@house" . ?o)
 		("@apartment" . ?p)
 		("@location" . ?l)
+		(:endgroup . nil)
+		(:startgroup . nil)
+		("phonecall" . ?b)
+		("email" . ?e)
 		(:endgroup . nil)))
 
 (setq org-agenda-custom-commands

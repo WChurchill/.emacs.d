@@ -32,9 +32,9 @@
     highlight-quoted
     jedi
     js2-mode
-										;highlight-symbol
-										;hl-defined
-										;hl-sexp
+	;;highlight-symbol
+	;;hl-defined
+	;;hl-sexp
     magit
     multi-term
     multi-web-mode

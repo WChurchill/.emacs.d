@@ -50,7 +50,7 @@
 
 ;; Line width and word wrapping
 (auto-fill-mode 1)
-(setq auto-fill-column 100)
+(setq auto-fill-column fill-column)
 ;(setq-default truncate-lines t)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 

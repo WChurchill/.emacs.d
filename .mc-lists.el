@@ -6,12 +6,14 @@
 		LaTeX-babel-insert-hyphen
 		LaTeX-insert-left-brace
 		TeX-insert-backslash
+		backward-kill-sexp
 		backward-sexp
 		c-electric-colon
 		c-electric-delete-forward
 		c-electric-paren
 		c-electric-semi&comma
 		c-electric-slash
+		eval-last-sexp
 		forward-sexp
 		indent-for-tab-command
 		kill-region
@@ -28,8 +30,8 @@
 		beginning-of-buffer
 		describe-key-briefly
 		helm-M-x
+		helm-find-files
+		mc/mark-next-lines
 		save-some-buffers
 		scroll-left
-		sgml-skip-tag-backward
-		yas-expand
 		))
