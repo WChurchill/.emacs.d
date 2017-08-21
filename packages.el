@@ -205,7 +205,7 @@ This is the starting point for nearly all actions you can do on files."
   (switch-to-buffer
    (get-buffer-create "*CTF compilation*"))
   (shell-command
-   "cd ~/school/spring_2016/artificial_intelligence/project; javac -cp . ctf/agent/*.java"))
+   "cd ~/school/16/spring/artificial_intelligence/project; javac -cp . ctf/agent/*.java"))
 
 (defun bind-compile-ctf ()
   (local-set-key (kbd "C-c b") 'compile-ctf))
@@ -224,17 +224,17 @@ This is the starting point for nearly all actions you can do on files."
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
 	  python-shell-interpreter-args "--simple-prompt -i"
-	  )
+	  elpy-rpc-backend "rope")
+
 (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 (elpy-use-ipython)
-(defun bind-python-keys ()
-  )
 (require 'py-autopep8)
 (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 (require 'py-yapf)
 (add-hook 'python-mode-hook 'py-yapf-enable-on-save)
-(add-hook 'python-mode-hook 'bind-python-keys)
-;;(add-hook 'python-mode-hook 'electric-pair-mode)
+(add-hook 'python-mode-hook 'electric-pair-mode)
+(defun bind-python-keys ()
+  ())
 
 
 ;;; C++-Mode
@@ -278,7 +278,7 @@ This is the starting point for nearly all actions you can do on files."
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
 (add-hook 'java-mode-hook 'helm-gtags-mode)
-(add-hook 'elpy-mode-hook 'helm-gtags-mode)
+;;(add-hook 'elpy-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'asm-mode-hook 'helm-gtags-mode)
@@ -318,13 +318,12 @@ This is the starting point for nearly all actions you can do on files."
 
 ;;; MAGIT-MODE
 (setq magit-last-seen-setup-instructions "1.4.0")
-(defun mgs ();;magit-status shortcut
-  (interactive)
-  (magit-status))
+(global-set-key (kbd "C-x g") 'magit-status)
 ;; required for ssh to work
 (require 'exec-path-from-shell)
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+
 
 
 ;;; AUCTEX-MODE
@@ -377,10 +376,7 @@ This is the starting point for nearly all actions you can do on files."
 
 
 ;;; ORG-MODE
-(load-file "~/.emacs.d/org.el")
-
-(find-file "~/org/main.org")
-;;(find-my-files)
+(load-file "~/.emacs.d/my-org.el")
 
 
 ;;; MULTI-TERM
@@ -424,3 +420,7 @@ This is the starting point for nearly all actions you can do on files."
 ;;; MATLAB
 ;; custom workspace configuration for project
 (add-hook 'matlab-mode-hook 'linum-mode)
+
+
+;;; SECRETARIA
+(require 'secretaria)
