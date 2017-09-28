@@ -4,8 +4,18 @@
 ;;; Set agenda files to view all todo entries
 (setq org-agenda-files (directory-files "~/org" t ".\.org\$" t))
 
-;;; don't put clock entries in drawer
-(setq org-clock-into-drawer nil)
+;;; Set startup view to folded
+(setq org-startup-folded t)
+
+;;; Speed up agenda buffer
+(setq org-agenda-inhibit-startup nil)
+
+;;; put clock entries in drawer
+(setq org-clock-into-drawer t)
+
+;;; Set possible export formats
+(setq org-export-backends (quote (ascii beamer html icalendar latex md odt)))
+
 
 ;;; Org refile config
 (setq org-refile-targets '((org-agenda-files . (:level . 1))))
