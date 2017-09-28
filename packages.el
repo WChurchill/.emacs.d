@@ -233,9 +233,14 @@ This is the starting point for nearly all actions you can do on files."
 (require 'py-yapf)
 (add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 (add-hook 'python-mode-hook 'electric-pair-mode)
-(defun bind-python-keys ()
-  ())
-
+(defun bind-elpy-keys ()
+  (define-key elpy-mode-map (kbd "M-J") 'elpy-nav-indent-shift-left)
+  (define-key elpy-mode-map (kbd "M-K") 'elpy-nav-move-line-or-region-down)
+  (define-key elpy-mode-map (kbd "M-L") 'elpy-nav-move-line-or-region-up)
+  (define-key elpy-mode-map (kbd "M-:") 'elpy-nav-indent-shift-right)
+  (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window))
+(add-hook 'elpy-mode-hook 'bind-elpy-keys)
+(remove-hook 'inferior-python-mode-hook 'electric-pair-mode)
 
 ;;; C++-Mode
 ;(require 'company-clang)
@@ -423,4 +428,6 @@ This is the starting point for nearly all actions you can do on files."
 
 
 ;;; SECRETARIA
-(require 'secretaria)
+
+
+
