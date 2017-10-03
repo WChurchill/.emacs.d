@@ -155,3 +155,4 @@ With arg N, insert N newlines."
 ;; Dired-up-directory alias
 (require 'dired)
 (define-key dired-mode-map (kbd "b") 'dired-up-directory)
+(define-key dired-mode-map (kbd "C-x C-q") 'dired-toggle-read-only)
