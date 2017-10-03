@@ -12,7 +12,7 @@
  '(org-export-backends (quote (ascii beamer html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-	(ecb jedi helm-company elpy helm-bibtex scad-mode helm-cscope py-autopep8 py-yapf helm-flycheck electric-spacing php-mode csharp-mode typescript-mode exec-path-from-shell cmake-mode swiper smart-mode-line-powerline-theme python-mode paredit multi-web-mode multi-term matlab-mode magit lua-mode highlight-quoted highlight-numbers helm-projectile ggtags emacs-eclim company-cmake company-c-headers company-auctex cmake-font-lock autopair arduino-mode android-mode ace-window ac-js2))))
+	(ecb jedi helm-company elpy helm-bibtex scad-mode helm-cscope py-autopep8 py-yapf helm-flycheck electric-spacing php-mode csharp-mode typescript-mode exec-path-from-shell cmake-mode swiper smart-mode-line-powerline-theme python-mode paredit multi-web-mode multi-term matlab-mode magit lua-mode highlight-quoted highlight-numbers helm-projectile ggtags emacs-eclim company-cmake company-c-headers company-auctex cmake-font-lock autopair ace-window ac-js2))))
 
 ;; Don't run regular expressions for every .el and .elc file
 (let ((file-name-handler-alist nil)
