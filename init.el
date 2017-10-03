@@ -26,6 +26,7 @@
   
   (load "/home/winston/.emacs.d/noexternals.el")
   (load "/home/winston/.emacs.d/keybindings.el")
+  (load "/home/winston/.emacs.d/essentials.el")
   (load "/home/winston/.emacs.d/themes/my-euphoria-theme.el")
   (load "/home/winston/.emacs.d/packages.el")
   

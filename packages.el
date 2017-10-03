@@ -1,47 +1,7 @@
 ;;;; packages.el
+
 (setq debug-on-error t)
-(load-file "~/.emacs.d/loadpackages.el")
-
-;;; ACTIVATE HELM-MODE
-(require 'helm)
-(setq helm-mode-line-string "")
-(helm-autoresize-mode t)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-c h r") 'helm-register)
-(global-set-key (kbd "C-x r b") 'helm-bookmarks)
-(helm-mode 1)
-
-;; Easier editing of .emacs.d/
-(defun em-dir ()
-  "Preconfigured `helm' for helm implementation of `find-file'.
-Called with a prefix arg show history if some.
-Don't call it from programs, use `helm-find-files-1' instead.
-This is the starting point for nearly all actions you can do on files."
-  (interactive "P")
-  (let* ((smart-input     (helm-find-files-initial-input))
-         (default-input   (expand-file-name "~/.emacs.d"))
-         (input           (cond (helm-find-file-ignore-thing-at-point
-                                 default-input)
-                                ((and (eq major-mode 'org-agenda-mode)
-                                      org-directory
-                                      (not smart-input))
-                                 (expand-file-name org-directory))
-                                ((and (eq major-mode 'dired-mode) smart-input)
-                                 (file-name-directory smart-input))
-                                ((and (not (string= smart-input ""))
-                                      smart-input))
-                                (t default-input)))
-         (input-as-presel (null (nth 0 (file-attributes input))))
-         (presel          (helm-aif (or (and input-as-presel input)
-                                        (buffer-file-name (current-buffer))
-                                        (and (eq major-mode 'dired-mode)
-                                             smart-input))
-                              (if helm-ff-transformer-show-only-basename
-                                  (helm-basename it) it))))
-    (set-text-properties 0 (length input) nil input)
-    (helm-find-files-1 input (and presel (null helm-ff-no-preselect)
-                                  (concat "^" (regexp-quote presel))))))
+;;(load-file "~/.emacs.d/loadpackages.el")
 
 ;; Easier setup of lisp workspace
 (defun lisp-dir ()
@@ -86,31 +46,10 @@ This is the starting point for nearly all actions you can do on files."
   (helm-moccur-mode)
   (helm-buffer-list))
 
-
-
-;;; AVY
-(require 'avy)
-(global-set-key (kbd "C-;") 'avy-goto-word-1)
-(global-set-key (kbd "C-\"") 'avy-goto-char)
-;;(global-set-key (kbd "C-'") 'avy-goto-char-2)
-(global-set-key (kbd "C-'") 'avy-goto-line)
-
-(setq avy-styles-list '((avy-goto-char . at)))
-
-;; enable avy-select in isearch mode
-(eval-after-load 'isearch
-  (define-key isearch-mode-map (kbd "C-;") 'avy-isearch))
-
-
-;;; ACE-WINDOW
-(global-set-key (kbd "C-:") 'ace-window)
-
-
 ;;; HIGHLIGHT-NUMBERS-MODE
 (highlight-numbers-mode 1) 
 ;;; HIGHLIGHT-QUOTED-MODE
 (highlight-quoted-mode 1)
-
 
 ;;; PAREDIT
 (defun wrap-progn ()
@@ -218,6 +157,8 @@ This is the starting point for nearly all actions you can do on files."
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C-c m e") 'mc/edit-lines)
 (global-set-key (kbd "C-c m a") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c m r") 'mc/mark-all-in-region)
+(global-set-key (kbd "C-c m n") 'mc/mark-next-lines)
 
 
 ;;; PYTHON-MODE
@@ -229,16 +170,17 @@ This is the starting point for nearly all actions you can do on files."
 (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 (elpy-use-ipython)
 (require 'py-autopep8)
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 (require 'py-yapf)
-(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
+;(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 (add-hook 'python-mode-hook 'electric-pair-mode)
 (defun bind-elpy-keys ()
   (define-key elpy-mode-map (kbd "M-J") 'elpy-nav-indent-shift-left)
   (define-key elpy-mode-map (kbd "M-K") 'elpy-nav-move-line-or-region-down)
   (define-key elpy-mode-map (kbd "M-L") 'elpy-nav-move-line-or-region-up)
   (define-key elpy-mode-map (kbd "M-:") 'elpy-nav-indent-shift-right)
-  (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window))
+  (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window)
+  (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code))
 (add-hook 'elpy-mode-hook 'bind-elpy-keys)
 (remove-hook 'inferior-python-mode-hook 'electric-pair-mode)
 
@@ -339,6 +281,7 @@ This is the starting point for nearly all actions you can do on files."
 ;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'linum-mode)
 ;; ;;not sure what this one does
 (setq reftex-plug-into-AUCTeX t)
 (setq reftex-cite-format; Get ReTeX with biblatex, see http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992
@@ -431,3 +374,5 @@ This is the starting point for nearly all actions you can do on files."
 
 
 
+;;; SMERGE
+(setq smerge-command-prefix (kbd "C-c v"))
