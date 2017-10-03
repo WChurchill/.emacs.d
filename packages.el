@@ -1,7 +1,8 @@
 ;;;; packages.el
-
+;;;;
+;;;; Collection of package configurations too small to deserve their
+;;;; own file
 (setq debug-on-error t)
-;;(load-file "~/.emacs.d/loadpackages.el")
 
 ;; Easier setup of lisp workspace
 (defun lisp-dir ()
@@ -174,13 +175,18 @@
 (require 'py-yapf)
 ;(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 (add-hook 'python-mode-hook 'electric-pair-mode)
+(defun format-then-save ()
+  (interactive)
+  (elpy-format-code)
+  (save-buffer))
 (defun bind-elpy-keys ()
   (define-key elpy-mode-map (kbd "M-J") 'elpy-nav-indent-shift-left)
   (define-key elpy-mode-map (kbd "M-K") 'elpy-nav-move-line-or-region-down)
   (define-key elpy-mode-map (kbd "M-L") 'elpy-nav-move-line-or-region-up)
   (define-key elpy-mode-map (kbd "M-:") 'elpy-nav-indent-shift-right)
   (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window)
-  (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code))
+  (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code)
+  (define-key elpy-mode-map (kbd "C-x C-s") 'format-then-save))
 (add-hook 'elpy-mode-hook 'bind-elpy-keys)
 (remove-hook 'inferior-python-mode-hook 'electric-pair-mode)
 
