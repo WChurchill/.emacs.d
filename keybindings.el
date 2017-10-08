@@ -99,12 +99,6 @@ With arg N, insert N newlines."
 ;; replace-regexp
 (global-set-key (kbd "C-x C-q") 'replace-regexp)
 
-;; Better Window management
-(global-set-key (kbd "M-B") 'shrink-window-horizontally)
-(global-set-key (kbd "M-F") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-N") 'shrink-window)
-(global-set-key (kbd "M-P") 'enlarge-window)
-
 (defun save-all-delete-frame ()
   (interactive)
   (save-some-buffers)
@@ -129,8 +123,8 @@ With arg N, insert N newlines."
 ;; Horizontal Scrolling
 (put 'scroll-left 'disabled nil)
 (put 'scroll-right 'disabled nil)
-(global-set-key (kbd "C-<") 'scroll-right)
-(global-set-key (kbd "C->") 'scroll-left)
+(global-set-key (kbd "C-x <") 'scroll-right)
+(global-set-key (kbd "C-x >") 'scroll-left)
 
 ;; Toggle Menu Bar
 (global-set-key (kbd "C-c C-x t") 'toggle-menu-bar-mode-from-frame)

@@ -137,6 +137,12 @@ buffer is not visiting a file."
 (setq scroll-step 8)
 ;; (setq next-screen-context-lines 16)
 
+;; Better Window management
+(global-set-key (kbd "C-S-b") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-f") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-n") 'shrink-window)
+(global-set-key (kbd "C-S-p") 'enlarge-window)
+
 ;; Wind-move
 ;(global-set-key (kbd "C-c C-b") 'windmove-left)
 ;(global-set-key (kbd "C-c C-n") 'windmove-down)
