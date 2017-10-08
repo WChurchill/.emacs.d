@@ -47,11 +47,6 @@
   (helm-moccur-mode)
   (helm-buffer-list))
 
-;;; HIGHLIGHT-NUMBERS-MODE
-(highlight-numbers-mode 1)
-;;; HIGHLIGHT-QUOTED-MODE
-(highlight-quoted-mode 1)
-
 ;;; PAREDIT
 (defun wrap-progn ()
   (paredit-forward)
@@ -115,6 +110,7 @@
   (define-key paredit-mode-map (kbd "M-r") 'paredit-raise-sexp))
 
 (add-hook 'paredit-mode-hook 'bind-paredit-keys)
+(add-hook 'paredit-mode-hook 'highlight-quoted-mode)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       'enable-paredit-mode)
@@ -234,6 +230,7 @@
 
 (add-hook 'c-mode-common-hook 'bind-interactive-compile)
 (add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'c-mode-common-hook 'c-toggle-electric-state)
 (add-hook 'c-mode-common-hook 'c-toggle-auto-newline)
 
