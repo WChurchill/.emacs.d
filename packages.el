@@ -48,7 +48,7 @@
   (helm-buffer-list))
 
 ;;; HIGHLIGHT-NUMBERS-MODE
-(highlight-numbers-mode 1) 
+(highlight-numbers-mode 1)
 ;;; HIGHLIGHT-QUOTED-MODE
 (highlight-quoted-mode 1)
 
@@ -66,25 +66,50 @@
 (defun duplicate-sexp (n)
   "Copies the sexp immediately after point and duplicates it n times."
   (interactive "*p")
-  (paredit-forward) (paredit-backward)
+  (paredit-forward) (paredit-backward) ; bring point immediately before sexp
   (kill-sexp)
+  (yank)
   (dotimes (iter n)
-    (yank)
-    (newline-and-indent))
-  (yank))
+    (newline-and-indent)
+    (yank)))
 
 (defun duplicate-sexp-inline (n)
   "Copies the sexp immediately after point and duplicates it n times in the same line."
   (interactive "*p")
-  (paredit-forward) (paredit-backward)
+  (paredit-forward) (paredit-backward) ; bring point immediately before sexp
   (kill-sexp)
-  (dotimes (iter (1+ n))
+  (dotimes (iter n)
     (yank)
-    (insert " ")))
+    (insert " "))
+  (yank))
+
+(defun duplicate-last-sexp (n)
+  "Copies the sexp immediately before point and duplicates it n times."
+  (interactive "*p")
+  (paredit-backward)
+  (kill-sexp)
+  (yank)
+    (dotimes (iter n)
+	(newline-and-indent)
+	(yank))
+  (yank))
+
+(defun duplicate-last-sexp-inline (n)
+  "Copies the sexp immediately before point and duplicates it n times in the same line."
+  (interactive "*p")
+  (paredit-backward)
+  (kill-sexp)
+  (yank)
+  (dotimes (iter n)
+    (insert " ")
+    (yank)))
+
 
 (defun bind-paredit-keys ()
   (define-key paredit-mode-map (kbd "C-c C-d d") 'duplicate-sexp)
   (define-key paredit-mode-map (kbd "C-c C-d C-d") 'duplicate-sexp-inline)
+  (define-key paredit-mode-map (kbd "C-c C-d D") 'duplicate-last-sexp)
+  (define-key paredit-mode-map (kbd "C-c C-d C-S-d") 'duplicate-last-sexp-inline)
   (define-key paredit-mode-map (kbd "C-M-z") 'paredit-wrap-sexp)
   (define-key paredit-mode-map (kbd "C-c C-d p") 'wrap-progn)
   (define-key paredit-mode-map (kbd "M-r") 'paredit-raise-sexp))
@@ -184,6 +209,8 @@
   (define-key elpy-mode-map (kbd "M-K") 'elpy-nav-move-line-or-region-down)
   (define-key elpy-mode-map (kbd "M-L") 'elpy-nav-move-line-or-region-up)
   (define-key elpy-mode-map (kbd "M-:") 'elpy-nav-indent-shift-right)
+  (define-key elpy-mode-map (kbd "M-n") 'compilation-next-error)
+  (define-key elpy-mode-map (kbd "M-p") 'compilation-previous-error)
   (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window)
   (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code)
   (define-key elpy-mode-map (kbd "C-x C-s") 'format-then-save))
