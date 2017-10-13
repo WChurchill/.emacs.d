@@ -124,7 +124,7 @@
 		 ((tags "PRIORITY=\"A\""
 				((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
 				 (org-agenda-overriding-header "High Priority Unfinished Tasks")))
-		  (agenda "" ((org-agenda-span 14)
+		  (agenda "" ((org-agenda-span 15)
 					  (org-deadline-warning-days 0)))))
 		("u" "Unscheduled Todos"
 		 ((alltodo ""
