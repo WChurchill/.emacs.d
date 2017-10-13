@@ -21,6 +21,7 @@ bookmarks
 tramp
 network-security.data
 srecode-map.el
+tramp-config.el
 
 # Projectile stuff
 projectile-bookmarks.eld
