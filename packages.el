@@ -191,9 +191,9 @@
 
 (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 (elpy-use-ipython)
-(require 'py-autopep8)
+;(require 'py-autopep8)
 ;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-(require 'py-yapf)
+;(require 'py-yapf)
 ;(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 (add-hook 'python-mode-hook 'electric-pair-mode)
 (defun format-then-save ()
@@ -229,7 +229,7 @@
      'interactive-compile)))
 
 (add-hook 'c-mode-common-hook 'bind-interactive-compile)
-(add-hook 'prog-mode-hook 'linum-mode)
+;(add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'c-mode-common-hook 'c-toggle-electric-state)
 (add-hook 'c-mode-common-hook 'c-toggle-auto-newline)
@@ -301,50 +301,12 @@
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
-
-
 ;;; AUCTEX-MODE
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-;; (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(add-hook 'LaTeX-mode-hook 'linum-mode)
-;; ;;not sure what this one does
-(setq reftex-plug-into-AUCTeX t)
-(setq reftex-cite-format; Get ReTeX with biblatex, see http://tex.stackexchange.com/questions/31966/setting-up-reftex-with-biblatex-citation-commands/31992#31992
-           '((?t . "\\textcite[]{%l}")
-             (?a . "\\autocite[]{%l}")
-             (?c . "\\cite[]{%l}")
-             (?s . "\\smartcite[]{%l}")
-             (?f . "\\footcite[]{%l}")
-             (?n . "\\nocite{%l}")
-             (?b . "\\blockcquote[]{%l}{}")))
-(defun save-and-compile-latex ()
-  (interactive)
-  (save-buffer)
-  (TeX-command-master))
-
-(defvar LaTeX-electric-pairs '((\$ . \$)) "Electric pairs for LaTeX-mode.")
-(defun LaTeX-add-electric-pairs ()
-  (setq-local electric-pair-pairs (append electric-pair-pairs LaTeX-electric-pairs))
-  (setq-local electric-pair-text-pairs electric-pair-pairs))
-
-(defun bind-LaTeX-keys ()
-  (electric-pair-mode)
-  ;;(LaTeX-add-electric-pairs)
-  ;;(define-key 'LaTeX-mode-map "\$" 'electric-pair)
-  (local-set-key (kbd "C-c b") 'latex-insert-block)
-  (local-set-key (kbd "C-c C-c") 'save-and-compile-latex)
-  (local-set-key (kbd "$") 'self-insert-command)) ; Add an extra "$" when I type $
-
-(add-hook 'LaTeX-mode-hook 'bind-LaTeX-keys)
-
-;;; REFTEX
-(require 'reftex)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(load "~/.emacs.d/my-auctex.el")
+(setq helm-bibtex-bibliography "~/org/papers.bib"
+	  helm-bibtex-library-path "~/books"
+	  helm-bibtex-completion-library-path "~/books"
+	  )
 
 ;;; SLIME-MODE
 (defun init-slime ()
@@ -406,3 +368,9 @@
 
 ;;; SMERGE
 (setq smerge-command-prefix (kbd "C-c v"))
+
+
+;;; VERILOG
+(defun def-verilog-keys ()
+  (define-key verilog-mode-map (kbd "C-;") 'avy-goto-word-1))
+(add-hook 'verilog-mode 'def-verilog-keys)
