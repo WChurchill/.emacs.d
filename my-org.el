@@ -105,6 +105,7 @@
 		("school" . ?s)
 		(:startgroup . nil)
 		("EXAM" . ?x)
+		("PROJ" . ?j)
 		("homework" .?h)
 		("quiz" . ?z)
 		(:endgroup . nil)

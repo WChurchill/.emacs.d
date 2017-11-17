@@ -66,9 +66,7 @@
 ;; Make return key also indent
 ;;(electric-indent-mode 1)
 (defun make-c-ret-do-indent ()
-  (define-key c-mode-base-map (kbd "RET") 'c-context-line-break
-	;;'electric-newline-and-maybe-indent
-	))
+  (define-key c-mode-base-map (kbd "RET") 'c-context-line-break))
 (add-hook 'c-initialization-hook 'make-c-ret-do-indent)
 
 ;; Always display line and column numbers
