@@ -2,7 +2,8 @@
 ;;;;
 ;;;; Collection of package configurations too small to deserve their
 ;;;; own file
-(setq debug-on-error t)
+
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 ;; Easier setup of lisp workspace
 (defun lisp-dir ()
@@ -229,7 +230,7 @@
      'interactive-compile)))
 
 (add-hook 'c-mode-common-hook 'bind-interactive-compile)
-;(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'c-mode-common-hook 'c-toggle-electric-state)
 (add-hook 'c-mode-common-hook 'c-toggle-auto-newline)
@@ -304,9 +305,8 @@
 ;;; AUCTEX-MODE
 (load "~/.emacs.d/my-auctex.el")
 (setq helm-bibtex-bibliography "~/org/papers.bib"
-	  helm-bibtex-library-path "~/books"
-	  helm-bibtex-completion-library-path "~/books"
-	  )
+	  helm-bibtex-library-path "~/papers"
+	  helm-bibtex-completion-library-path "~/papers")
 
 ;;; SLIME-MODE
 (defun init-slime ()
@@ -372,5 +372,9 @@
 
 ;;; VERILOG
 (defun def-verilog-keys ()
-  (define-key verilog-mode-map (kbd "C-;") 'avy-goto-word-1))
-(add-hook 'verilog-mode 'def-verilog-keys)
+  (define-key verilog-mode-map (kbd "C-;") 'avy-goto-word-1)
+  (define-key verilog-mode-map (kbd ";") 'self-insert-command))
+(add-hook 'verilog-mode-hook 'def-verilog-keys)
+
+;;; PDF-TOOLS
+(add-hook 'after-init-hook 'pdf-tools-install)
