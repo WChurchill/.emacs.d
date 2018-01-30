@@ -135,18 +135,6 @@ buffer is not visiting a file."
 (setq scroll-step 8)
 ;; (setq next-screen-context-lines 16)
 
-;; Better Window management
-(global-set-key (kbd "C-S-b") 'shrink-window-horizontally)
-(global-set-key (kbd "C-S-f") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-S-n") 'shrink-window)
-(global-set-key (kbd "C-S-p") 'enlarge-window)
-
-;; Wind-move
-;(global-set-key (kbd "C-c C-b") 'windmove-left)
-;(global-set-key (kbd "C-c C-n") 'windmove-down)
-;(global-set-key (kbd "C-c C-p") 'windmove-up)
-;(global-set-key (kbd "C-c C-f") 'windmove-right)
-
 ;; Set default browser
 ;; this doesn't work for some reason
 ;(setq browse-url-default-browser "/usr/bin/chromium")
@@ -170,9 +158,3 @@ buffer is not visiting a file."
 ;; enable upcase-region and downcase-region keybindings
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-
-;; easily recenter to the bottom
-(defun recenter-bottom ()
-  (interactive)
-  (recenter (- -1 (min (max 0 scroll-margin)
-					   (truncate (/ (window-body-height) 4.0))))))

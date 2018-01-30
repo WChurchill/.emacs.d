@@ -150,3 +150,26 @@ With arg N, insert N newlines."
 (require 'dired)
 (define-key dired-mode-map (kbd "b") 'dired-up-directory)
 (define-key dired-mode-map (kbd "C-x C-q") 'dired-toggle-read-only)
+
+
+;; Better Window management
+(global-set-key (kbd "C-S-b") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-f") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-S-n") 'shrink-window)
+(global-set-key (kbd "C-S-p") 'enlarge-window)
+
+;; Wind-move
+;(global-set-key (kbd "C-c C-b") 'windmove-left)
+;(global-set-key (kbd "C-c C-n") 'windmove-down)
+;(global-set-key (kbd "C-c C-p") 'windmove-up)
+;(global-set-key (kbd "C-c C-f") 'windmove-right)
+
+;; easily recenter to the bottom
+(defun recenter-bottom ()
+  (interactive)
+  (recenter (- -1 (min (max 0 scroll-margin)
+					   (truncate (/ (window-body-height) 4.0))))))
+(global-set-key (kbd "C-S-l") 'recenter-bottom)
+
+;; don's suspend the frame if I accidentaly try to undo with C-z
+(global-unset-key (kbd "C-z"))
