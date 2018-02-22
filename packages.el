@@ -378,3 +378,13 @@
 
 ;;; PDF-TOOLS
 (add-hook 'after-init-hook 'pdf-tools-install)
+
+;;; LEDGER
+(add-to-list 'ledger-reports '("net-worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities"))
+
+
+;;; WHICH-KEY
+(require 'which-key)
+(which-key-mode)
+(global-set-key (kbd "C-h B") 'which-key-show-major-mode)
+(global-set-key (kbd "C-h b") 'which-key-show-minor-mode-keymap)
