@@ -44,7 +44,7 @@
 
 ;; Font
 (setq line-spacing 0)
-;(setq default-frame-alist '((font . "-*-Inconsolata-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1")))
+(setq default-frame-alist '((font . "-*-Inconsolata-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1")))
 ;(set-face-attribute 'default nil :height 135)
 ;;(set-face-font 'default )
 
@@ -152,9 +152,27 @@ buffer is not visiting a file."
 		 "libreoffice")
 		("\\.\\(jpe\?g\\|png\\|gif\\|bmp\\)"
 		 "eog")
+		("\\.ods"
+		 "localc")
 		("\\.\\(mp4\\|webm\\|mov\\)"
 		 "vlc")))
 
 ;; enable upcase-region and downcase-region keybindings
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+
+(defconst caps-cursor-color "red")
+(defconst normal-cursor-color "white")
+(defvar caps-lock-on nil) ;; assuming caps lock is off when emacs starts
+
+(defun caps-cursor-toggle ()
+  "Change cursor color when caps lock signal is received from
+desktop environment"
+  (setq caps-lock-on (not caps-lock-on))
+  (if caps-lock-on
+	  (set-cursor-color caps-cursor-color)
+	(set-cursor-color normal-cursor-color)))
+
+
+
