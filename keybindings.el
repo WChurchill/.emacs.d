@@ -68,7 +68,7 @@ With arg N, insert N newlines."
   (interactive)
   (kill-line 0))
 
-(global-set-key (kbd "<s-backspace>") 'backward-kill-line)
+(global-set-key (kbd "<C-backspace>") 'backward-kill-line)
 
 ;; Backward-kill-sexp
 (global-set-key (kbd "C-M-<backspace>") 'backward-kill-sexp)
@@ -106,8 +106,8 @@ With arg N, insert N newlines."
 
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-1") 'delete-other-windows)
-(global-set-key (kbd "M-2") 'split-window-horizontally)
-(global-set-key (kbd "M-3") 'split-window-vertically)
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+(global-set-key (kbd "M-2") 'split-window-vertically)
 (global-set-key (kbd "M-4") 'kill-buffer-and-window)
 (global-set-key (kbd "M-8") 'save-all-delete-frame)
 (global-set-key (kbd "M-=") 'balance-windows)
@@ -151,18 +151,6 @@ With arg N, insert N newlines."
 (define-key dired-mode-map (kbd "b") 'dired-up-directory)
 (define-key dired-mode-map (kbd "C-x C-q") 'dired-toggle-read-only)
 
-
-;; Better Window management
-(global-set-key (kbd "C-S-b") 'shrink-window-horizontally)
-(global-set-key (kbd "C-S-f") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-S-n") 'shrink-window)
-(global-set-key (kbd "C-S-p") 'enlarge-window)
-
-;; Wind-move
-;(global-set-key (kbd "C-c C-b") 'windmove-left)
-;(global-set-key (kbd "C-c C-n") 'windmove-down)
-;(global-set-key (kbd "C-c C-p") 'windmove-up)
-;(global-set-key (kbd "C-c C-f") 'windmove-right)
 
 ;; easily recenter to the bottom
 (defun recenter-bottom ()
