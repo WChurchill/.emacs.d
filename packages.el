@@ -3,7 +3,7 @@
 ;;;; Collection of package configurations too small to deserve their
 ;;;; own file
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
 
 ;; Easier setup of lisp workspace
 (defun lisp-dir ()
@@ -191,7 +191,6 @@
 	  elpy-rpc-backend "rope")
 
 (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-(elpy-use-ipython)
 ;(require 'py-autopep8)
 ;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 ;(require 'py-yapf)
@@ -365,7 +364,6 @@
 ;;; SECRETARIA
 
 
-
 ;;; SMERGE
 (setq smerge-command-prefix (kbd "C-c v"))
 
@@ -380,8 +378,8 @@
 (add-hook 'after-init-hook 'pdf-tools-install)
 
 ;;; LEDGER
+(require 'ledger-mode)
 (add-to-list 'ledger-reports '("net-worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities"))
-
 
 ;;; WHICH-KEY
 (require 'which-key)
