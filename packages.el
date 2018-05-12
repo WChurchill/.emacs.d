@@ -343,7 +343,7 @@
 	     "~/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
 (yas-global-mode 1)
-(global-set-key (kbd "C-c y") 'yas-insert-snippet)
+(global-set-key (kbd "C-S-y") 'yas-insert-snippet)
 
 
 ;;; PROJECTILE
@@ -386,3 +386,8 @@
 (which-key-mode)
 (global-set-key (kbd "C-h B") 'which-key-show-major-mode)
 (global-set-key (kbd "C-h b") 'which-key-show-minor-mode-keymap)
+
+;;; UNDO-TREE
+(require 'undo-tree)
+(global-undo-tree-mode 1)
+
