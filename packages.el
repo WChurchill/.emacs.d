@@ -143,25 +143,6 @@
 
 (add-hook 'java-mode-hook 'bind-javac-all)
 
-
-;;; EMACS-ECLIM
-;; (require 'eclim)
-;; (require 'eclimd)
-;; (require 'company-eclim)
-
-;; (add-hook 'after-init-hook 'global-eclim-mode)
-;; ;;(company-emacs-eclim-setup)
-;; (setq help-at-pt-display-when-idle t)
-;; (setq help-at-pt-timer-delay 0.1)
-;; (help-at-pt-set-timer)
-
-;; (defun bind-eclim-keys ()
-;;   (local-set-key (kbd "C-c b") 'eclim-project-build)
-;;   (local-set-key (kbd "C-c r") 'eclim-run-class)
-;;   (local-set-key (kbd "C-c l") 'eclim-problems))
-
-;; (add-hook 'eclim-mode-hook 'bind-eclim-keys)
-
 (defun compile-ctf ()
   (interactive)
   (switch-to-buffer
@@ -191,10 +172,6 @@
 	  elpy-rpc-backend "rope")
 
 (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-;(require 'py-autopep8)
-;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-;(require 'py-yapf)
-;(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 (add-hook 'python-mode-hook 'electric-pair-mode)
 (defun format-then-save ()
   (interactive)
@@ -214,7 +191,6 @@
 (remove-hook 'inferior-python-mode-hook 'electric-pair-mode)
 
 ;;; C++-Mode
-;(require 'company-clang)
 (require 'company-cmake)
 
 (defun interactive-compile ()
@@ -265,17 +241,15 @@
   (save-buffer)
   (helm-gtags-update-tags))
 
-(defun bind-helm-gtags-keys ()
-  (define-key helm-gtags-mode-map (kbd "C-t") 'transpose-chars)
-  (local-set-key (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-  (local-set-key (kbd "C-x C-s") 'save-and-update-gtags)
-  (local-set-key (kbd "C-j") 'helm-gtags-select)
-  (local-set-key (kbd "M-.") 'helm-gtags-dwim)
-  (local-set-key (kbd "M-,") 'helm-gtags-pop-stack)
-  (local-set-key (kbd "C-c <") 'helm-gtags-previous-history)
-  (local-set-key (kbd "C-c >") 'helm-gtags-next-history))
 
-(add-hook 'helm-gtags-mode-hook 'bind-helm-gtags-keys)
+(define-key helm-gtags-mode-map (kbd "C-t") 'transpose-chars)
+(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+(define-key helm-gtags-mode-map (kbd "C-x C-s") 'save-and-update-gtags)
+(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
 
 
 ;;; JS2-MODE
@@ -359,9 +333,6 @@
 ;;; MATLAB
 ;; custom workspace configuration for project
 (add-hook 'matlab-mode-hook 'linum-mode)
-
-
-;;; SECRETARIA
 
 
 ;;; SMERGE
