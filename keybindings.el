@@ -92,7 +92,7 @@ With arg N, insert N newlines."
 (defun bind-my-elisp-keys ()
   (local-set-key (kbd "C-c C-k") 'new-global-key)
   (local-set-key (kbd "C-c C-l") 'new-local-key)
-  (local-set-key (kbd "C-c e") 'eval-buffer))
+  (local-set-key (kbd "C-c C-e") 'eval-buffer))
 
 (add-hook 'emacs-lisp-mode-hook 'bind-my-elisp-keys)
 
@@ -159,5 +159,18 @@ With arg N, insert N newlines."
 					   (truncate (/ (window-body-height) 4.0))))))
 (global-set-key (kbd "C-S-l") 'recenter-bottom)
 
-;; don's suspend the frame if I accidentaly try to undo with C-z
+;; don't suspend the frame if I accidentaly try to undo with C-z
 (global-unset-key (kbd "C-z"))
+
+;; Eval and replace
+(defun eval-and-replace ()
+  "Replace the preceding sexp with the result of its evaluation."
+  (interactive)
+  (let ((value (eval (preceding-sexp))))
+	(kill-sexp -1)
+	(insert (format "%S" value))))
+(global-set-key (kbd "C-c e") #'eval-and-replace)
+
+
+
+
