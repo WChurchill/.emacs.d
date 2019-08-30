@@ -16,7 +16,6 @@
 ;;; Set possible export formats
 (setq org-export-backends (quote (ascii beamer html icalendar latex md odt)))
 
-
 ;;; Org refile config
 (setq org-refile-targets '((org-agenda-files . (:level . 1))))
 
@@ -137,6 +136,7 @@
 					(org-agenda-overriding-header "Unscheduled tasks:")))))))
 
 
+(define-key org-mode-map (kbd "C-S-u") 'outline-up-heading)
 (define-key org-mode-map (kbd "C-c a") 'org-agenda)
   ;;; Don't use arrow keys to move headings around
 (define-key org-mode-map (kbd "M-J") 'org-metaleft)
@@ -149,3 +149,5 @@
 ;; C-' is used for avy-mode
 (define-key org-mode-map (kbd "C-'") 'avy-goto-line)
 
+(provide 'my-org)
+;;; my-org ends here

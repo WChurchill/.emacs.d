@@ -25,12 +25,18 @@
 ;;(global-set-key (kbd "C-'") 'avy-goto-char-2)
 (global-set-key (kbd "C-'") 'avy-goto-line)
 
-(setq avy-styles-list '((avy-goto-char . at)))
+(setq avy-styles-alist '((avy-goto-char . at)))
 
 ;; enable avy-select in isearch mode
 (eval-after-load 'isearch
   (define-key isearch-mode-map (kbd "C-;") 'avy-isearch))
 
+;;; I3-EMACS
+(load-file "/home/winston/.emacs.d/i3-emacs/i3.el")
+(load-file "/home/winston/.emacs.d/i3-emacs/i3-integration.el")
+(require 'i3-integration)
+
+(i3-one-window-per-frame-mode-on)
 
 ;;; ACE-WINDOW
 (global-set-key (kbd "C-:") 'ace-window)

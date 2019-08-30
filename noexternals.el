@@ -133,7 +133,9 @@ buffer is not visiting a file."
 
 ;; More conservative scrolling
 (setq scroll-step 8)
-;; (setq next-screen-context-lines 16)
+(setq next-screen-context-lines 8)
+
+(global-subword-mode)
 
 ;; Set default browser
 ;; this doesn't work for some reason

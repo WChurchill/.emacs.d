@@ -3,8 +3,7 @@
 ;;;; Collection of package configurations too small to deserve their
 ;;;; own file
 
-
-
+(message "loading packages.el")
 ;; Easier setup of lisp workspace
 (defun lisp-dir ()
   (interactive)
@@ -25,7 +24,7 @@
 				 ("google" . "google.com/search#q=")
 				 ("stackoverflow" . "stackoverflow.com/search?q=")
 				 ("javadocs" . "google.com/search?q=javadocs+8+")
-				 ("c++" . "cplusplus.com/search.do?q=" )
+				 ("cppreference" . "cppreference.com/search.do?q=" )
 				 ("python" . "docs.python.org/3/search.html?q=")
 				 ("arch-packages" . "archlinux.org/packages?/=")
 				 ("arch-wiki" . "wiki.archlinux.org/index.php?title=Special%3ASearch&search=")
@@ -34,7 +33,7 @@
 	:buffer "*select website*"))
 
 (defun search-site (search-string)
-  (interactive "MSearch: ")
+  (interactive "Search: ")
   (browse-url (concatenate 'string (select-site) search-string)))
 
 (global-set-key (kbd "C-c C-d h") 'search-site)
@@ -45,7 +44,7 @@
 
 (defun helm-switch-to-process-buffer ()
   (interactive)
-  (helm-moccur-mode)
+  (helm-occur-mode)
   (helm-buffer-list))
 
 ;;; PAREDIT
@@ -129,32 +128,22 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "C-<tab>") 'company-complete)
 
+;;; FLYCHECK
+(global-flycheck-mode)
 
 ;;; JAVA-MODE
-;(require 'flymake)
 ;(add-hook 'java-mode-hook 'flymake-mode-on)
 (defun javac-all ()
+  "Call javac on all .java files in current directory."
   (interactive)
   (setq-local compilation-read-command nil)
   (call-interactively (shell-command "javac *.java")))
 
 (defun bind-javac-all ()
+  "Bind key to compile java project."
   (local-set-key (kbd "<f5>") 'javac-all))
 
 (add-hook 'java-mode-hook 'bind-javac-all)
-
-(defun compile-ctf ()
-  (interactive)
-  (switch-to-buffer
-   (get-buffer-create "*CTF compilation*"))
-  (shell-command
-   "cd ~/school/16/spring/artificial_intelligence/project; javac -cp . ctf/agent/*.java"))
-
-(defun bind-compile-ctf ()
-  (local-set-key (kbd "C-c b") 'compile-ctf))
-
-(add-hook 'java-mode-hook 'bind-compile-ctf)
-
 
 ;;; MULTIPLE-CURSORS
 (require 'multiple-cursors)
@@ -166,12 +155,11 @@
 
 
 ;;; PYTHON-MODE
+(require 'elpy)
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
-	  python-shell-interpreter-args "--simple-prompt -i"
-	  elpy-rpc-backend "rope")
+	  python-shell-interpreter-args "--simple-prompt -i")
 
-(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 (add-hook 'python-mode-hook 'electric-pair-mode)
 (defun format-then-save ()
   (interactive)
@@ -182,8 +170,8 @@
   (define-key elpy-mode-map (kbd "M-K") 'elpy-nav-move-line-or-region-down)
   (define-key elpy-mode-map (kbd "M-L") 'elpy-nav-move-line-or-region-up)
   (define-key elpy-mode-map (kbd "M-:") 'elpy-nav-indent-shift-right)
-  (define-key elpy-mode-map (kbd "M-n") 'compilation-next-error)
-  (define-key elpy-mode-map (kbd "M-p") 'compilation-previous-error)
+  (define-key elpy-mode-map (kbd "M-n") 'elpy-flymake-next-error)
+  (define-key elpy-mode-map (kbd "M-p") 'elpy-flymake-previous-error)
   (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window)
   (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code)
   (define-key elpy-mode-map (kbd "C-x C-s") 'format-then-save))
@@ -245,8 +233,8 @@
 (define-key helm-gtags-mode-map (kbd "C-t") 'transpose-chars)
 (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
 (define-key helm-gtags-mode-map (kbd "C-x C-s") 'save-and-update-gtags)
-(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-find-tag-from-here)
+(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-dwim)
 (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
 (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
 (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
@@ -289,6 +277,7 @@
 
 
 ;;; ORG-MODE
+(message "loading my-org")
 (load-file "~/.emacs.d/my-org.el")
 
 
@@ -335,6 +324,10 @@
 (add-hook 'matlab-mode-hook 'linum-mode)
 
 
+;;; ALL-THE-ICONS
+(require 'all-the-icons)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
 ;;; SMERGE
 (setq smerge-command-prefix (kbd "C-c v"))
 
@@ -348,9 +341,9 @@
 ;;; PDF-TOOLS
 (add-hook 'after-init-hook 'pdf-tools-install)
 
-;;; LEDGER
-(require 'ledger-mode)
-(add-to-list 'ledger-reports '("net-worth" "%(binary) -f %(ledger-file) bal ^assets ^liabilities"))
+;;; Custom ledger config
+(load "~/.emacs.d/my-ledger.el")
+(require 'my-ledger)
 
 ;;; WHICH-KEY
 (require 'which-key)
@@ -362,3 +355,4 @@
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 
+;;; packages.el ends here

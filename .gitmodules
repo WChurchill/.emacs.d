@@ -1,0 +1,3 @@
+[submodule "i3-emacs"]
+	path = i3-emacs
+	url = git@github.com:vava/i3-emacs.git
