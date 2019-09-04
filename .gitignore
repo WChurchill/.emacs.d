@@ -25,6 +25,9 @@ network-security.data
 srecode-map.el
 tramp-config.el
 
+# Magit temp file
+/transient
+
 # Projectile stuff
 projectile-bookmarks.eld
 
