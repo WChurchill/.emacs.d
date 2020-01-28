@@ -44,7 +44,7 @@
 
 ;; Font
 (setq line-spacing 0)
-(setq default-frame-alist '((font . "-*-Inconsolata-normal-normal-normal-*-18-*-*-*-m-0-iso10646-1")))
+(setq default-frame-alist '((font . "-*-DejaVuSansMono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")))
 ;(set-face-attribute 'default nil :height 135)
 ;;(set-face-font 'default )
 
@@ -175,6 +175,3 @@ desktop environment"
   (if caps-lock-on
 	  (set-cursor-color caps-cursor-color)
 	(set-cursor-color normal-cursor-color)))
-
-
-
