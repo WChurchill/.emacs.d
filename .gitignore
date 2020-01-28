@@ -1,5 +1,6 @@
 # Exclude third-party emacs plugins
 /elpa
+/elpy
 /eshell
 /auto-save-list
 
@@ -16,6 +17,7 @@ bookmarks
 
 # Emacs cache
 .cache*
+/transient
 
 # Hide personal info
 tramp
