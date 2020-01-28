@@ -1,5 +1,4 @@
 ;;;; essentials.el
-
 ;;; This file is for initializing packages that are extremely
 ;;; convenient and would aid in debugging emacs quicker
 
@@ -36,6 +35,7 @@
 (load-file "/home/winston/.emacs.d/i3-emacs/i3-integration.el")
 (require 'i3-integration)
 
+(setq i3-smart-select-frame nil)
 (i3-one-window-per-frame-mode-on)
 
 ;;; ACE-WINDOW
