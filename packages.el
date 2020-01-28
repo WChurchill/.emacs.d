@@ -33,8 +33,8 @@
 	:buffer "*select website*"))
 
 (defun search-site (search-string)
-  (interactive "Search: ")
-  (browse-url (concatenate 'string (select-site) search-string)))
+  (interactive "sSearch: ")
+  (browse-url (concat (select-site) search-string)))
 
 (global-set-key (kbd "C-c C-d h") 'search-site)
 
@@ -48,6 +48,7 @@
   (helm-buffer-list))
 
 ;;; PAREDIT
+(require 'paredit)
 (defun wrap-progn ()
   (paredit-forward)
   (paredit-backward)
@@ -110,7 +111,6 @@
   (define-key paredit-mode-map (kbd "M-r") 'paredit-raise-sexp))
 
 (add-hook 'paredit-mode-hook 'bind-paredit-keys)
-(add-hook 'paredit-mode-hook 'highlight-quoted-mode)
 
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       'enable-paredit-mode)
@@ -122,30 +122,7 @@
 (add-hook 'scheme-mode-hook           'enable-paredit-mode)
 
 
-;;; COMPANY
-(require 'company)
-(setq company-dabbrev-downcase nil)
-(add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "C-<tab>") 'company-complete)
-
-;;; FLYCHECK
-(global-flycheck-mode)
-
-;;; JAVA-MODE
-;(add-hook 'java-mode-hook 'flymake-mode-on)
-(defun javac-all ()
-  "Call javac on all .java files in current directory."
-  (interactive)
-  (setq-local compilation-read-command nil)
-  (call-interactively (shell-command "javac *.java")))
-
-(defun bind-javac-all ()
-  "Bind key to compile java project."
-  (local-set-key (kbd "<f5>") 'javac-all))
-
-(add-hook 'java-mode-hook 'bind-javac-all)
-
-;;; MULTIPLE-CURSORS
+;; MULTIPLE-CURSORS
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C-c m e") 'mc/edit-lines)
@@ -159,12 +136,10 @@
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
 	  python-shell-interpreter-args "--simple-prompt -i")
+(setq elpy-rpc-virtualenv-path 'current)
 
 (add-hook 'python-mode-hook 'electric-pair-mode)
-(defun format-then-save ()
-  (interactive)
-  (elpy-format-code)
-  (save-buffer))
+
 (defun bind-elpy-keys ()
   (define-key elpy-mode-map (kbd "M-J") 'elpy-nav-indent-shift-left)
   (define-key elpy-mode-map (kbd "M-K") 'elpy-nav-move-line-or-region-down)
@@ -173,177 +148,27 @@
   (define-key elpy-mode-map (kbd "M-n") 'elpy-flymake-next-error)
   (define-key elpy-mode-map (kbd "M-p") 'elpy-flymake-previous-error)
   (define-key elpy-mode-map (kbd "C-c M-.") 'elpy-goto-definition-other-window)
-  (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code)
-  (define-key elpy-mode-map (kbd "C-x C-s") 'format-then-save))
+  (define-key elpy-mode-map (kbd "C-S-f") 'elpy-format-code))
 (add-hook 'elpy-mode-hook 'bind-elpy-keys)
 (remove-hook 'inferior-python-mode-hook 'electric-pair-mode)
 
-;;; C++-Mode
-(require 'company-cmake)
-
-(defun interactive-compile ()
-  (interactive)
-  (setq-local compilation-read-command nil)
-  (call-interactively 'compile))
-
-(defun bind-interactive-compile ()
-  (when (derived-mode-p 'c-mode 'c++-mode)
-    (local-set-key
-     (kbd "<f5>")
-     'interactive-compile)))
-
-(add-hook 'c-mode-common-hook 'bind-interactive-compile)
-(add-hook 'prog-mode-hook 'linum-mode)
-(add-hook 'prog-mode-hook 'highlight-numbers-mode)
-(add-hook 'c-mode-common-hook 'c-toggle-electric-state)
-(add-hook 'c-mode-common-hook 'c-toggle-auto-newline)
-
-(setq
- ;; Use gdb-many-windows
- gdb-many-windows t
- ;; Start off with the file that has main
- gdb-show-main t)
-
-
-;;; HELM-GTAG
-(setq
- helm-gtags-ignore-case t
- helm-gtags-auto-update t
- helm-gtags-use-input-at-cursor t
- helm-gtags-pulse-at-cursor t
- helm-gtags-prefix-key "\C-cg"
- helm-gtags-suggested-key-mapping t)
-
-(require 'helm-gtags)
-;; Enable helm-gtags-mode
-(add-hook 'dired-mode-hook 'helm-gtags-mode)
-(add-hook 'eshell-mode-hook 'helm-gtags-mode)
-(add-hook 'java-mode-hook 'helm-gtags-mode)
-;;(add-hook 'elpy-mode-hook 'helm-gtags-mode)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-(defun save-and-update-gtags ()
-  (interactive)
-  (save-buffer)
-  (helm-gtags-update-tags))
-
-
-(define-key helm-gtags-mode-map (kbd "C-t") 'transpose-chars)
-(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-(define-key helm-gtags-mode-map (kbd "C-x C-s") 'save-and-update-gtags)
-(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-find-tag-from-here)
-(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-dwim)
-(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
-
-
-;;; JS2-MODE
-(add-hook 'js-mode-hook 'js2-minor-mode)
-(add-hook 'js2-mode-hook 'ac-js2-mode)
-
-
-;;; MULTI-WEB-MODE
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-		  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-		  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
-(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-(multi-web-global-mode 1)
-
-
 ;;; MAGIT-MODE
+(require 'magit)
 (setq magit-last-seen-setup-instructions "1.4.0")
 (global-set-key (kbd "C-x g") 'magit-status)
-;; required for ssh to work
-(require 'exec-path-from-shell)
-(exec-path-from-shell-copy-env "SSH_AGENT_PID")
-(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
-
-;;; AUCTEX-MODE
-(load "~/.emacs.d/my-auctex.el")
-(setq helm-bibtex-bibliography "~/org/papers.bib"
-	  helm-bibtex-library-path "~/papers"
-	  helm-bibtex-completion-library-path "~/papers")
-
-;;; SLIME-MODE
-(defun init-slime ()
-  (interactive)
-  (load-file "~/.emacs.d/slime.el")
-  (slime))
 
 
 ;;; ORG-MODE
 (message "loading my-org")
 (load-file "~/.emacs.d/my-org.el")
 
-
-;;; MULTI-TERM
-(require 'multi-term)
-(global-set-key (kbd "C-c M") 'multi-term)
-(setq multi-term-program "/bin/bash")
-
-(defun bind-multi-term-keys ()
-  (local-set-key (kbd "C-c m") 'multi-term-next)
-  (local-set-key (kbd "C-c n") 'multi-term-prev))
-
-(add-hook 'multi-term-mode-hook 'bind-multi-term-keys)
-
-;;; Smart-Mode-Line
-;(setq sml/theme 'powerline)
-;(sml/setup)
-
-
-;;; File extensions
-(load "~/.emacs.d/filemode.el")
-
-
 ;;; YASNIPPET
 (add-to-list 'load-path
-	     "~/.emacs.d/plugins/yasnippet")
+			 "~/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
 (yas-global-mode 1)
 (global-set-key (kbd "C-S-y") 'yas-insert-snippet)
 
-
-;;; PROJECTILE
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-
-;;; HELM-PROJECTILE
-(require 'helm-projectile)
-(helm-projectile-on)
-
-
-;;; MATLAB
-;; custom workspace configuration for project
-(add-hook 'matlab-mode-hook 'linum-mode)
-
-
-;;; ALL-THE-ICONS
-(require 'all-the-icons)
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-
-;;; SMERGE
-(setq smerge-command-prefix (kbd "C-c v"))
-
-
-;;; VERILOG
-(defun def-verilog-keys ()
-  (define-key verilog-mode-map (kbd "C-;") 'avy-goto-word-1)
-  (define-key verilog-mode-map (kbd ";") 'self-insert-command))
-(add-hook 'verilog-mode-hook 'def-verilog-keys)
-
-;;; PDF-TOOLS
-(add-hook 'after-init-hook 'pdf-tools-install)
-
-;;; Custom ledger config
-(load "~/.emacs.d/my-ledger.el")
-(require 'my-ledger)
 
 ;;; WHICH-KEY
 (require 'which-key)
@@ -351,8 +176,5 @@
 (global-set-key (kbd "C-h B") 'which-key-show-major-mode)
 (global-set-key (kbd "C-h b") 'which-key-show-minor-mode-keymap)
 
-;;; UNDO-TREE
-(require 'undo-tree)
-(global-undo-tree-mode 1)
 
 ;;; packages.el ends here

@@ -43,7 +43,7 @@
  '(org-export-backends (quote (ascii beamer html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-	(use-package flycheck all-the-icons scad-mode clang-format flymake-yaml yaml-mode cider clojure-mode dired-du undo-tree importmagic magit flycheck-ledger ledger-mode pdf-tools interleave ecb jedi helm-company elpy helm-gtags helm-bibtex helm-cscope helm-flycheck electric-spacing php-mode csharp-mode exec-path-from-shell cmake-mode swiper paredit multi-web-mode multiple-cursors multi-term matlab-mode lua-mode highlight-quoted highlight-numbers helm-projectile ggtags emacs-eclim company-cmake company-c-headers company-auctex cmake-font-lock autopair ace-window ac-js2 which-key all-the-icons-dired))))
+	(which-key multiple-cursors yasnippet-snippets magit yasnippet elpy helm ace-window))))
 
 ;;; init.el ends here
 (custom-set-faces
