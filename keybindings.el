@@ -70,6 +70,8 @@ With arg N, insert N newlines."
 
 (global-set-key (kbd "<C-backspace>") 'backward-kill-line)
 
+(global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
+
 ;; Backward-kill-sexp
 (global-set-key (kbd "C-M-<backspace>") 'backward-kill-sexp)
 
