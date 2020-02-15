@@ -1,5 +1,7 @@
 ;;;; keybindings.el
 
+(global-set-key (kbd "C-x C-c") #'save-buffers-kill-emacs)
+
 ;; Smart open-line and open-line-above
 (defun smart-open-line (n)
   "Insert a newline and leave point before it.
