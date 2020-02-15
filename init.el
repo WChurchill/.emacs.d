@@ -43,7 +43,7 @@
  '(org-export-backends (quote (ascii beamer html icalendar latex md odt)))
  '(package-selected-packages
    (quote
-	(which-key multiple-cursors yasnippet-snippets magit yasnippet elpy helm ace-window))))
+	(all-the-icons-dired all-the-icons which-key multiple-cursors yasnippet-snippets magit yasnippet elpy helm ace-window))))
 
 ;;; init.el ends here
 (custom-set-faces

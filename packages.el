@@ -169,6 +169,9 @@
 (yas-global-mode 1)
 (global-set-key (kbd "C-S-y") 'yas-insert-snippet)
 
+;;; ALLTHEICONS
+(require 'all-the-icons)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 ;;; WHICH-KEY
 (require 'which-key)
